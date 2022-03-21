@@ -3,7 +3,7 @@
 ## Team members:
 - [Nevena Vasilevska](https://github.com/vasilevska)
 - [Lazar Erić](https://github.com/leric32)
-- [Slavko Krstić](https://github.com/krle2k)
+- [Stefan Branković](https://github.com/stefcon)
 - [Aleksa Račić](https://github.com/AleksaRacic)
  
  ## Statistics
