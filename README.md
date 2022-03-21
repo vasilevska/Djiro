@@ -8,3 +8,5 @@
  
  ## Statistics
  ![lines](https://img.shields.io/tokei/lines/github/vasilevska/PSI?color=yellow) ![issues](https://img.shields.io/github/issues/vasilevska/PSI)
+
+ ALL NEW IDEAS PLEASE WRITE IN SECTION ISSUES!!!
