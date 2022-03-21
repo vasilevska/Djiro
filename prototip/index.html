@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Điro</title>
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid ">
+              <a class="navbar-brand font-weight-bold" href="index.html"><b>Điro</b></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                  <li class="nav-item">
+                    <a class="nav-link" href="dodaj_auto.html" >Postani Điler</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="rezervacije.html" >Rezervacije</a>
+                  </li>
+                  <li class="nav-item" id="modalTrigger">
+                    <a class="nav-link" href="#" data-target="#login" data-toggle="modal" >Login</a>
+                  </li>
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div id="pozadina" style="background: url(img/naslovna1a.jpeg); min-height: 100vh; background-size: cover !important;" >
+    
+    <div class="row justify-content-center fixed-top pb-5 bg-black mx-5" id="search_row" style="margin-top:7%;--bs-bg-opacity: .4;">
+        <div class="col-6 my-3 text-center py-2 opacity-100">
+          <h1 class="text-white display-4 font-weight-bold mb-4" style="font-size:15em; font-weight:900">Điro</h1>
+          <h1 class="text-white display-4 font-weight-bold mb-4"> Aplikacija za lako iznajmljivanje automobila</h1>
+            <div class="d-flex">
+              
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+                <button class="btn btn-light"id="search">Search</button>
+            </div>
+        </div>
+    </div>    
+    <div id="results" class="container pt-5 mt-5" style="display:none">
+        <div class="row mt-5 pl-5">
+        
+            <div class="col-4 mr-4 ml-4 mt-4">
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2020</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>18.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2022</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>29.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="col-4 mr-4 ml-4 mt-4">
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-4">
+                <img src = "img/mapa.png" style="position: fixed; width:max-content; ">
+            </div>
+            
+    
+        </div>
+    </div>
+  </div>
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          
+          <div class="modal-content">
+            <div class="modal-body">
+              <h4>Login</h4>
+              <form>
+                <input type="text" name="username" class="username form-control" placeholder="Username"/>
+                <input type="password" name="password" class="password form-control" placeholder="password"/>
+                <input class="btn login" type="submit" value="Login" />
+              </form>
+            </div>
+          </div>
+        </div>  
+    </div>
+      <script src="js/jquery-3.3.1.slim.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script>
+        $('#modalTrigger').on('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById("login"));
+            myModal.show();
+        })
+
+        $('#search').on('click', function () {
+            var myModal = document.getElementById("results");
+            myModal.style.display = "block";
+            $('h1').hide()
+            $('#search_row').removeClass('mx-5').removeClass('bg-black').addClass('bg-white').addClass('mt-5')
+            $("#search_row").removeAttr("style")
+            $("#pozadina").removeAttr("style")
+        })
+
+        var input = document.getElementById("searchbar");
+
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                var myModal = document.getElementById("results");
+                myModal.style.display = "block";
+                $('h1').hide()
+                $('#search_row').removeClass('mx-5').removeClass('bg-black').addClass('bg-white').addClass('mt-5')
+                $("#search_row").removeAttr("style")
+                $("#pozadina").removeAttr("style")
+
+            }
+        });
+
+      </script>
+
+</body>
+
+</html>
