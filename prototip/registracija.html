@@ -1,0 +1,105 @@
+<!--
+        Autor: Nevena Vasilevska 0418/2019
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Registruj se!</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid ">
+              <a class="navbar-brand font-weight-bold" href="index.html"><b>Điro</b></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" >Postani Điler</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="rezervacije.html" >Rezervacije</a>
+                  </li>
+                  <li class="nav-item" id="modalTrigger">
+                    <a class="nav-link" href="#" data-target="#login" data-toggle="modal" >Login</a>
+                  </li>
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div class="container">
+        <p class="h3 my-5">Unesite lične informacije</p>
+        <form>
+            <div class="input-group">
+                <div class="form-group my-3 mr-3">
+                    <label for="ime">Ime</label>
+                    <input type="text" class="form-control" id="ime" placeholder="Unesite ime" required>
+                </div>
+                <div class="form-group my-3 mx-3">
+                    <label for="prezime">Prezime</label>
+                    <input type="text" class="form-control" id="prezime" placeholder="Unesite prezime" required>
+                </div>
+            </div>
+            
+            <div class="input-group">                
+                <div class="form-group my-3 mr-3">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" placeholder="Unesite e-mail" required>
+                </div>
+                <div class="form-group my-3 mx-3">
+                    <label for="telefon">Broj telefona</label>
+                    <input type="tel" class="form-control" id="telefon" placeholder="Broj telefona" required>
+                </div>
+            </div>
+            
+            <div class="form-group my-3">
+                <label for="vozacka" class="mb-1">Profilna slika</label> <br>
+                <input type="file" id="vozacka" accept="image/png, image/jpeg">
+            </div>
+            
+            <div class="form-group my-3">
+                <label for="vozacka" class="mb-1">Slike vozačke</label> <br>
+                <input type="file" id="vozacka" accept="image/png, image/jpeg" multiple>
+            </div>
+            <div class="form-group">
+              <label for="opis-kola">Bio</label>
+              <textarea class="form-control" id="bio" rows="5"></textarea>
+            </div>
+            <div class="form-group my-3">
+                <input type="submit" class="btn btn-dark" value="Pošalji">
+            </div>
+
+        </form>
+    </div>
+    
+
+
+    </div>
+    
+
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        $('#customRange2').on('input', function(){
+            let val = $('#customRange2').val()
+            
+            $('#rangeVal').val(val)
+        });
+        $('#rangeVal').on('input', function(){
+            console.log('change')
+            let val = $('#rangeVal').val()
+            console.log(val)
+            
+            $('#customRange2').val(val)
+        });
+    </script>
+</body>
+</html>
