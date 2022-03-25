@@ -1,0 +1,217 @@
+<!--
+        Autor: Stefan Brankovic 0253/0418
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Profil</title>
+    <style type="text/css">
+        .rating_circle{
+    width: 100px;
+    height: 100px;
+    border-radius: 70px;
+    border: 1px none;
+    font-size: 35px;
+  }
+  .rating_text{
+      margin-top: 38px;
+  }
+  .stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  font-size: 20px;
+  letter-spacing: 5px;
+}
+
+.stars-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-inner::before {
+content: "\f005 \f005 \f005 \f005 \f005";
+color: #000000;
+}
+.dark {
+    background-color: #000000;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid ">
+              <a class="navbar-brand font-weight-bold" href="index.html"><b>Điro</b></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dodaj_auto.html" id="djiler" >Postani Điler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rezervacije.html" id="rezervacije">Rezervacije</a>
+                    </li>
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="container card mt-5 pt-5 mb-5 pb-5">
+                    <div class="row">
+                        <div class="col-auto"><a href="#"><img src="img/profilna.jpeg" class="rounded-circle" style="width: 150px;"></a></div>
+                        <div class="col">
+                            <h4>Djiler</h4>
+                            <div class="col-auto" style="display: flex;"> 
+                               <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                            </div>
+                            <h6>Beograd, Srbija</h6>
+                            <div>132 rezervacija&nbsp;&nbsp;-&nbsp;&nbsp; Pridruzio se: &nbsp;Avg 2020</div>
+                    </div>
+            
+                    <div class="card-body">
+                          <div class="row justify-content-around">
+                              <div class="col">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card mt-5">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <h2>Recenzije</h2>
+                                                            <button class="rating_circle">4.1</button>
+                                                            <div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <div class="progress mt-5" style="height:10px">
+                                                               <div class="progress-bar dark" style="width:70%;height:10px"></div>
+                                                            </div>
+                                                            <div class="progress mt-3" style="height:10px">
+                                                                <div class="progress-bar dark" style="width:10%;height:10px"></div>
+                                                            </div>
+                                                            <div class="progress mt-3" style="height:10px">
+                                                                <div class="progress-bar dark" style="width:10%;height:10px"></div>
+                                                            </div>
+                                                            <div class="progress mt-3" style="height:10px">
+                                                                <div class="progress-bar dark" style="width:5%;height:10px"></div>
+                                                            </div>
+                                                            <div class="progress mt-3" style="height:10px">
+                                                                <div class="progress-bar dark" style="width:5%;height:10px"></div>
+                                                            </div>                
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <div class="row">
+                                                                <h6 class="rating_text">5</h6>
+                                                            </div>
+                                                            <div class="row">
+                                                                <h6 class="">4</h6>
+                                                            </div>
+                                                            <div class="row">
+                                                                <h6 class="">3</h6>
+                                                            </div>
+                                                            <div class="row">
+                                                                <h6 class="">2</h6>
+                                                            </div>
+                                                            <div class="row">
+                                                                <h6 class="">1</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                              </div>
+                          </div>
+                                  
+                                  
+                                  
+                                  
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            <div class="col-4 mt-5">
+                <div id= "kola" class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <a href="lada.html" class="btn btn-primary mr-2">Više detalja</a>
+                                <a href="dodaj_auto.html" class="btn btn-primary ml-2">Izmeni</a>
+                            </div> 
+                            <div class="col-auto">
+                                <h4>19.99&euro;/dan</h4>
+                            </div>
+                        </div> 
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        $( document ).ready(function() {
+          var user = getUrlParameter('user')
+          console.log(user)
+          if(user == 1 ){
+            $('#kola').hide()
+            $('#rezervacije').attr("href", "rezervacije.html?user=1")
+          }
+          else{
+            $('#rezervacije').attr("href", "rezervacije.html?user=2")
+            $('#djiler').hide()
+          }
+        });
+
+
+
+    </script>
+</body>
+</html>
