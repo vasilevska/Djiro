@@ -1,0 +1,138 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage[subsection]{algorithm}
+\usepackage{caption}
+\usepackage[noend]{algpseudocode}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{caption, subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\graphicspath{ {./images/} }
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\begin{document}
+    \selectlanguage{serbian}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+	\begin{titlepage}  
+		\center
+		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
+		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
+		iz predmeta \\[0.3cm]
+		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pregleda zahteva za rezervciju } \\[5cm]
+		
+
+		\begin{minipage}{0.5\textwidth}
+			\begin{flushleft}
+				\large
+				\emph{Tim} SLAV Co. \\
+			     $\;\;\; \cdot \;\;$Stefan Branković  0253/2019\\
+			     $\;\;\; \cdot \;\;$Lazar Erić 0235/2019\\
+			     $\;\;\; \cdot \;\;$Aleksa Račić 0728/2019\\
+			     $\;\;\; \cdot \;\;$Vasilevska Nevena 0418/2019
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\large
+				\emph{Verzija:} \\
+				1.0
+			\end{flushright}
+		\end{minipage} \\[2cm]
+		\enlargethispage{4\baselineskip}
+		{ \large Beograd, mart 2021. }
+		\vfill
+	\end{titlepage}
+\pagebreak
+\tableofcontents
+\pagebreak
+
+
+
+\section{Uvod}
+\subsection{Rezime}
+Definisanje scenarija upotrebe pri pregledu zahteva za rezervaciju, sa primerima odgovarajućih html stranica.
+\subsection{Namena dokumenta i ciljne grupe}
+Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
+upotrebu.
+\subsection{Reference}
+\begin{enumerate}
+   \item Projektni zadatak
+   \item Uputstvo za pisanje specifikacije scenarija upotrebe funkcionalnosti
+   \item  Guidelines – Use Case, Rational Unified Process 2000
+   \item  Guidelines – Use Case Storyboard, Rational Unified Process 2000
+ \end{enumerate}
+\subsection{Otvorena pitanja}
+
+
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{7cm}| m{7cm} | } 
+\hline
+Redni broj& Opis & Rešenje \\ 
+\hline
+1 & Na koji način prikazati Đileru zahtev za rezervaciju? & \\ 
+\hline
+\end{tabular}
+\end{center}
+
+    
+
+\section{Scenario pregleda zahteva za rezervaciju}
+\subsection{Kratak opis}
+Kada vozač zatraži rezervaciju automobila, zahtev se dostavlja Đileru sa informacijama o vozaču, datumima i mestu preuzimanja. Đileri mogu da prihvate ili odbiju
+zahtev.
+\subsection{Tok događaja}
+
+\subsubsection{Điler odobrava rezervaciju}
+\begin{enumerate}
+   \item Korisnik otvara poruku o novoj rezervaciji.
+   \item Korisnik otvara poruku sa informacijama o rezervaciji.
+   \item Korisnik odobrava rezervaciju klikom na dugme "Odobri".
+ \end{enumerate}
+ \subsubsection{Điler odbija rezervaciju}
+\begin{enumerate}
+   \item Korisnik otvara poruku o novoj rezervaciji.
+   \item Korisnik otvara poruku sa informacijama o rezervaciji.
+   \item Korisnik odbija rezervaciju klikom na dugme "Odbij".
+ \end{enumerate}
+
+\subsection{Posebni zahtevi}
+\subsection{Preduslovi}
+Treba da postoji zahtev za rezervaciju
+\subsection{Posledice}
+Rezervacija je ili odobrena ili poništena. Vozač dobija informaciju o ishodu.
+
+\section{Istorija izmena}
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
+\hline
+Datum & Verzija & Kratak opis & Autori \\ 
+\hline
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Stefan Branković\\ 
+\hline
+&&&\\ 
+\hline
+\end{tabular}
+\end{center}
+\end{document}

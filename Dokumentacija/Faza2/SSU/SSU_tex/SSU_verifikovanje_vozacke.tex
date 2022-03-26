@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage[subsection]{algorithm}
+\usepackage{caption}
+\usepackage[noend]{algpseudocode}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{caption, subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\graphicspath{ {./images/} }
+
+
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\begin{document}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+    \selectlanguage{serbian}
+	\begin{titlepage}  
+		\center
+		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
+		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
+		iz predmeta \\[0.3cm]
+		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti verifikovanja vozačke dozvole } \\[5.5cm]
+		
+
+		\begin{minipage}{0.5\textwidth}
+			\begin{flushleft}
+				\large
+				\emph{Tim} SLAV Co. \\
+			     $\;\;\; \cdot \;\;$Stefan Branković  0253/2019\\
+			     $\;\;\; \cdot \;\;$Lazar Erić 0235/2019\\
+			     $\;\;\; \cdot \;\;$Aleksa Račić 728/2019\\
+			     $\;\;\; \cdot \;\;$Vasilevska Nevena 0418/2019
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\large
+				\emph{Verzija:} \\
+				1.0
+			\end{flushright}
+		\end{minipage} \\[2cm]
+		\enlargethispage{4\baselineskip}
+		{ \large Beograd, mart 2021. }
+		\vfill
+	\end{titlepage}
+\pagebreak
+\tableofcontents
+\pagebreak
+
+
+
+\section{Uvod}
+\subsection{Rezime}
+Definisanje scenarija upotrebe pri verifikovanju vozačke dozvole, sa primerima odgovarajućih html stranica.
+\subsection{Namena dokumenta i ciljne grupe}
+Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
+upotrebu.
+\subsection{Reference}
+\begin{enumerate}
+   \item Projektni zadatak
+   \item Uputstvo za pisanje specifikacije scenarija upotrebe funkcionalnosti
+   \item  Guidelines – Use Case, Rational Unified Process 2000
+   \item  Guidelines – Use Case Storyboard, Rational Unified Process 2000
+ \end{enumerate}
+\subsection{Otvorena pitanja}
+
+
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{7cm}| m{7cm} | } 
+\hline
+Redni broj& Opis & Rešenje \\ 
+\hline
+1 & Na koji način je najbolje verifikovati vozačku dozvolu & \\ 
+\hline
+\end{tabular}
+\end{center}
+
+    
+
+\section{Scenario pri verifikovanju vozačke dozvole}
+\subsection{Kratak opis}
+Pre zahtevanja rezervacije potrebno je da korisnik dostavi svoju sliku i sliku svoje
+vozačke dozvole zbog verifikacije identiteta i vozačke sposobnosti.
+\subsection{Tok događaja}
+\subsubsection{Korisnik uspešno verifikuje vozačku dozvolu}
+\begin{enumerate}
+  \item Korisnik pritiska dugme "Verifikuj vozačku dozvolu".
+  \item Korisnik se slika preko web kamere.
+  \begin{enumerate}
+     \item Korisnik pristaje da se uključi web kamera.
+     \item Korisniku se prikazuje snimak sa web kamere.
+     \item KOrisnik pritiska dugme "Uslikaj".
+  \end{enumerate}
+  \item Korisnik šalje sliku vozačke dozvole.
+  \begin{enumerate}
+     \item Korisnik pritiska dugme "Učitaj sliku".
+     \item Korisniku se otvara prozor gde bira sliku sa računara.
+  \end{enumerate}
+  \item Korisnik pritiska dugme "Pošalji na verifikaciju".
+  \item Korisnik dobija poruku da je verifikacija uspešna.
+\end{enumerate}
+
+\subsubsection{Korisnik neuspešno verifikuje vozačku dozvolu}
+\begin{enumerate}
+  \item Korisnik pritiska dugme "Verifikuj vozačku dozvolu".
+  \item Korisnik se slika preko web kamere.
+  \begin{enumerate}
+     \item Korisnik pristaje da se uključi web kamera.
+     \item Korisniku se prikazuje snimak sa web kamere.
+     \item KOrisnik pritiska dugme "Uslikaj".
+  \end{enumerate}
+  \item Korisnik šalje sliku vozačke dozvole.
+  \begin{enumerate}
+     \item Korisnik pritiska dugme "Učitaj sliku".
+     \item Korisniku se otvara prozor gde bira sliku sa računara.
+  \end{enumerate}
+  \item Korisnik pritiska dugme "Pošalji na verifikaciju".
+  \item Korisnik dobija poruku sa obrazloženjem zašto verifikacija nije uspela.
+\end{enumerate}
+
+\subsection{Posebni zahtevi}
+Slika vozačke dozvole i slika korisnika.
+\subsection{Preduslovi}
+Korisnik je registrovan.
+\subsection{Posledice}
+Korisnikova vozačka dozvola je verifikovana.
+\section{Istorija izmena}
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
+\hline
+Datum & Verzija & Kratak opis & Autori \\ 
+\hline
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
+\hline
+&&&\\ 
+\hline
+\end{tabular}
+\end{center}
+\end{document}

@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage[subsection]{algorithm}
+\usepackage{caption}
+\usepackage[noend]{algpseudocode}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{caption, subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\graphicspath{ {./images/} }
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\begin{document}
+    \selectlanguage{serbian}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+	\begin{titlepage}  
+		\center
+		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
+		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
+		iz predmeta \\[0.3cm]
+		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti izmene listinga } \\[6cm]
+		
+
+		\begin{minipage}{0.5\textwidth}
+			\begin{flushleft}
+				\large
+				\emph{Tim} SLAV Co. \\
+			     $\;\;\; \cdot \;\;$Stefan Branković  0253/2019\\
+			     $\;\;\; \cdot \;\;$Lazar Erić 0235/2019\\
+			     $\;\;\; \cdot \;\;$Aleksa Račić 728/2019\\
+			     $\;\;\; \cdot \;\;$Vasilevska Nevena 0418/2019
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\large
+				\emph{Verzija:} \\
+				1.0
+			\end{flushright}
+		\end{minipage} \\[2cm]
+		\enlargethispage{4\baselineskip}
+		{ \large Beograd, mart 2021. }
+		\vfill
+	\end{titlepage}
+\pagebreak
+\tableofcontents
+\pagebreak
+
+
+
+\section{Uvod}
+\subsection{Rezime}
+Definisanje scenarija upotrebe pri izmeni listinga, sa primerima odgovarajućih html stranica.
+\subsection{Namena dokumenta i ciljne grupe}
+Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
+upotrebu.
+\subsection{Reference}
+\begin{enumerate}
+   \item Projektni zadatak
+   \item Uputstvo za pisanje specifikacije scenarija upotrebe funkcionalnosti
+   \item  Guidelines – Use Case, Rational Unified Process 2000
+   \item  Guidelines – Use Case Storyboard, Rational Unified Process 2000
+ \end{enumerate}
+\subsection{Otvorena pitanja}
+
+
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{7cm}| m{7cm} | } 
+\hline
+Redni broj& Opis & Rešenje \\ 
+\hline
+1 & Za koje informacije o vozilu treba dozvoliti izmene? & \\
+\hline
+2 & Za koje informacije treba ograničiti izmene kada za dato vozilo postoji rezervacija? & \\
+\hline
+\end{tabular}
+\end{center}
+
+    
+
+\section{Scenario izmene listinga}
+\subsection{Kratak opis}
+Treba da omogući dodavanje novih ili izmenu postojećcih informacija na listingu.
+Korisnici sa rezervacijom za izmenjeni automobil treba da budu obavešteni o izmeni.
+Informacije koje se ne mogu izmeniti su informacije koje se odnose na proizvodača,
+model, godište automobila i slične.
+\subsection{Tok događaja}
+
+\subsubsection{Uspešna izmena listinga}
+\begin{enumerate}
+    \item Korisnik unosi dodatne ili menja postojeće informacije o vozilu, model, proizvodjača, godina proizvodnje itd.
+    \item Kada korisnik završi izmene potrebno je da ih sačuva.
+    \item Ako su mu dozvoljene sve promene, vraća se na početnu stranu.
+    \item Klijenti koji imaju rezervacije izmenjenog vozila dobijaju informacije o promenama.
+\end{enumerate}
+
+\subsubsection{Neuspešna izmena na listinga}
+\begin{enumerate}
+    \item Korisnik unosi dodatne ili menja postojeće informacije o vozilu, model, proizvodjača, godina proizvodnje itd.
+    \item Kada korisnik završi izmene potrebno je da ih sačuva.
+    \item Pošto ima promene koje nisu dozvoljene 
+	\begin{enumerate}
+		\item izmene informacija koje nije dozvoljeno menjati tokom postojećih rezervacija 
+		\item izmene podataka koji ne smeju da se menjaju(model, godište itd.).
+	\end{enumerate}
+    \item Korisnik dobija informaciju da ne sme da menja informaciju i vraća se na tačku 1.
+\end{enumerate}
+
+\subsection{Posebni zahtevi}
+Nema ih.
+\subsection{Preduslovi}
+Nema ih.
+\subsection{Posledice}
+Izmene na oglasu koje je korisnik postavio i obaštenje o tome klijentima koji su imali rezervacije.
+
+\section{Istorija izmena}
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
+\hline
+Datum & Verzija & Kratak opis & Autori \\ 
+\hline
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Nevena Vasilevska\\ 
+\hline
+&&&\\ 
+\hline
+\end{tabular}
+\end{center}
+\end{document}

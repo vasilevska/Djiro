@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage[nottoc]{tocbibind}
+\usepackage[subsection]{algorithm}
+\usepackage{caption}
+\usepackage[noend]{algpseudocode}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{xfrac}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{caption, subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\graphicspath{ {./images/} }
+% References
+% https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
+% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\begin{document}
+    \selectlanguage{serbian}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+	\begin{titlepage}  
+		\center
+		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
+		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
+		iz predmeta \\[0.3cm]
+		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pregled listinga } \\[6cm]
+		
+
+		\begin{minipage}{0.5\textwidth}
+			\begin{flushleft}
+				\large
+				\emph{Tim} SLAV Co. \\
+			     $\;\;\; \cdot \;\;$Stefan Branković  0253/2019\\
+			     $\;\;\; \cdot \;\;$Lazar Erić 0235/2019\\
+			     $\;\;\; \cdot \;\;$Aleksa Račić 728/2019\\
+			     $\;\;\; \cdot \;\;$Vasilevska Nevena 0418/2019
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\large
+				\emph{Verzija:} \\
+				1.0
+			\end{flushright}
+		\end{minipage} \\[2cm]
+		\enlargethispage{4\baselineskip}
+		{ \large Beograd, mart 2021. }
+		\vfill
+	\end{titlepage}
+\pagebreak
+\tableofcontents
+\pagebreak
+
+
+
+\section{Uvod}
+\subsection{Rezime}
+Definisanje scenarija upotrebe pri pregledu listinga, sa primerima odgovarajućih html stranica.
+\subsection{Namena dokumenta i ciljne grupe}
+Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
+upotrebu.
+\subsection{Reference}
+\begin{enumerate}
+   \item Projektni zadatak
+   \item Uputstvo za pisanje specifikacije scenarija upotrebe funkcionalnosti
+   \item  Guidelines – Use Case, Rational Unified Process 2000
+   \item  Guidelines – Use Case Storyboard, Rational Unified Process 2000
+ \end{enumerate}
+\subsection{Otvorena pitanja}
+
+
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{7cm}| m{7cm} | } 
+\hline
+Redni broj& Opis & Rešenje \\ 
+\hline
+1 & Koji nivo informacija je dovoljno prikazati za svaki automobil na listingu? & \\ 
+\hline
+2 & Da li doyvoliti korisniku da vidi kalendar zauzeća nekog automobila? & \\
+\hline
+\end{tabular}
+\end{center}
+
+    
+
+\section{Scenario pregled listinga}
+\subsection{Kratak opis}
+Iz prikaza listinga u pretrazi je moguće preći na zasebne stranice listinga koje prikazuju dodatne slike, infomacije, dostupne datume, 
+lokaciju i ostale podatke o datom vozilu. Moguće je zahtevati rezervaciju ukoliko je korisnik ulogovan, dok ako nije prikazuje se prozor za unos potrebnih login podataka. 
+Ako nema nalog takođe mu se daje opcija za registraciju.
+\subsection{Tok događaja}
+
+\subsubsection{Uspešna pretraga prijavljenog korisnika}
+\begin{enumerate}
+   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega za dodatne informacije.
+   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara može odmah rezervisati vozilo.
+   \item Klikom na dugme za rezervaciju omogućava mu se da potvrdi svoje datume i doda opcionu poruku.
+   \item Korisnik šalje zahtev za rezervaciju.
+ \end{enumerate}
+ 
+ \subsubsection{Uspešna pretraga neprijavljenog korisnika}
+\begin{enumerate}
+   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega za dodatne informacije.
+   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara.
+   \begin{enumerate}
+   \item Ima opciju za logovanje ako ima nalog.
+   \item Ima opciju za registraciju, čime se preusmerava na stranicu za registraciju.
+   \end{enumerate}
+   \item Dalje, posle uspešnog logovanja ili registracije, korisniku se omogućava da potvrdi svoje datume i doda opcionu poruku.
+   \item Korisnik šalje zahtev za rezervaciju.
+ \end{enumerate}
+ 
+ 
+\subsection{Posebni zahtevi}
+Za ovu funkcionalnost nema posebnih zahteva.
+\subsection{Preduslovi}
+Svi korisnici mogu da pristupe ovoj funkcinlnosti.
+\subsection{Posledice}
+Korisnik dobija više informacija o automobilu koji mu odgovara i dalju mogućnost za rezervaciju.
+
+\section{Istorija izmena}
+\begin{center}
+\begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
+\hline
+Datum & Verzija & Kratak opis & Autori \\ 
+\hline
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
+\hline
+&&&\\ 
+\hline
+\end{tabular}
+\end{center}
+\end{document}
