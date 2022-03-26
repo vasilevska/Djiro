@@ -1,0 +1,234 @@
+<!--
+        Autor: Aleksa Račić 0728/2019
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Rezervacije</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid ">
+              <a class="navbar-brand font-weight-bold" href="index.html"><b>Điro</b></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dodaj_auto.html" id="djiler" >Postani Điler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" disable>Rezervacije</a>
+                    </li>
+                  <li class="nav-item" id="modalTrigger">
+                    <a class="nav-link" href="profil.html" id="profil">Profil</a>
+                  </li>
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    
+    <div class="container mt-5 mb-5"  role="navigation">
+        <ul class="nav nav-tabs" id="tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#tab-01" aria-controls="tab-01" role="tab" data-toggle="tab">Aktivne</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tab-02" aria-controls="tab-02" role="tab" data-toggle="tab">Na čekanju</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tab-03" aria-controls="tab-03" role="tab" data-toggle="tab">Prošle</a>
+            </li>
+
+        </ul>
+
+            <div class="row tab-content">
+                <div role="tabpanel" class="col-4 tab-pane active" id="tab-01">
+                    <h3 name="title">Aktivne rezervacije</h3>
+                    <div class="row">
+                        <div class="col">
+                            
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane active col-4" id="tab-02">
+                    <h3 name="title">Rezervacije na čekanju</h3>
+                    <div class="row">
+                        <div class="col">
+                        
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                        <div class="dugmici d-none">
+                                            <a href="#" class="btn btn-primary mr-2">Prihvati</a>
+                                            <a href="#" class="btn btn-primary ml-2">Odbij</a>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                        <div class="dugmici d-none">
+                                            <a href="#" class="btn btn-primary mr-2">Prihvati</a>
+                                            <a href="#" class="btn btn-primary ml-2">Odbij</a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane active col-4" id="tab-03">
+                    <h3 name="title">Prošle rezervacije</h3>
+                    
+                </div>
+            </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+
+
+        $(window).on('resize', function(){
+            if ($(window).width() < 1200){
+                $('#tabs').show();
+                $('h3[name="title"]').hide();
+                $('#tab-02').removeClass('active');
+                $('#tab-03').removeClass('active');
+                $('#tab-02').removeClass('col-4');
+                $('#tab-03').removeClass('col-4');
+                $('#tab-01').removeClass('col-4');
+            }else{
+                $('#tabs').hide();
+                $('h3[name="title"]').show();
+                $('#tab-02').addClass('active');
+                $('#tab-03').addClass('active');
+                $('#tab-01').addClass('active');
+                $('#tab-02').addClass('col-4');
+                $('#tab-03').addClass('col-4');
+                $('#tab-01').addClass('col-4');
+            }
+        });
+        $(document).ready(function(){
+
+            var user = getUrlParameter('user')
+            console.log(user == 2) 
+            if(user == 2 ){    
+                $( ".dugmici" ).removeClass('d-none');
+                $('#profil').attr("href", "profil.html?user=2")
+                $('#djiler').hide()
+            }else{
+                $('#profil').attr("href", "profil.html?user=1")
+            }
+
+            if ($(window).width() < 1200){
+                $('#tabs').show();
+                $('h3[name="title"]').hide();
+                $('#tab-02').removeClass('active');
+                $('#tab-03').removeClass('active');
+                $('#tab-02').removeClass('col-4');
+                $('#tab-03').removeClass('col-4');
+                $('#tab-01').removeClass('col-4');
+            }else{
+                $('#tabs').hide();
+                $('h3[name="title"]').show();
+                $('#tab-02').addClass('active');
+                $('#tab-03').addClass('active');
+                $('#tab-01').addClass('active');
+                $('#tab-02').addClass('col-4');
+                $('#tab-03').addClass('col-4');
+                $('#tab-01').addClass('col-4');
+            }
+           
+        });
+
+
+        $( ".btn-primary" ).on( "click", function() {
+            console.log($(this).parents(".card"))
+            $(this).parents(".card").hide();
+        });
+    </script>
+</body>
+</html>
