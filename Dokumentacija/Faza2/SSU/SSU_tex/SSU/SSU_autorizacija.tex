@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti dodavanja listinga } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti autorizacija } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri dodavanju listinga, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri autorizaciji, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -98,39 +98,43 @@ Redni broj& Opis & Rešenje \\
 
     
 
-\section{Scenario dodavanja listinga}
+\section{Scenario autorizacije}
 \subsection{Kratak opis}
-Za funkcionisanje ove web aplikacije ovo je najbitnija funkcionalnost vlasnika
-automobila. Popunjava se forma u kojoj je potrebno do detalja opisati specifikacije automobila, kao i priložiti slike. 
-Postoje obavezna i opciona polja, kao i mogućnost dodavanja opisa i postavljanja cene.
+Registrovani korisnici se autorizuju unošenjem korisničkog imena i lozinke. Ovi podaci se proveravaju sa podacima iz baze podataka i utvrdjuje njihovo postojanje. Takođe, sistem proverava kojoj kategoriji korisnika ulogovani korisnik pripada i da li ima verifikovanu vozačku i saobraćajnu. U
+skladu sa tim korisniku dodeljuje odredene privilegije.
 \subsection{Tok događaja}
 
-\subsubsection{Uspešno dodavanje vozila}
+\subsubsection{Uspesno logovanje na Djir-a}
 
 \begin{enumerate}
-    \item Korisnik unosi informacije o vozilu, model, proizvođača, godinu proizvodnje.
-    \item Korisnik postavlja sliku automobila.
-    \item Korisnik proizvoljno može uneti deksripciju samog vozila.
-    \item Korisnik ukoliko nema verifikovanu, mora verifikovati saobraćajnu dozvolu i vraća se na tačku 1.
-    \item Ukoliko su sva obavezna polja popunjena omogućava se slanje forme i postavlja se oglas vozila.
+    \item Korisnik unosi korisničko ime.
+    \item Korisnik unosi šifru.
+    \item Pritiska dugme za logovanje.
+    \item U bazi podataka se proverava da li postoji dati korisnik, i u ovom slučaju postoji.
+    \item Uspesno se loguje i preusmerava ka početnoj stranici.
 \end{enumerate}
 
-\subsubsection{Neuspešno dodavanje vozila}
+\subsubsection{Neuspesno logovanje na Djir-a}
 
 \begin{enumerate}
-    \item Korisnik unosi informacije o vozilu, model, proizvodjaca, godina proivodnje.
-    \item Korisnik postavlja sliku automobila.
-    \item Korisnik proizvoljno može uneti deksripciju samog vozila.
-    \item Ukoliko su sva obavezna polja popunjena omogućava se slanje forme, nakon čega se korisnik obaveštava da nema verifikovanu saobraćajnu ili je uneo ime proizvodjača ili modela koji ne postoje.
+    \item Korisnik unosi korisničko ime.
+    \item Korisnik unosi šifru.
+    \item Pritiska dugme za logovanje.
+    \item U bazi podataka se proverava da li postoji dati korisnik, i u ovom slučaju postoji.
+    \begin{enumerate}
+    \item Korisnik je uneo pogrešno ime.
+    \item Korisnik je uneo pogrešnu šifru.
+    \end{enumerate}
+    \item Dobija informacije da mu je pogrešno korisničko ime ili šifra.
     \item Preusmerava se na tačku 1.
 \end{enumerate}
 
 \subsection{Posebni zahtevi}
-Mora priložiti sliku vozila.
+Nema.
 \subsection{Preduslovi}
-Verifikovana saobraćajna dozvola za automobil.
+Da je korisnik vec kreirano svoj nalog i da ga ima u bazi podataka.
 \subsection{Posledice}
-Kreiran listing za automobil koji je korisnik dodao.
+Korisnik pristupa svom nalogu na Đir-u.
 
 \section{Istorija izmena}
 \begin{center}

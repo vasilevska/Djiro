@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti otkazivanje rezervacije } \\[5.5cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti registracije } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri otkazivanju rezervacije, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri registarciji, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,40 +91,59 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Na koji način prikazati vozaču da je njegova vožnja otkazana? & \\ 
+1 & Koja sva polja možemo dodati u toku same rezervacije? & \\
+\hline
+2 & Verifikovanje vozačke i saobraćajne se radi u drugim funkcionalnostima? & \\
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pri otkazivanju rezervacije}
+\section{Scenario registarcija}
 \subsection{Kratak opis}
-Đileri imaju pravo otkazivanja rezervacija vozača koje su prethodno odobrili. Uz
-otkazivanje rezervacije se može priložiti poruka po želji.
+Ukoliko korisnik ne poseduje svoj nalog, može ga kreirati unošenjem
+podataka, kao što su ime, prezime, email adresa, broj telefona i drugi podaci. I posle toga nalog se potvrđuje verifikacijom mejl adrese.
 \subsection{Tok događaja}
 
-\subsubsection{Otkazivanje rezervacije}
+\subsubsection{Uspesna registarcija, validna sva popunjena polja}
+
 \begin{enumerate}
-  \item Korisnik bira pregled rezervacije koju želi da otkaže.
-  \item Korisnik pritiska dugme "Otkaži".
-  \item Korisniku iskače polje u koje može da unese poruku.
-  \item Korisnik pritiska dugme "Želim da otkažem".
-  \item Korisnik dobija potvrdu da je rezervacija otkazana.
-\end{enumerate}
+   \item Korisnik unosi svoje lične podatke u delovima predodređenim za to.
+   \item Korisnik unosi svoje šifru i potvrdjuje je, koju će ubuduće korisitit za logovanje.
+   \item Korisnik prihvata uslove korišćenja i pritiska dugme za verifikovanje email adrese.
+   \item  Odlazi u svoje email sanduče i pritiska dugme u dobijem mailu, čime verifikuje svoj nalog.
+   \item Vraćanjem na Djiro, uloguje se - druga funkcionalnost i time je kreiran nalog.
+ \end{enumerate}
+ 
+ \subsubsection{Neuspesna registarcija, postoje nevalidno popunjena polja}
+
+\begin{enumerate}
+   \item Korisnik unosi svoje lične podatke u delovima predodređenim za to.
+   \item Korisnik unosi svoje šifru i potvrdjuje je, koju će ubuduće korisitit za logovanje.
+   \item Korisnik prihvata uslove korišćenja i pritiska dugme za verifikovanje email adrese i ispisuje mu se poruka da će na svojoj email adresi naći link za verifikaciju naloga.
+   \item  Odlazi u svoje email sanduče i ne postoji mail za verifikovanje.
+   \begin{enumerate}
+   \item Korisnik je uneo pogresnu email adresu i vraćanjem na registraciju ispravlja grešku.
+   \item Korisnik nije pritisnuo dugme za verifikaciju u mail-u koji je dobio i samim tim nije verifikovao nalog.
+   \end{enumerate}
+   \item Vraćanjem na Djiro, korisnik ne može da se uloguje.
+ \end{enumerate}
+
 \subsection{Posebni zahtevi}
-Nema.
+Nema ih.
 \subsection{Preduslovi}
-Korisnik treba da ima rezervaciju koju želi da otkaže.
+Da korisnik ima važeću email adresu.
 \subsection{Posledice}
-Korisniku se briše rezervacija.
+Korisnik kreira nalog na Djir-u.
+
 \section{Istorija izmena}
 \begin{center}
 \begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Stefan Branković\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
 \hline
 &&&\\ 
 \hline

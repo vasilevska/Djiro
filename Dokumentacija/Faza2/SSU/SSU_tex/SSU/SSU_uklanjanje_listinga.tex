@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti autorizacija } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti uklanjanja listinga } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri autorizaciji, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri uklanjanju listinga, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -98,45 +98,26 @@ Redni broj& Opis & Rešenje \\
 
     
 
-\section{Scenario autorizacije}
+\section{Scenario uklanjanja listinga}
 \subsection{Kratak opis}
-Registrovani korisnici se autorizuju unošenjem korisničkog imena i lozinke. Ovi podaci se proveravaju sa podacima iz baze podataka i utvrđuje njihovo postojanje. 
-Takođe, sistem proverava kojoj kategoriji korisnika ulogovani korisnik pripada i da li ima verifikovanu vozačku i saobraćajnu. U
-skladu sa tim korisniku dodeljuje određene privilegije.
-\subsection{Tok događaja}
+Diler u svakom trenutku ima mogu ́cnost uklanjanja vozila, samim tim i automat-
+skog otkazivanja svih rezervacija.
+\subsection{Tok doga\dj aja}
 
-\subsubsection{Uspešna autorizacija}
-
+\subsubsection{Uklanjanje listinga}
 \begin{enumerate}
-    \item Korisnik unosi korisničko ime.
-    \item Korisnik unosi šifru.
-    \item Pritiska dugme za logovanje.
-    \item U bazi podataka se proverava da li postoji dati korisnik, i u ovom slučaju postoji.
-    \item Uspesno se loguje i preusmerava ka početnoj stranici.
-\end{enumerate}
-
-\subsubsection{Neuspešna autorizacija}
-
-\begin{enumerate}
-    \item Korisnik unosi korisničko ime.
-    \item Korisnik unosi šifru.
-    \item Pritiska dugme za logovanje.
-    \item U bazi podataka se proverava da li postoji dati korisnik.
-    \begin{enumerate}
-	\item Korisnik ne postoji u bazi.
-    \item Korisnik je uneo pogrešno ime.
-    \item Korisnik je uneo pogrešnu šifru.
-    \end{enumerate}
-    \item Dobija informacije da mu je pogrešno korisničko ime ili šifra.
-    \item Preusmerava se na tačku 1.
+  \item Điler otvara prozor sa prikazom njegovih listinga
+  \item Điler bira listing koji želi da ukloni
+  \item Điler pritiska dugme "Ukloni"
+  \item Prikazuje se dialog box
+  \item Điler pritiska dugme "Želim da uklonim listing"
 \end{enumerate}
 
 \subsection{Posebni zahtevi}
-Nema.
 \subsection{Preduslovi}
-Da je korisnik vec kreirano svoj nalog i da ga ima u bazi podataka.
+Điler ima aktivan listing
 \subsection{Posledice}
-Korisnik pristupa svom nalogu na Điro-u.
+Listing se uklanja iz ponude i sve rezervacije se otkazuju
 
 \section{Istorija izmena}
 \begin{center}
@@ -144,7 +125,7 @@ Korisnik pristupa svom nalogu na Điro-u.
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Nevena Vasilevska\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
 \hline
 &&&\\ 
 \hline

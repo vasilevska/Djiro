@@ -26,22 +26,20 @@
 \usepackage{tabularx}
 \usepackage{textcomp}
 \graphicspath{ {./images/} }
-
-
 % References
 % https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX
 % https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
 
 \begin{document}
-    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
     \selectlanguage{serbian}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 	\begin{titlepage}  
 		\center
 		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti verifikovanja vozačke dozvole } \\[5.5cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pregled listinga } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -74,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri verifikovanju vozačke dozvole, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri pregled listinga, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -93,67 +91,54 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Na koji način je najbolje verifikovati vozačku dozvolu & \\ 
+1 & Koji nivo informacija je dovoljno prikazati za svaki automobil na listingu? & \\ 
+\hline
+2 & Da li doyvoliti korisniku da vidi kalendar zauzeća nekog automobila? & \\
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pri verifikovanju vozačke dozvole}
+\section{Scenario pregled listinga}
 \subsection{Kratak opis}
-Pre zahtevanja rezervacije potrebno je da korisnik dostavi svoju sliku i sliku svoje
-vozačke dozvole zbog verifikacije identiteta i vozačke sposobnosti.
+Iz prikaza listinga u pretrazi je moguće prećci na zasebne stranice listinga koje prikazuju dodatne slike, infomacije, dostupne datume, lokaciju i ostale podatke o datom vozilu. Mogućce je zahtevati rezervaciju ukoliko je korisnik ulogovan, dok ako nije prikazuje se prozor za unos potrebnih login podataka. Ako nema nalog takodje mu se daje opcija za registraciju.
 \subsection{Tok događaja}
-\subsubsection{Korisnik uspešno verifikuje vozačku dozvolu}
-\begin{enumerate}
-  \item Korisnik pritiska dugme "Verifikuj vozačku dozvolu".
-  \item Korisnik se slika preko web kamere.
-  \begin{enumerate}
-     \item Korisnik pristaje da se uključi web kamera.
-     \item Korisniku se prikazuje snimak sa web kamere.
-     \item KOrisnik pritiska dugme "Uslikaj".
-  \end{enumerate}
-  \item Korisnik šalje sliku vozačke dozvole.
-  \begin{enumerate}
-     \item Korisnik pritiska dugme "Učitaj sliku".
-     \item Korisniku se otvara prozor gde bira sliku sa računara.
-  \end{enumerate}
-  \item Korisnik pritiska dugme "Pošalji na verifikaciju".
-  \item Korisnik dobija poruku da je verifikacija uspešna.
-\end{enumerate}
 
-\subsubsection{Korisnik neuspešno verifikuje vozačku dozvolu}
+\subsubsection{Uspesna pretraga prijavljenog korisnika}
 \begin{enumerate}
-  \item Korisnik pritiska dugme "Verifikuj vozačku dozvolu".
-  \item Korisnik se slika preko web kamere.
-  \begin{enumerate}
-     \item Korisnik pristaje da se uključi web kamera.
-     \item Korisniku se prikazuje snimak sa web kamere.
-     \item KOrisnik pritiska dugme "Uslikaj".
-  \end{enumerate}
-  \item Korisnik šalje sliku vozačke dozvole.
-  \begin{enumerate}
-     \item Korisnik pritiska dugme "Učitaj sliku".
-     \item Korisniku se otvara prozor gde bira sliku sa računara.
-  \end{enumerate}
-  \item Korisnik pritiska dugme "Pošalji na verifikaciju".
-  \item Korisnik dobija poruku sa obrazloženjem zašto verifikacija nije uspela.
-\end{enumerate}
-
+   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega da dodatne informacije.
+   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara, jer je prijavljen može odmah rezervisati vozilo.
+   \item  Klikom na dugme za rezervaciju prosleđuje se na sledeću funkcionlanost - rezervisanje.
+ \end{enumerate}
+ 
+ \subsubsection{Uspesna pretraga neprijavljenog korisnika}
+\begin{enumerate}
+   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega da dodatne informacije.
+   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara.
+   \begin{enumerate}
+   \item Ima opciju za logovanje ako ima nalog sto je druga funkcionalnost - autorizacija.
+   \item Ili pritiskom na dugme registruj se moze da napravi nalog, sto je druga funkcionalnost - registracija.
+   \end{enumerate}
+   \item Dalje, posle uspesnog logovanja ili registracije automatski se vraća na stranicu za pregled listinga i biranje datog automobila za rezervisanje, korisnik rezerviše traženo vozilo.
+   \item  Klikom na dugme za rezervaciju prosleđuje se na sledeću funkcionlanost - rezervisanje.
+ \end{enumerate}
+ 
+ 
 \subsection{Posebni zahtevi}
-Slika vozačke dozvole i slika korisnika.
+Za ovu funkcionalnost nema posebnih zahteva.
 \subsection{Preduslovi}
-Korisnik je registrovan.
+Svi korisnici mogu da pristupe ovoj funkcinlnosti.
 \subsection{Posledice}
-Korisnikova vozačka dozvola je verifikovana.
+Korisnik dobija vise informacija o automobilu koji mu odgovara i dalju mogućnost za rezervaciju.
+
 \section{Istorija izmena}
 \begin{center}
 \begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
 \hline
 &&&\\ 
 \hline

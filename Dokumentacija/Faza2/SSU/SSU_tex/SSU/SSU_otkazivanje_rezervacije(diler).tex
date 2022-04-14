@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pregled listinga } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti otkazivanje rezervacije } \\[5cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri pregledu listinga, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri otkazivanju rezervacije, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,57 +91,40 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Koji nivo informacija je dovoljno prikazati za svaki automobil na listingu? & \\ 
-\hline
-2 & Da li doyvoliti korisniku da vidi kalendar zauzeća nekog automobila? & \\
+1 & Na koji način prikazati vozaču da je njegova vožnja otkazana & \\ 
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pregled listinga}
+\section{Scenario pri otkazivanju rezervacije}
 \subsection{Kratak opis}
-Iz prikaza listinga u pretrazi je moguće preći na zasebne stranice listinga koje prikazuju dodatne slike, infomacije, dostupne datume, 
-lokaciju i ostale podatke o datom vozilu. Moguće je zahtevati rezervaciju ukoliko je korisnik ulogovan, dok ako nije prikazuje se prozor za unos potrebnih login podataka. 
-Ako nema nalog takođe mu se daje opcija za registraciju.
-\subsection{Tok događaja}
+Dileri imaju pravo otkazivanja rezervacija vozača koje su prethodno odobrili. Uz
+otkazivanje rezervacije može priložiti poruku po želji.
+\subsection{Tok doga\dj aja}
 
-\subsubsection{Uspešna pretraga prijavljenog korisnika}
+\subsubsection{Otkazivanje rezervacije}
 \begin{enumerate}
-   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega za dodatne informacije.
-   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara može odmah rezervisati vozilo.
-   \item Klikom na dugme za rezervaciju omogućava mu se da potvrdi svoje datume i doda opcionu poruku.
-   \item Korisnik šalje zahtev za rezervaciju.
- \end{enumerate}
- 
- \subsubsection{Uspešna pretraga neprijavljenog korisnika}
-\begin{enumerate}
-   \item Korisnik pretražuje na listingu automobile i ako mu neki odgovara klikne na njega za dodatne informacije.
-   \item Korisnik ima pregled o svim neophodnim podacima za to vozilo i ako mu sve odgovara.
-   \begin{enumerate}
-   \item Ima opciju za logovanje ako ima nalog.
-   \item Ima opciju za registraciju, čime se preusmerava na stranicu za registraciju.
-   \end{enumerate}
-   \item Dalje, posle uspešnog logovanja ili registracije, korisniku se omogućava da potvrdi svoje datume i doda opcionu poruku.
-   \item Korisnik šalje zahtev za rezervaciju.
- \end{enumerate}
- 
- 
+  \item Zajmodavac(Điler) bira pregled rezervacije koju želi da otkaže
+  \item Zajmodavac(Điler) pritiska dugme "Otkaži"
+  \item Zajmodavacu(Đileru) iskače dialog box sa tekstualnim poljem gde može da unese poruku
+  \item Zajmodavac(Điler) pritiska dugme "Želim da otkažem"
+  \item Zajmodavac(Điler) dobija potvrdu da je rezervacija otkazana
+\end{enumerate}
 \subsection{Posebni zahtevi}
-Za ovu funkcionalnost nema posebnih zahteva.
+Nema.
 \subsection{Preduslovi}
-Svi korisnici mogu da pristupe ovoj funkcinlnosti.
+Zajmodavac(Điler) treba da ima rezervaciju koju želi da otkaže i korisnik se u tom trenutku nalazi na listngu rezervacija.
 \subsection{Posledice}
-Korisnik dobija više informacija o automobilu koji mu odgovara i dalju mogućnost za rezervaciju.
-
+Korisniku se briše rezervacija.
 \section{Istorija izmena}
 \begin{center}
 \begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Stefan Branković\\ 
 \hline
 &&&\\ 
 \hline

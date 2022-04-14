@@ -32,14 +32,13 @@
 
 \begin{document}
     \selectlanguage{serbian}
-    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 	\begin{titlepage}  
 		\center
 		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti ocenjivanja đilera } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pretraživanja } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +71,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri ocenjivanju dilera, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri pretrazi, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,57 +90,52 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Koji spekti treba da se ocene? & \\ 
+1 & Na koji način je najbolje prikazati pretražene automobile? & \\ 
+\hline
+2 & Na koji način je najbolje sortirati pretražene automobile? & \\ 
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pri ocenjivanju đilera}
+\section{Scenario pretrage}
 \subsection{Kratak opis}
-Nakon realizovanog iznajmljivanja korisniku se zahteva da brojčano i opisno oceni
-iskustvo. Podstiče se ocenjivanje verodostojnosti listinga, kao i problema automobila
-tokom vožnje. Ove ocene su prikazane na listingu odgovarajúceg automobila kao i
-Đilera.
-\subsection{Tok doga\dj aja}
+Svaki posetilac sajta može da pretražuje listinge po mestu u kojem mu je potreban automobil. Korisnik unosi odgovarajuće datume i mesto i na onsovu toga dobija prikaz slobodnih automobila koje može da rentira.
 
-\subsubsection{Ocenjivanje Đilera}
+\subsection{Tok događaja}
+
+\subsubsection{Korisnik upisuje postojeće mesto i bira validne datume}
 \begin{enumerate}
-  \item Korisniku se prikazuje prozor za ocenjivanje.
-  \item Korisnik ocenjuje verodostojnost listinga ocenom 1-5.
-  \item Korisnik ocenjuje automobil ocenom 1-5.
-  \item Korisnik ocenjuje vlasnika automobila(Đilera) ocenom 1-5.
-  \item Korisnik opisno ocenjuje celo iskustvo.
-  \item Korisnik pritiska dugme "Završi ocenjivanje".
+    \item Korisnik unosi mesto gde želi da pretraži automobile.
+    \item Korisnik unosi datum od i do kog želi da iznajmi automobil.
+    \item Pritiska dugme za pretragu.
+    \item Pojavljuje se prikaz svih slobodnih automobila.
 \end{enumerate}
 
-\subsubsection{Neuspešno ocenjivanje Đilera}
+\subsubsection{Korisnik upisuje nepostojeće mesto ili bira nevalidne datume}
 \begin{enumerate}
-  \item Korisniku se prikazuje prozor za ocenjivanje.
-  \item Korisnik ne popunjava sva neophodna polja.
-  \item Korisnik šalje formu.
-  \item Korisnik se upozorava da ocenjivanje nije uspelo zbog toga što nedostaju obavezna polja.
-\end{enumerate}
-
-\subsubsection{Preskakanje ocenjivanja Đilera}
-\begin{enumerate}
-  \item Korisniku se prikazuje prozor za ocenjivanje.
-  \item Korisnik pritiska dugme "Preskoči ocenjivanje".
+    \item Korisnik unosi mesto gde želi da pretraži automobile.
+    \item Korisnik unosi datum od i do kog želi da iznajmi automobil.
+    \item Pritiska dugme za pretragu.
+    \item Pojavljuje se poruka o pogresnom unosu mesta ili datuma.
+    \item Vraća se na starnicu da pokuša ponovnu pretragu.
 \end{enumerate}
 
 \subsection{Posebni zahtevi}
+Za ovu funkcionalnost nema posebnih zahteva.
 \subsection{Preduslovi}
-Realizovano iznajmljivanje
+Svi korisnici mogu da pristupe ovoj funkcinlnosti.
 \subsection{Posledice}
-Ažurira se ocena listinga i vlasnika automobila (Đilera)
+Korisnik ima pristup svim automobilima za uneto mesto i datume.
+
 \section{Istorija izmena}
 \begin{center}
 \begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Stefan Branković\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
 \hline
 &&&\\ 
 \hline

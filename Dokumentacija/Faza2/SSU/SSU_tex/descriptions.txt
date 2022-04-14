@@ -1,0 +1,68 @@
+4.1.1 Pretraˇzivanje
+Svaki posetilac sajta moˇze da pretraˇzuje listinge po mestu u kojem mu je potreban
+automobil.
+2
+4.1.2 Filtriranje pretrage
+Pretraga se dalje moˇze filtrirati specificiranjem datuma, proizvodaˇca, modela itd.
+Takode se moˇze bliˇze odrediti mesto u ˇcijoj okolini se traˇzi automobil, kao i ˇzeljeni
+raspon cena.
+4.1.3 Pregled listinga
+Iz prikaza listinga u pretrazi je mogu ́ce pre ́ci na zasebne stranice listinga koje
+prikazuju dodatne slike, infomacije, dostupne datume... Mogu ́ce je zahtevati rezerva-
+ciju ukoliko je korisnik ulogovan, dok ako nije prikazuje se prozor za unos potrebnih
+login podataka
+4.1.4 Registracija
+Ukoliko korisnik ne poseduje svoj nalog, moˇze ga kreirati unoˇsenjem osnovnih
+podataka i verifikacijom mejl adrese.
+4.1.5 Autorizacija
+Registrovani korisnici se autorizuju unoˇsenjem korisniˇckog imena i lozinke. Ovi
+podaci moraju da se poklope sa postoje ́cim podacima o korisnicima u bazi podataka.
+Takode, sistem proverava kojoj kategoriji korisnika ulogovani korisnik pripada, i u
+skladu sa tim korisniku dodeljuje odredene privilegije.
+
+
+4.2 Funkcionalnosti dostupne prijavljenim korisnicima
+4.2.1 Verifikovanje vozaˇcke dozvole
+Pre zahtevanja rezervacije potrebno je da korisnik dostavi svoju sliku i sliku svoje
+vozacke dozvole zbog verifikacije identiteta i vozaˇcke sposobnosti.
+4.2.2 Zahtevanje rezervacije
+Ulogovan korisnik ima mogucnost zahtevanja rezervacije tokom pregledanja odredenog
+listinga. Ovaj zahtev se ˇsalje vlasniku automobila i sadrˇzi zahtevani automobil, da-
+tume i link do putanje vozaˇca.
+3
+4.2.3 Otkazivanje rezervacije
+Ukoliko postoji odobrena rezervacija korisnik ima pravo da je otkaˇze. Uz otkazi-
+vanje rezervacije moˇze priloˇziti poruku po ˇzelji.
+4.2.4 Ocenjivanje dilera
+Nakon realizovanog iznajmljivanja korisniku se zahteva da brojˇcano i opisno oceni
+iskustvo. Podstiˇce se ocenjivanje verodostojnosti listinga, kao i problema automobila
+tokom voˇznje. Ove ocene su prikazane na listingu odgovaraju ́ceg automobila kao i
+Dilera.
+
+
+4.3 Funkcionalnosti dostupne Dilerima
+4.3.1 Dodavanje listinga
+Za funkcionisanje ove web aplikacije ovo je najbitnija funkcionalnost vlasnika
+automobila. Popunjava se forma u kojoj je potrebno do detalja opisati specifikacije
+automobila, kao i priloˇziti slike. Postoje obavezna i opciona polja, kao i mogu ́cnost
+dodavanja opisa i postavljanja ˇzeljene cene.
+4.3.2 Izmena listinga
+Treba da omogu ́ci dodavanje novih ili izmenu postoje ́cih informacija na listingu.
+Korisnici sa rezervacijom za izmenjeni automobil treba da budu obaveˇsteni o izmeni.
+Informacije koje se ne mogu izmeniti su informacije koje se odnose na proizvodaˇca,
+model, godiˇste automobila i sliˇcne.
+4.3.3 Uklanjanje listinga
+Diler u svakom trenutku ima mogu ́cnost uklanjanja vozila, samim tim i automat-
+skog otkazivanja svih rezervacija.
+4.3.4 Pregled zahteva za rezervacjiu
+Kada vozaˇc zatraˇzi rezervaciju automobila, zahtev se dostavlja Dileru sa informa-
+cijama o vozaˇcu, datumima, mestu preuzimanja it. Dileri mogu da prihvate ili odbiju
+zahtev.
+4
+4.3.5 Otkazivanje rezervacije
+Dileri imaju pravo otkazivanja rezervacija vozaˇca koje su prethodno odobrili. Uz
+otkazivanje rezervacije moˇze priloˇziti poruku po ˇzelji.
+4.3.6 Ocenjivanje vozaˇca
+Nakon realizovanog iznajmljivanja vlasniku automobila se zahteva da brojˇcano i
+opisno oceni iskustvo. Podstiˇce se detaljnije opisivanje stanja u kojem je autombil
+vra ́cen. Ove ocene su prikazane na listingu odgovaraju ́ceg automobila kao i Dilera.

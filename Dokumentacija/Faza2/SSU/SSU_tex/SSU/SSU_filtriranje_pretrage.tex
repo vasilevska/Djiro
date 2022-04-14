@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti otkazivanje rezervacije } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti filtriranja pretrage } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri otkazivanju rezervacije, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri filtriranju pretrage, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,39 +91,47 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 &  & \\ 
+1 & Po kojim sve specifikacijama možemo filtrirati? & \\ 
+\hline
+2 & Dodavanje filtera za pretragu vozila najblizeg trenutnoj lokaciji? & \\ 
+\hline
+2 & Dodavanje država u kojima će korisnik voziti inajmljeni automobil? & \\
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pri otkazivanju rezervacije}
+\section{Scenario filtriranja pretrage}
 \subsection{Kratak opis}
-Ukoliko postoji odobrena rezervacija korisnik ima pravo da je otkaže. Uz otkazivanje rezervacije može priložiti poruku po želji.
-\subsection{Tok doga\dj aja}
+Pretraga se dalje može filtrirati specificiranjem datuma, proizvodača, modela, tipu vozila(SUV, kabriolet, sedan itd.), jačine, broj mesta u vozilu.
+Takode se može bliže odrediti mesto u čijoj okolini se traži automobil, kao i željeni raspon cena. Takođe, može se dodati države po kojim aće voziti auto, u slučaju da je potreban zeleni karton ili specijalna dozvola za vožnju tamo.
+\subsection{Tok događaja}
 
-\subsubsection{Otkazivanje rezervacije}
+\subsubsection{Uspena unos specifikacija za pretragu}
+
 \begin{enumerate}
-  \item Korisnik bira pregled rezervacije koju želi da otkaže.
-  \item Korisnik pritiska dugme "Otkaži".
-  \item Korisniku iskače polje u koje može da unese poruku.
-  \item Korisnik pritiska dugme "Želim da otkažem".
-  \item Korisnik dobija potvrdu da je rezervacija otkazana.
+    \item Korisnik unosi specifikacije koje njemu odgovaraju za filtriranje.
+    \item Proizvoljno unosi države u kojima će voziti inajmljeni automobil..
+    \item Proizvoljno prevlači slider(klizač) za cenu koja mu odgovara.
+    \item Pritiska dugme za filtriranu pretragu.
+    \item Pojavljuje se prikaz svih filtriranih slobodnih automobila.
 \end{enumerate}
+
 \subsection{Posebni zahtevi}
-Nema.
+Za ovu funkcionalnost nema posebnih zahteva.
 \subsection{Preduslovi}
-Korisnik treba da ima rezervaciju koju želi da otkaže.
+Svi korisnici mogu da pristupe ovoj funkcinlnosti.
 \subsection{Posledice}
-Korisniku se briše rezervacija i naplaćuju zatezni troškovi.
+Korisnik ima pristup svim automobilima koji odgovaraju datim filterima.
+
 \section{Istorija izmena}
 \begin{center}
 \begin{tabular}{ | m{2cm} | m{1.5cm}| m{6cm} | m{5cm} | } 
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
 \hline
 &&&\\ 
 \hline

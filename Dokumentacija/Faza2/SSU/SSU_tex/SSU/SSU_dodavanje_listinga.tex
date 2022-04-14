@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti zahtevanja rezervacije } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti dodavanja listinga } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri zahtevanju rezervacije, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri dodavanju listinga, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,57 +91,55 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Na koji način se rezervacija prikazuje korisniku & \\ 
+1 &  & \\ 
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pri zahtevanju rezervacije}
+\section{Scenario dodavanja listinga}
 \subsection{Kratak opis}
-Ulogovan korisnik ima mogucnost zahtevanja rezervacije tokom pregledanja određenog
-listinga. Ovaj zahtev se šalje vlasniku automobila i sadrži zahtevani automobil, datume i link do profila vozača.
+Za funkcionisanje ove web aplikacije ovo je najbitnija funkcionalnost vlasnika
+automobila. Popunjava se forma u kojoj je potrebno do detalja opisati specifikacije automobila, kao i priložiti slike. Postoje obavezna i opciona polja, kao i mogućnost dodavanja opisa i postavljanja cene.
 \subsection{Tok događaja}
 
-\subsubsection{Korisnik zahteva rezervaciju automobila}
+\subsubsection{Uspesno dodavanje vozila}
+
 \begin{enumerate}
-  \item Korisnik pritiska dugme "Rezerviši" pored ženjenog automobila.
-  \item Korisnik unosi detalje plaćanja.
-  \begin{enumerate}
-    \item Korisnik bira vrstu kartice.
-    \item Korisnik unosi broj kartice.
-    \item Korisnik unosi datum isteka kartice.
-    \item Korisnik unsi CCV broj kartice.
-\end{enumerate}
-  \item Korisnik dobija poruku da je vozilo rezervisano za dati datum.
-  
-\end{enumerate}
-\subsubsection{Korisnik zahteva rezervaciju automobila koji više nije dostupan}
-\begin{enumerate}
-  \item Korisnik pritiska dugme "Rezerviši" pored željenog automobila.
-  \item Korisniku se ispisuje poruka da je automobil već rezervisan.
+    \item Korisnik unosi informacije o vozilu, model, proizvodjaca, godina proivodnje, mestu gde se nalazi, marka, kilonetraža, tip transmisije, tip vozila i gorivo.
+    \item Korisnik, opciono, postavlja sliku automobila.
+    \item Korisnik proizvoljno može uneti deksripciju samog vozila.
+    \item Korisnik ukoliko nema  verifikovanu, mora verifikovati saobraćajnu dozvolu i vraća se na tačku 1.
+    \item Kada završi sa popunjavanjem svih polja, dodaje vozilo na listing pritiskom na dugme i dobija poruku o uspešnom dodavanju automobila na listing.
 \end{enumerate}
 
-\subsubsection{Korisnik unosi nevažeću karticu}
+\subsubsection{Neuspesno dodavanje vozila}
+
 \begin{enumerate}
-\item Korisnik pritiska dugme "Rezerviši" pored ženjenog automobila.
-  \item Korisnik unosi detalje plaćanja.
-  \begin{enumerate}
-    \item Korisnik bira vrstu kartice.
-    \item Korisnik unosi broj kartice.
-    \item Korisnik unosi datum isteka kartice.
-    \item Korisnik unsi CCV broj kartice.
+    \item Korisnik unosi informacije o vozilu, model, proizvodjaca, godina proivodnje, mestu gde se nalazi, marka, kilonetraža, tip transmisije, tip vozila i gorivo.
+    \item Korisnik, opciono, postavlja sliku automobila.
+    \item Korisnik proizvoljno može uneti deksripciju samog vozila.
+    \item Kada završi sa popunjavanjem svih polja, pritiskom na dugme izlazi mu poruka da nema verifikovanu saobraćajnu ili je uneo ime proizvodjača ili modela koji ne postoje.
+    \item Preusmerava se na tačku 1.
 \end{enumerate}
-  \item Korisnik dobija poruku da plaćanje nije uspelo.
+
+\subsubsection{Nepopunjavanje svih polja za dodavanje vozila}
+
+\begin{enumerate}
+    \item Korisnik unosi informacije.
+    \item Korisnik, opciono, postavlja sliku automobila.
+    \item Korisnik proizvoljno može uneti deksripciju samog vozila.
+    \item Kada završi sa popunjavanjem polja, pritiskom na dugme izlazi mu poruka da nije uneo sve neophodne podatke za dodavanje automobila.
+    \item Preusmerava se na tačku 1.
 \end{enumerate}
 
 \subsection{Posebni zahtevi}
-Informacije o kreditnoj kartici.
+Mora priložiti sliku vozila.
 \subsection{Preduslovi}
-Korisnik prethodno mora da bude registrovan i da ima verifikovanu vozačku dozvolu.
+Korinsik se nalazi na stranici svog naloga i mora ubiti ulogovan.
 \subsection{Posledice}
-Korisnik je rezervisao vozilo.
+Kreiran oglas za automobil koji je korisnik dodao.
 
 \section{Istorija izmena}
 \begin{center}
@@ -149,7 +147,7 @@ Korisnik je rezervisao vozilo.
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Nevena Vasilevska\\ 
 \hline
 &&&\\ 
 \hline

@@ -39,7 +39,7 @@
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pregleda zahteva za rezervciju } \\[5cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti zahtevanja rezervacije } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -48,7 +48,7 @@
 				\emph{Tim} SLAV Co. \\
 			     $\;\;\; \cdot \;\;$Stefan Branković  0253/2019\\
 			     $\;\;\; \cdot \;\;$Lazar Erić 0235/2019\\
-			     $\;\;\; \cdot \;\;$Aleksa Račić 0728/2019\\
+			     $\;\;\; \cdot \;\;$Aleksa Račić 728/2019\\
 			     $\;\;\; \cdot \;\;$Vasilevska Nevena 0418/2019
 			\end{flushleft}
 		\end{minipage}
@@ -72,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri pregledu zahteva za rezervaciju, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri zahtevanju rezervacije, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -91,37 +91,56 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Na koji način prikazati Đileru zahtev za rezervaciju? & \\ 
+1 & Na koji način se rezervacija prikazuje korisniku & \\ 
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pregleda zahteva za rezervaciju}
+\section{Scenario pri zahtevanju rezervacije}
 \subsection{Kratak opis}
-Kada vozač zatraži rezervaciju automobila, zahtev se dostavlja Đileru sa informacijama o vozaču, datumima i mestu preuzimanja. Đileri mogu da prihvate ili odbiju
-zahtev.
-\subsection{Tok događaja}
+Ulogovan korisnik ima mogucnost zahtevanja rezervacije tokom pregledanja odredenog
+listinga. Ovaj zahtev se šalje vlasniku automobila i sadrži zahtevani automobil, da-
+tume i link do putanje vozača.
+\subsection{Tok doga\dj aja}
 
-\subsubsection{Điler odobrava rezervaciju}
+\subsubsection{Korisnik zahteva rezervaciju automobila}
 \begin{enumerate}
-   \item Korisnik otvara poruku o novoj rezervaciji.
-   \item Korisnik otvara poruku sa informacijama o rezervaciji.
-   \item Korisnik odobrava rezervaciju klikom na dugme "Odobri".
- \end{enumerate}
- \subsubsection{Điler odbija rezervaciju}
+  \item Korisnik pritiska dugme "Rezerviši" pored ženjenog automobila
+  \item Korisnik unosi detalje plaćanja
+  \begin{enumerate}
+    \item Korisnik bira vrstu kartice
+    \item Korisnik unosi broj kartice
+    \item Korisnik unosi datum isteka kartice
+    \item Korisnik unsi CCV broj kartice
+\end{enumerate}
+  \item Korisnik dobija poruku da je vozilo rezervisano za dati datum
+  
+\end{enumerate}
+\subsubsection{Korisnik zahteva rezervaciju automobila koji više nije dostupan}
 \begin{enumerate}
-   \item Korisnik otvara poruku o novoj rezervaciji.
-   \item Korisnik otvara poruku sa informacijama o rezervaciji.
-   \item Korisnik odbija rezervaciju klikom na dugme "Odbij".
- \end{enumerate}
-
+  \item Korisnik pritiska dugme "Rezerviši" pored željenog automobila
+  \item Korisniku se ispisuje poruka da je automobil već rezervisan
+\end{enumerate}
+\subsubsection{Korisnik unosi nevažeću karticu}
+\begin{enumerate}
+\item Korisnik pritiska dugme "Rezerviši" pored ženjenog automobila
+  \item Korisnik unosi detalje plaćanja
+  \begin{enumerate}
+    \item Korisnik bira vrstu kartice
+    \item Korisnik unosi broj kartice
+    \item Korisnik unosi datum isteka kartice
+    \item Korisnik unsi CCV broj kartice
+\end{enumerate}
+  \item Korisnik dobija poruku da plaćanje nije uspelo
+\end{enumerate}
 \subsection{Posebni zahtevi}
+Informacije o kreditnoj kartici
 \subsection{Preduslovi}
-Treba da postoji zahtev za rezervaciju
+Korisnik prethodno mora da bude registrovan i da ima verifikovanu vozačku dozvolu
 \subsection{Posledice}
-Rezervacija je ili odobrena ili poništena. Vozač dobija informaciju o ishodu.
+Korisnik je rezervisao vozilo
 
 \section{Istorija izmena}
 \begin{center}
@@ -129,7 +148,7 @@ Rezervacija je ili odobrena ili poništena. Vozač dobija informaciju o ishodu.
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Stefan Branković\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Aleksa Račić\\ 
 \hline
 &&&\\ 
 \hline

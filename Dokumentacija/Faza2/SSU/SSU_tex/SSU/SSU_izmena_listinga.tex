@@ -32,13 +32,14 @@
 
 \begin{document}
     \selectlanguage{serbian}
+    \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 	\begin{titlepage}  
 		\center
 		\textbf{ \LARGE ELEKTROTEHNIČKI FAKULTET, UNIVERZITET U BEOGRADU } \\[4cm]
 		\textbf{ \Large PROJEKAT ĐIRO\texttrademark} \\[0.3cm]
 		iz predmeta \\[0.3cm]
 		\textbf{ \Large Principi softverskog inženjerstva} \\[0.7cm]
-		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti pretraživanja } \\[6cm]
+		{ \huge \bfseries Specifikacija scenarija upotrebe funkcionalnosti izmene listinga } \\[6cm]
 		
 
 		\begin{minipage}{0.5\textwidth}
@@ -71,7 +72,7 @@
 
 \section{Uvod}
 \subsection{Rezime}
-Definisanje scenarija upotrebe pri pretrazi, sa primerima odgovarajućih html stranica.
+Definisanje scenarija upotrebe pri izmeni listinga, sa primerima odgovarajućih html stranica
 \subsection{Namena dokumenta i ciljne grupe}
 Dokument će koristiti svi članovi projektnog tima u razvoju projekta i testiranju a može se koristiti i pri pisanju uputstva za
 upotrebu.
@@ -90,45 +91,45 @@ upotrebu.
 \hline
 Redni broj& Opis & Rešenje \\ 
 \hline
-1 & Na koji način je najbolje prikazati pretražene automobile? & \\ 
+1 & Koje informacije o vozilu treba dozvoliti da se menjaju posle kreiranja naloga? & \\
 \hline
-2 & Na koji način je najbolje sortirati pretražene automobile? & \\ 
+2 & Koje informacije treba zabraniti da s emenjaju kada za dato vozilo postoji rezervacija? & \\
 \hline
 \end{tabular}
 \end{center}
 
     
 
-\section{Scenario pretrage}
+\section{Scenario izmene listinga}
 \subsection{Kratak opis}
-Svaki posetilac sajta može da pretražuje listinge po mestu u kojem mu je potreban automobil. 
-Korisnik unosi odgovarajuće datume i mesto i na onsovu toga dobija prikaz slobodnih automobila koje može da rezerviše.
-
+Treba da omogući dodavanje novih ili izmenu postojećcih informacija na listingu.
+Korisnici sa rezervacijom za izmenjeni automobil treba da budu obavešteni o izmeni.
+Informacije koje se ne mogu izmeniti su informacije koje se odnose na proizvodača,
+model, godište automobila i slične.
 \subsection{Tok događaja}
 
-\subsubsection{Korisnik upisuje postojeće mesto i bira validne datume}
+\subsubsection{Uspese izmene na listingu}
 \begin{enumerate}
-    \item Korisnik unosi mesto gde želi da pretraži automobile.
-    \item Korisnik unosi opseg datuma tokom kojih mu je potreban automobil.
-    \item Pritiska dugme za pretragu.
-    \item Pojavljuje se prikaz svih slobodnih automobila.
+    \item Korisnik unosi dodatne ili menja postojeće informacije o vozilu, model, proizvodjaca, godina proivodnje itd.
+    \item Kada završi korisnik sve izmene pritiska dugme sačuvaj.
+    \item Ako su mu dozvoljene sve promene, vraća se na početnu stranu.
+    \item Klijenti koji imaju rezervacije tog vozila dobijaju informacije o promenama.
 \end{enumerate}
 
-\subsubsection{Korisnik upisuje nepostojeće mesto ili bira nevalidne datume}
+\subsubsection{Neuspešne izmene na listingu}
 \begin{enumerate}
-    \item Korisnik unosi mesto gde želi da pretraži automobile.
-    \item Korisnik unosi opseg datuma tokom kojih mu je potreban automobil.
-    \item Pritiska dugme za pretragu.
-    \item Pojavljuje se poruka o unosu nepostojećeg mesta ili nevalidnog datuma.
-    \item Vraća se na starnicu da pokuša ponovnu pretragu.
+    \item Korisnik unosi dodatne ili menja postojeće informacije o vozilu, model, proizvodjaca, godina proivodnje itd.
+    \item Kada završi korisnik sve izmene pritiska dugme sačuvaj.
+    \item Pošto ima promene koje nisu dozvoljene (sama provera da li su dozvoljenje se vidi tek kada se stisne dugme za čuvanje, jer mora postojati promena nekih statičkih karakteristika u slučaju da je pogrešno prvi put napisano), ako ima već rezervacije na primer ili menja podatke koji ne smeju da se menjaju(model, godište itd.).
+    \item Korisnik dobija informaciju da j+ne sme da menja informaciju i vraća se na tačku 1.
 \end{enumerate}
 
 \subsection{Posebni zahtevi}
-Za ovu funkcionalnost nema posebnih zahteva.
+Nema ih.
 \subsection{Preduslovi}
-Svi korisnici mogu da pristupe ovoj funkcinlnosti.
+Korinsik koji želi da izmeni listing mora da bude ulogovan i naravno mora postojati sam listing da bi se mogla izvšiti sama izmena.
 \subsection{Posledice}
-Korisnik ima pristup svim automobilima za uneto mesto i datume.
+Izmene na oglasu koje je korisnik postavio i obaštenje o tome klijentima koji trenutno imaju rezervacije tog automobila rezervacije.
 
 \section{Istorija izmena}
 \begin{center}
@@ -136,7 +137,7 @@ Korisnik ima pristup svim automobilima za uneto mesto i datume.
 \hline
 Datum & Verzija & Kratak opis & Autori \\ 
 \hline
- 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Lazar Erić\\ 
+ 21.03.2022. & 1.0 & Napravljen inicijalni dokument & Nevena Vasilevska\\ 
 \hline
 &&&\\ 
 \hline
