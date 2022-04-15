@@ -21,12 +21,17 @@
               <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                   <li class="nav-item">
-                    <a class="nav-link" href="dodaj_auto.html" >Postani Điler</a>
+                    <a class="nav-link" href="dodaj_auto.html" id = "djiler" >Postani Điler</a>
                   </li>
-                  
+                  <li class="nav-item">
+                      <a class="nav-link" href="rezervacije.html" id = "rezervacije">Rezervacije</a>
+                  </li>
                   <li class="nav-item" id="modalTrigger">
-                    <a class="nav-link" href="#" data-target="#login" data-toggle="modal" >Login</a>
+                    <a class="nav-link" href="#" data-target="#login" data-toggle="modal" id = "loginNav" >Login</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="profil.html" id = "profil" style = "display: none;">Profil</a>
+                </li>
                 </ul>
                 
               </div>
@@ -137,7 +142,13 @@
           
           <div class="modal-content">
             <div class="modal-body pt-5 pb-5">
-              <h4>Zahtev za rezervaciju je poslat!</h4>
+              <h4>Login</h4>
+              <form id="login-form" action="lada.html"> 
+                <input type="text" name="username" class="username form-control my-3" placeholder="Nacin placanja"/>
+                <input type="password" name="password" class="password form-control" placeholder="Detalji kartice"/>
+              
+                <input class="btn btn btn-outline-secondary" type="submit" value="Zatrazi registraciju" />
+              </form>
               
             </div>
           </div>
@@ -170,16 +181,69 @@
       <script src="js/jquery-3.3.1.slim.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
       <script>
+        $('#djiler').hide();
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
         $('#modalTriggerRez').on('click', function () {
-            console.log('klik')
+            var user = getUrlParameter('user')
+            if(user == 1 || user == 2){
+              var myModal = new bootstrap.Modal(document.getElementById("poruka"));
+              myModal.show();
+            }
+            else{
+              var myModal = new bootstrap.Modal(document.getElementById("login"));
+              myModal.show();
+            }
+        })
+
+        $('#modalTrigger').on('click', function () {
             var myModal = new bootstrap.Modal(document.getElementById("poruka"));
             myModal.show();
         })
 
-        $('#modalTrigger').on('click', function () {
-            var myModal = new bootstrap.Modal(document.getElementById("login"));
-            myModal.show();
-        })
+        
+        $( document ).ready(function() {
+          var user = getUrlParameter('user')
+          $('#djiler').hide()
+          console.log(user)
+          if(user == 1 ){
+            $('#profil').show()
+            $('#profil').attr("href", "profil.html?user=1")
+            $('#rezervacije').attr("href", "rezervacije.html?user=1")
+            $('#loginNav').hide()
+            $('#djiler').show()
+          }
+          else if(user == 2){
+            $('#profil').show()
+            $('#profil').attr("href", "profil.html?user=2")
+            $('#rezervacije').attr("href", "rezervacije.html?user=2")
+            $('#loginNav').hide()
+            $('#djiler').hide()
+          }
+          else {
+            $('#profil').hide()
+            $('#loginNav').show()
+            $('#rezervacije').hide()
+            $('#djiler').attr("href", "#")
+            $('#djiler').on('click', function () {
+                var myModal = new bootstrap.Modal(document.getElementById("login"));
+                myModal.show();
+            })
+          }
+        });
       </script>
 </body>
 </html>

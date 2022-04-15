@@ -85,6 +85,7 @@ color: #000000;
                             </div>
                             <h6>Beograd, Srbija</h6>
                             <div>132 rezervacija&nbsp;&nbsp;-&nbsp;&nbsp; Pridruzio se: &nbsp;Avg 2020</div>
+                            <a href="verifikuj.html">verifikujte vozacku</a>
                     </div>
             
                     <div class="card-body">
@@ -165,7 +166,8 @@ color: #000000;
                         <div class="row justify-content-between">
                             <div class="col">
                                 <a href="lada.html" class="btn btn-primary mr-2">Više detalja</a>
-                                <a href="dodaj_auto.html" class="btn btn-primary ml-2">Izmeni</a>
+                                <a href="izmeni.html" class="btn btn-primary ml-2">Izmeni</a>
+                                <a href="#" class="btn btn-danger mt-2 ml-2" id="ukloni">Ukloni</a>
                             </div> 
                             <div class="col-auto">
                                 <h4>19.99&euro;/dan</h4>
@@ -209,6 +211,10 @@ color: #000000;
             $('#djiler').hide()
           }
         });
+
+        $('#ukloni').on('click', function () {
+            $('#kola').hide()
+        })
 
 
 

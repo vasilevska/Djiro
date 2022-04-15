@@ -64,18 +64,8 @@
                                         <div class="col-auto" style="display: flex;"> 
                                         <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
                                         </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="card m-3">
-                                <div class="row p-3">
-                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
-                                    <div class="col">
-                                        <h4>Lada Niva 2021</h4>
-                                        <div class="col-auto" style="display: flex;"> 
-                                        <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        <div class="dugmici-all">
+                                            <a href="#" class="btn btn-primary mr-2">Otkazi</a>
                                         </div>
                                     </div>
                                     
@@ -89,6 +79,25 @@
                                         <h4>Lada Niva 2021</h4>
                                         <div class="col-auto" style="display: flex;"> 
                                         <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                        <div class="dugmici-all">
+                                            <a href="#" class="btn btn-primary mr-2">Otkazi</a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="card m-3">
+                                <div class="row p-3">
+                                    <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                                    <div class="col">
+                                        <h4>Lada Niva 2021</h4>
+                                        <div class="col-auto" style="display: flex;"> 
+                                            <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                        </div>
+                                        <div class="dugmici-all">
+                                            <a href="#" class="btn btn-primary mr-2">Otkazi</a>
                                         </div>
                                     </div>
                                     
@@ -144,9 +153,41 @@
                 </div>
                 <div role="tabpanel" class="tab-pane active col-4" id="tab-03">
                     <h3 name="title">Prošle rezervacije</h3>
-                    
+                    <div class="card m-3">
+                        <div class="row p-3">
+                            <div class="col-auto"><a href="lada.html"><img src="img/lada.jpg" class="rounded-circle" style="width: 100px; height: 100px;"></a></div>
+                            <div class="col">
+                                <h4>Lada Niva 2021</h4>
+                                <div class="col-auto" style="display: flex;"> 
+                                    <h5>4.10</h5>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/star.png" style="height: 3ex;">
+                                </div>
+                                <div class="dugmici-all">
+                                    <a href="#" id="oceni" class="btn btn-light mr-2">Oceni</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
+    </div>
+
+    <div class="modal fade" id="poruka" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          
+          <div class="modal-content">
+            <div class="modal-body pt-5 pb-5">
+                <h4>Ocenjivanje</h4>
+                <form> 
+                    <div class="form-group">
+                        <label for="opis-kola">Unesite ocenu</label>
+                        <textarea class="form-control" id="ocena" rows="5"></textarea>
+                    </div>
+                    <input class="btn btn btn-outline-secondary" type="submit"  id="submit-oceni" value="Oceni" />
+                </form>
+            </div>
+          </div>
+        </div>  
     </div>
 
 
@@ -169,6 +210,22 @@
             }
             return false;
         };
+
+        $('#oceni').on('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById("poruka"));
+            myModal.show();
+            $(this).hide();
+        })
+
+        $('#submit-oceni').on('click', function () {
+            console.log('klik')
+            console.log($('#poruka'))
+            $('#poruka').hide();
+            $('#poruka').attr('aria-hidden', 'true');
+            $('#poruka').removeClass('show');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').removeClass('show');
+        })
 
 
         $(window).on('resize', function(){
