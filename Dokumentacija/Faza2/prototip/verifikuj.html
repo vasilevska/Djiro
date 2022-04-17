@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <title>Registruj se!</title>
+    <title>verifikacija vozacke</title>
 </head>
 <body>
     <header>
@@ -29,7 +29,7 @@
     </header>
     <div class="container">
         <p class="h3 my-5">Unesite lične informacije</p>
-        <form>
+        <form action="profil.html?user=1">
             <div class="input-group">
                 <div class="form-group my-3 mr-3">
                     <label for="ime">Ime</label>
@@ -43,39 +43,24 @@
             
             <div class="input-group">                
                 <div class="form-group my-3 mr-3">
-                    <label for="email">E-mail</label>
-                    <input type="email" class="form-control" id="email" placeholder="Unesite e-mail" required>
+                    <label for="broj">Br dokumenta</label>
+                    <input type="text" class="form-control" id="broj" placeholder="Unesite broj vozacke" required>
                 </div>
                 <div class="form-group my-3 mx-3">
-                    <label for="telefon">Broj telefona</label>
-                    <input type="tel" class="form-control" id="telefon" placeholder="Broj telefona" required>
+                    <label for="izdavalac">Mesto izdavanja dokumenta</label>
+                    <input type="text" class="form-control" id="izdavalac" placeholder="Mesto izdavanja" required>
                 </div>
             </div>
 
             
-            <div class="input-group">                
-                <div class="form-group my-3 mr-3">
-                    <label for="email">Lozinka</label>
-                    <input type="password" class="form-control" id="password" placeholder="Unesite lozinku" required>
-                </div>
-                <div class="form-group my-3 mx-3">
-                    <label for="telefon">Ponovite lozinku</label>
-                    <input type="password" class="form-control" id="password-val" placeholder="Ponovite lozinku" required>
-                </div>
-            </div>
-            
             <div class="form-group my-3">
-                <label for="vozacka" class="mb-1">Profilna slika</label> <br>
+                <label for="vozacka" class="mb-1">Jasne slike lica</label> <br>
                 <input type="file" id="vozacka" accept="image/png, image/jpeg" required>
             </div>
             
             <div class="form-group my-3">
                 <label for="vozacka" class="mb-1">Slike vozačke</label> <br>
                 <input type="file" id="vozacka" accept="image/png, image/jpeg" multiple required>
-            </div>
-            <div class="form-group">
-              <label for="opis-kola">Bio</label>
-              <textarea class="form-control" id="bio" rows="5" required></textarea>
             </div>
             <div class="form-group my-3">
                 <input type="submit" class="btn btn-dark" value="Pošalji">
@@ -91,19 +76,5 @@
 
     <script src="js/jquery-3.3.1.slim.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script>
-        $('#customRange2').on('input', function(){
-            let val = $('#customRange2').val()
-            
-            $('#rangeVal').val(val)
-        });
-        $('#rangeVal').on('input', function(){
-            console.log('change')
-            let val = $('#rangeVal').val()
-            console.log(val)
-            
-            $('#customRange2').val(val)
-        });
-    </script>
 </body>
 </html>
