@@ -7,6 +7,6 @@
 - [Aleksa Račić](https://github.com/AleksaRacic)
  
  ## Statistics
- ![lines](https://img.shields.io/tokei/lines/github/vasilevska/PSI?color=yellow) ![issues](https://img.shields.io/github/issues/vasilevska/PSI)
+ ![lines](https://img.shields.io/tokei/lines/github/vasilevska/Djiro?color=yellow) ![issues](https://img.shields.io/github/issues/vasilevska/Djiro)
 
  ALL NEW IDEAS PLEASE WRITE IN SECTION ISSUES!!!
