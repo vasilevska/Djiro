@@ -1,0 +1,293 @@
+<!--
+        Autor: Nevena Vasilevska 0418/2019
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <title>Điro</title>
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid ">
+              <a class="navbar-brand font-weight-bold" href="index.html"><b>Điro</b></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse mr-4" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                  <li class="nav-item">
+                    <a class="nav-link" href="dodaj_auto.html" id = "djiler" >Postani Điler</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="rezervacije.html" id = "rezervacije">Rezervacije</a>
+                  </li>
+                  <li class="nav-item" id="modalTrigger">
+                    <a class="nav-link" href="#" data-target="#login" data-toggle="modal" id = "loginNav" >Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="profil.html" id = "profil" style = "display: none;">Profil</a>
+                </li>
+                </ul>
+                
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div id="pozadina" style="background: url({% static 'img/naslovna1a.jpeg' %}); min-height: 100vh; background-size: cover !important;" >
+    
+    <div class="row justify-content-center fixed-top pb-5 bg-black mx-5" id="search_row" style="margin-top:7%;--bs-bg-opacity: .4;">
+        <div class="col-6 my-3 text-center py-2 opacity-100">
+          <h1 class="text-white display-4 font-weight-bold mb-4" style="font-size:15em; font-weight:900">Điro</h1>
+          <h1 class="text-white display-4 font-weight-bold mb-4"> Aplikacija za lako iznajmljivanje automobila</h1>
+            <div class="d-flex">
+              
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+                <input type="text" class="me-2" name="daterange" id="demo" value="01/01/2022 - 01/15/2022" />
+                <button class="btn btn-light btn-outline-secondary"id="search">Search</button>
+                <button class="btn btn-light btn-outline-secondary mx-2" id="filter" style="display:none">Filter</button>
+            </div>
+            <div class="d-flex filteri mt-1 d-none">
+              <input class="form-control me-2" type="text" placeholder="Godiste" id="godiste">
+              <input class="form-control me-2" type="text" placeholder="Marka" id="marka">
+              <input class="form-control me-2" type="text" placeholder="Model" id="model">
+            </div>
+        </div>
+    </div>    
+    <div id="results" class="container pt-5 mt-5" style="display:none">
+        <div class="row mt-5 pl-5">
+        
+            <div class="col-4 mr-4 ml-4 mt-4">
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2020</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>18.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2022</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>29.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="col-4 mr-4 ml-4 mt-4">
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+                <div class="card rounded mt-4 mb-4">
+                    <img src="img/lada.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <div class="row align-items-center justify-content-between"> <div class="col"><h3 class="card-title">Lada Niva 2021</h3></div><div class="col-auto" style="display: flex;"> <h5>4.53</h5><img src="/img/star.png" style="height: 3ex;"></div></div>
+                      
+                      <hr>
+                      <div class="row justify-content-between"><div class="col"><a href="lada.html" class="lada-link btn btn-primary">Više detalja</a></div> <div class="col-auto"><h4>19.99&euro;/dan</h4></div></div> 
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-4">
+                <img src = "img/mapa.png" style="position: fixed; width:max-content; ">
+            </div>
+            
+    
+        </div>
+    </div>
+  </div>
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          
+          <div class="modal-content">
+            <div class="modal-body">
+              
+              <h4>Login</h4>
+              <form id="login-form" action="profil.html"> 
+                <input type="text" name="username" class="username form-control my-3" placeholder="Username"/>
+                <input type="password" name="password" class="password form-control" placeholder="Password"/>
+              
+               
+                <input type="number" name="user" id = "user" class="form-control" value="1" hidden>
+                <p style="padding-left:6px; padding-top:2px">New User?&nbsp;<a href="registracija.html">Create account</a></p>
+                <input class="btn btn btn-outline-secondary" type="submit" value="Login" />
+              </form>
+            </div>
+          </div>
+        </div>  
+    </div>
+      <script src="{% static '/js/jquery-3.3.1.slim.min.js' %}"></script>
+      <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+      <script>
+        
+        $('#demo').daterangepicker({
+            "startDate": "03/18/2022",
+            "endDate": "03/24/2022"
+        }, function(start, end, label) {
+          console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        });
+        
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        $( document ).ready(function() {
+          var user = getUrlParameter('user')
+          $('#djiler').hide()
+          console.log(user)
+          if(user == 1 ){
+            $('#profil').show()
+            $('#profil').attr("href", "profil.html?user=1")
+            $('#rezervacije').attr("href", "rezervacije.html?user=1")
+            $('#loginNav').hide()
+            $('#djiler').show()
+            $('.lada-link').attr("href", "lada.html?user=1")
+          }
+          else if(user == 2){
+            $('#profil').show()
+            $('#profil').attr("href", "profil.html?user=2")
+            $('#rezervacije').attr("href", "rezervacije.html?user=2")
+            $('#loginNav').hide()
+            $('#djiler').hide()
+            $('.lada-link').attr("href", "lada.html?user=2")
+          }
+          else {
+            $('#profil').hide()
+            $('#loginNav').show()
+            $('#rezervacije').hide()
+            $('#djiler').attr("href", "#")
+            $('#djiler').on('click', function () {
+                var myModal = new bootstrap.Modal(document.getElementById("login"));
+                myModal.show();
+            })
+          }
+        });
+
+        
+        $('#modalTrigger').on('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById("login"));
+            myModal.show();
+        })
+
+        $('#search').on('click', function () {
+            var myModal = document.getElementById("results");
+            myModal.style.display = "block";
+            $('h1').hide()
+            $('#search_row').removeClass('mx-5').removeClass('bg-black').addClass('bg-white').addClass('mt-5')
+            $("#search_row").removeAttr("style")
+            $("#pozadina").removeAttr("style")
+            $("#filter").show()
+        })
+
+        $('#filter').on('click', function () {
+            $(".filteri").removeClass('d-none');
+            $('#search_row').removeClass('pb-5')
+            $('#search_row').addClass('pb-3')
+        })
+
+        var input = document.getElementById("searchbar");
+
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                var myModal = document.getElementById("results");
+                myModal.style.display = "block";
+                $('h1').hide()
+                $('#search_row').removeClass('mx-5').removeClass('bg-black').addClass('bg-white').addClass('mt-5')
+                $("#search_row").removeAttr("style")
+                $("#pozadina").removeAttr("style")
+
+            }
+        });
+
+        $( "#login-form" ).submit(function( event ) {
+          console.log('submit')
+          event.preventDefault();
+          var origin   = window.location.origin; 
+          var username = $('input[name="username"]').val();
+          console.log(username)
+          if(username == 'vozac'){
+              origin += '?user=1';
+          }
+          else if(username == 'djiler'){
+            origin += '?user=2';
+          }
+          window.location = origin;
+        });
+
+      </script>
+
+
+
+</body>
+
+</html>
