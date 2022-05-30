@@ -22,7 +22,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=settings.ACCOUNT_EMAIL_REQUIRED)
     name = serializers.CharField(required=False, write_only=True)
-    tel = serializers.CharField(max_length=20, blank=True, null=True)
+    tel = serializers.CharField(required=False, write_only=True)
     address = serializers.CharField(required=False, write_only=True)
 
     password1 = serializers.CharField(required=True, write_only=True)

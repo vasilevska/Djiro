@@ -96,9 +96,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djiro',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '123', # TODO: na 'root'
         'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'PORT': '3308' # TODO: na 3306, kod mene je ovako namesteno
     }
 }
 
