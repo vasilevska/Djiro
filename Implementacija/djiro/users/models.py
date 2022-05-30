@@ -20,48 +20,48 @@ class Document(models.Model):
 
 class UserManager(BaseUserManager):
 
-    def _create_user(self, username, email, password, is_djiler, is_superuser, **extra_fields):
+    def _create_user(self, username, email, password, **extra_fields):
         if not username:
             raise ValueError(('The given username must be set'))
         email = self.normalize_email(email)
         user = self.model(username=username, email=email,
-                          is_djiler=is_djiler,
-                          is_superuser=is_superuser,
                           **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, username, email=None, password=None, **extra_fields):
-        return self._create_user(username, email, password, False, False,
-                                 **extra_fields)
-
-    def create_djiler(self, username, email, password, **extra_fields):
-        return self._create_user(username, email, password, True, False,
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(username, email, password,
                                  **extra_fields)
 
     def create_superuser(self, username, email, password, **extra_fields):
-        user = self._create_user(username, email, password, True, True,
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        user = self._create_user(username, email, password,
                                  **extra_fields)
         
         user.save(using=self._db)
         return user
 
 
-class User(models.Model):
-    idu = models.AutoField(db_column='IdU', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(max_length=20, blank=True, null=True)
-    email = models.CharField(max_length=50)
+class User(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    username = models.CharField(max_length=20)
     password = models.CharField(max_length=50, blank=True, null=True)
     avatar = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50)
     email_verified = models.IntegerField(blank=True, null=True)
     token = models.CharField(max_length=50, blank=True, null=True)
     tel = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=256, blank=True, null=True)
-    username = models.CharField(max_length=20)
     doc_verified = models.IntegerField(blank=True, null=True)
-    idd = models.ForeignKey(Document, models.DO_NOTHING, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
     is_djiler = models.BooleanField(default=False)
+    idd = models.ForeignKey(Document, models.DO_NOTHING, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
 
     objects = UserManager()
 

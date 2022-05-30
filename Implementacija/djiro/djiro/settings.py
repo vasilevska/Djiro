@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'reservations.apps.ReservationsConfig',
     'allauth',
     'allauth.account',
-    'rest_auth.registration'
+    'rest_auth.registration',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -57,9 +58,7 @@ CORS_ALLOWED_ORIGINS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-
     'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -96,12 +95,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djiro',
         'USER': 'root',
-        'PASSWORD': '123', # TODO: na 'root'
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
-        'PORT': '3308' # TODO: na 3306, kod mene je ovako namesteno
+        'PORT': '3306'
     }
 }
 
+# Used for better modularity
+AUTH_USER_MODE = 'users.models.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -151,8 +152,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
 
     ],
     'DEFAULT_PERMISSION_CLASSES': [
