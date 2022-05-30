@@ -3,6 +3,10 @@ import HomeView from "../views/HomeView.vue";
 import RegistrationView from "../views/RegistrationView.vue";
 import LoginView from "../views/LoginView.vue";
 
+//Test
+import MapaTest from "../views/MapaTest.vue";
+//endTest
+
 const routes = [
   {
     path: "/",
@@ -28,6 +32,11 @@ const routes = [
     name: "login",
     component: LoginView,
   },
+  {
+    path: "/mapa",
+    name: "mapa",
+    component: MapaTest,
+  }
 ];
 
 const router = createRouter({
