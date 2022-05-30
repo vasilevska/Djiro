@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'document',
-                'managed': False,
+                'managed': True,
             },
         ),
         migrations.CreateModel(
