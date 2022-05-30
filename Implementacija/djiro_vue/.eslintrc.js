@@ -13,9 +13,9 @@ module.exports = {
   },
   rules: {
     "prettier/prettier": [
-      "error",
+      "warn",
       {
-        "endOfLine": "auto"
+        endOfLine: "auto",
       },
     ],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",

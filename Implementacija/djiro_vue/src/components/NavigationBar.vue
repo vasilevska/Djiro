@@ -1,37 +1,39 @@
 <template>
-<div>
-  <b-navbar toggleable="lg" type="light" variant="light">
-    <b-navbar-brand href="#">Điro</b-navbar-brand>
-
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-         <b-navbar-nav>
-          <b-nav-item href="#">Postani Điler</b-nav-item>
-      </b-navbar-nav>
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>Korisnik</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
-</div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <router-link to="/" class="navbar-brand"
+        ><strong>Điro</strong></router-link
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarToggler"
+        aria-controls="navbarToggler"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <router-link to="/registration" class="nav-link"
+              >Register</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Sign In</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
-
 <script>
-
-
-export default defineComponent({
-    setup() {
-        
-    },
-})
+export default {
+  name: "NavigationBar",
+  setup() {},
+};
 </script>
