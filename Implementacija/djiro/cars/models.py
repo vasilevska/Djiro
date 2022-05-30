@@ -9,7 +9,7 @@ class Manufacturer(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'manufacturer'
 
 
@@ -18,7 +18,7 @@ class Model(models.Model):
     name = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'model'
         unique_together = (('idman', 'name'),)
 
@@ -38,5 +38,5 @@ class Car(models.Model):
     model = models.ForeignKey(Model, models.DO_NOTHING, related_name='Model', db_column='name', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'car'

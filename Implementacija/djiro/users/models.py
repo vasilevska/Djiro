@@ -12,7 +12,7 @@ class Document(models.Model):
     image2 = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'document'
 
 class User(models.Model):
@@ -30,7 +30,7 @@ class User(models.Model):
     idd = models.ForeignKey(Document, models.DO_NOTHING, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user'
 
 
