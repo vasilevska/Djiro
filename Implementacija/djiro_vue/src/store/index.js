@@ -56,8 +56,8 @@ export default createStore({
       commit("updateStorage", {
         access: localStorage.getItem("access"),
         refresh: localStorage.getItem("refresh"),
-      })
-    }
+      });
+    },
   },
   modules: {},
 });
