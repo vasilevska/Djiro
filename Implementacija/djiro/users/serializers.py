@@ -13,15 +13,16 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = User
-        fields = ('idu', 'name', 'email', 'username', 'name',
-                  'email_verified', 'tel', 'doc_verified', 'is_djiler'
-                 'address', 'city', 'bio', 'avatar')
+        fields = ('pk', 'first_name', 'last_name', 'email',
+                  'email_verified', 'tel', 'doc_verified', 'is_djiler',
+                 'bio', 'avatar', 'idd')
         read_only_fields = ('email', )
 
 
 class RegisterSerializer(serializers.Serializer):
+    first_name = serializers.CharField(required=False, write_only=True)
+    last_name = serializers.CharField(required=False, write_only=True)
     email = serializers.EmailField(required=settings.ACCOUNT_EMAIL_REQUIRED)
-    name = serializers.CharField(required=False, write_only=True)
     tel = serializers.CharField(required=False, write_only=True)
     address = serializers.CharField(required=False, write_only=True)
 
@@ -42,11 +43,12 @@ class RegisterSerializer(serializers.Serializer):
 
     def get_cleaned_data(self):
         return {
-            'name': self.validated_data.get('name', ''),
-            'address': self.validated_data.get('address', ''),
-            'user_type': self.validated_data.get('user_type', ''),
-            'password1': self.validated_data.get('password1', ''),
+            'first_name': self.validated_data.get('first_name', ''),
+            'last_name': self.validated_data.get('last_name', ''),
             'email': self.validated_data.get('email', ''),
+            'tel': self.validated_data.get('tel', ''),
+            'is_djiler': self.validated_data.get('is_djiler', ''),
+            'password1': self.validated_data.get('password1', ''),
         }
 
     def save(self, request):

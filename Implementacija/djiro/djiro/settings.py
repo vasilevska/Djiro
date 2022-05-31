@@ -95,14 +95,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djiro',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '123', #TODO: root
         'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'PORT': '3308' #TODO: 3306
     }
 }
 
 # Used for better modularity
-AUTH_USER_MODE = 'users.models.User'
+AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -176,3 +176,6 @@ REST_FRAMEWORK = {
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializer.UserDetailsSerializer'
 }
+
+# Needed to be set for JWT authentication to work
+USER_ID_FIELD = 'IdU'
