@@ -1,7 +1,10 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
-
+from django.core.files import File
+from PIL import Image
+from io import BytesIO
 # Create your models here.
 
 class Document(models.Model):
@@ -10,12 +13,22 @@ class Document(models.Model):
     valid_date = models.DateField(blank=True, null=True)
     issuing_place = models.CharField(max_length=50, blank=True, null=True)
     reg_number = models.CharField(max_length=20, blank=True, null=True)
-    image1 = models.CharField(max_length=50, blank=True, null=True)
-    image2 = models.CharField(max_length=50, blank=True, null=True)
+    image1 = models.ImageField(upload_to="uploads/", blank=True, null=True)
+    image2 = models.ImageField(upload_to="uploads/", blank=True, null=True)
 
     class Meta:
         managed = True
         db_table = 'document'
+
+    def get_image1(self):
+        if self.image1:
+            return "http://127.0.0.1:8000" + self.image1.url
+        return ""
+
+    def get_image1(self):
+        if self.image2:
+            return "http://127.0.0.1:8000" + self.image2.url
+        return ""
 
 
 class UserManager(BaseUserManager):
@@ -52,14 +65,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
-    avatar = models.CharField(max_length=50, blank=True, null=True)
+    avatar = models.ImageField(upload_to="uploads/", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="uploads/", blank=True, null=True)
     email_verified = models.IntegerField(blank=True, null=True)
-    token = models.CharField(max_length=50, blank=True, null=True)
     tel = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=256, blank=True, null=True)
-    doc_verified = models.IntegerField(blank=True, null=True)
+    doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
-    idd = models.ForeignKey(Document, models.DO_NOTHING, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
+    idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
 
     objects = UserManager()
 
@@ -69,6 +82,35 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         managed = True
         db_table = 'user'
+
+    def get_avatar(self):
+        if self.avatar:
+            return "http://127.0.0.1:8000" + self.avatar.url
+        return ""
+
+    def get_thumbnail(self):
+        if self.scaled_avatar:
+            return "http://127.0.0.1:8000" + self.scaled_avatar.url
+        else:
+            if self.avatar:
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
+
+                return "http://127.0.0.1:8000" + self.thumbnail.url
+            else:
+                return ""
+
+    def make_thumbnail(self, image, size=(100,100)):
+        img = Image.open(image)
+        img.convert("RGB")
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+        img.save(thumb_io, "JPEG", quality=85)
+
+        thumbnail = File(thumb_io, nmae=image.name)
+
+        return thumbnail
 
 
 """

@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
-        <form>
+        <form onsubmit="submit()">
           <div class="input-group">
             <div class="form-group my-3 mr-3">
               <label for="ime">Ime</label>
@@ -79,8 +79,8 @@
           </div>
           <div class="form-group my-3">
             <label for="profilna" class="mb-1">Profilna slika</label> <br />
+              <!-- style="display: none" -->
             <input
-              style="display: none"
               type="file"
               id="profilna"
               accept="image/png, image/jpeg"
@@ -98,8 +98,8 @@
           </div>
           <div class="form-group my-3">
             <label for="vozacka" class="mb-1">Slike vozačke</label> <br />
+              <!-- style="display: none" -->
             <input
-              style="display: none"
               type="file"
               id="vozacka"
               accept="image/png, image/jpeg"
@@ -123,10 +123,12 @@
               id="bio"
               rows="5"
               required
+              v-model="bio"
             ></textarea>
           </div>
           <div class="form-group my-3">
-            <button class="btn btn-dark" @click="submit">Pošalji</button>
+            <!-- <button class="btn btn-dark" @click="submit">Pošalji</button> -->
+            <input class="btn btn-dark" type="submit" value="Pošalji">
           </div>
         </form>
       </div>
@@ -139,7 +141,7 @@
 }
 </style>
 <script>
-// import axios from "axios";
+import { getAPI } from "@/axios-api";
 
 export default {
   name: "RegistrationView",
@@ -148,9 +150,10 @@ export default {
       firstname: "",
       lastname: "",
       email: "",
-      tel: "",
       password1: "",
       password2: "",
+      tel: "",
+      bio: "",
       selectedDoc: null,
     };
   },
@@ -158,7 +161,39 @@ export default {
     onDocSelected(event) {
       this.selectedFile = event.target.files[0];
     },
-    submit() {},
+    submit() {
+      new Promise((resolve, reject) => {
+        getAPI
+          .post("/api/registration/", {
+            email: this.email,
+            password1: this.password1,
+            password2: this.password2,
+            first_name: this.firstname,
+            last_name: this.lastname,
+            tel: this.tel,
+            bio: this.bio,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.$store
+              .dispatch("userLogin", {
+                email: this.username,
+                password: this.password,
+              })
+              .then(() => {
+                this.$router.push({ name: "home" });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            resolve();
+          })
+          .catch((err) => {
+            console.log(err);
+            reject();
+          });
+      });
+    },
   },
   setup() {},
 };
