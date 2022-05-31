@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+    <div class="container">
       <router-link to="/" class="navbar-brand"
         ><strong>Điro</strong></router-link
       >
