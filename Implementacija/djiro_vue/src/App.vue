@@ -19,6 +19,7 @@
 </style>
 
 <script>
+import { mapActions } from 'vuex';
 import NavigationBar from "./components/NavigationBar.vue";
 
 export default {
@@ -26,5 +27,13 @@ export default {
   components: {
     NavigationBar,
   },
+  methods: {
+    ...mapActions([
+      "fetchAccessToken"
+    ]),
+  },
+  created() {
+    this.fetchAccessToken();
+  }
 };
 </script>

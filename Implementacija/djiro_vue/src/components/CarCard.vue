@@ -2,11 +2,7 @@
   <div class="row mt-5">
     <div class="col-sm-4">
       <div class="card">
-        <img
-          class="card-img-top"
-          width="100%"
-          v-bind:src="images[0]"
-        />
+        <img class="card-img-top" width="100%" v-bind:src="images[0]" />
         <div class="card-body pt-0 px-0">
           <div class="d-flex flex-row justify-content-between mb-0 px-3">
             <small class="text-muted mt-1">Price per day:</small>

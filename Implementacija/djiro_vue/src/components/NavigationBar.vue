@@ -17,12 +17,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="accessToken==null">
             <router-link to="/registration" class="nav-link"
               >Register</router-link
             >
           </li>
-          <li class="nav-item">
+          <!-- add v-if when you want to show an elemetn only if condition is satisified -->
+          <li class="nav-item" v-if="accessToken==null">
             <router-link to="/login" class="nav-link">Sign In</router-link>
           </li>
         </ul>
@@ -32,8 +33,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "NavigationBar",
+  computed: mapState(["accessToken"]),
   setup() {},
 };
 </script>

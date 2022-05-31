@@ -2,12 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegistrationView from "../views/RegistrationView.vue";
 import LoginView from "../views/LoginView.vue";
+import LogoutView from "../views/LogoutView.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+    // *** If you want to make page available ONLY if user is logged in, add below option to any of the routes: ***
+    // meta: {
+    //   requiresLogin: true,
+    // },
   },
   {
     path: "/about",
@@ -22,11 +27,17 @@ const routes = [
     path: "/registration",
     name: "registration",
     component: RegistrationView,
+
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
+  },
+  {
+    path: "/logout",
+    name: "logout",
+    component: LogoutView,
   },
 ];
 
