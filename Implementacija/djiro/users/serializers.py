@@ -3,7 +3,7 @@ from allauth.account.adapter import get_adapter
 from djiro import settings
 from .models import User
 from allauth.account.utils import setup_user_email
-
+import re
 from .models import *
 
 
@@ -34,7 +34,8 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(required=True)
+    first_name = serializers.CharField(required=True, write_only=True)
+    last_name = serializers.CharField(required=True, write_only=True)
 
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
@@ -49,9 +50,13 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
+        prog = re.compile(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
         if data['password1'] != data['password2']:
             raise serializers.ValidationError(
                 ("The two password fields didn't match."))
+        elif data['tel'] != "" and prog.match(data['tel']) is None:
+            raise serializers.ValidationError(
+                ("Please insert telephone in the correct 10-digit format"))
         return data
 
     def custom_signup(self, request, user):
@@ -79,7 +84,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.email_verified = True
         user.doc_verified= True
 
-        user.avatar = request.FILES['avatar']
+        if 'avatar' in request.FILES and request.FILES['avatar'] != '':
+            user.avatar = request.FILES['avatar']
         user.tel = self.cleaned_data['tel']
         user.bio = self.cleaned_data['bio']
 
