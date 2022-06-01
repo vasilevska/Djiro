@@ -5,12 +5,19 @@
 
 <script>
 import Config from './config.js'
+import SVG from "./pin.svg"
     export default{
         name: 'MapComponent',
+        props:[
+            'coords',
+            'center'
+        ],
         data() {
         return {
             apiLoaded: false,
-            map: null
+            map: null,
+            map_coords: this.coords,
+            map_center: this.center
         }
         },
         methods: {
@@ -50,14 +57,43 @@ import Config from './config.js'
                 });
             },
             render(){
+                let self = this;
                 return new Promise((resolve, reject) => {
-                    Promise.all([this.loadApi()]).then(() => {
+                    Promise.all([self.loadApi()]).then(() => {
+
+                        //console.log(self.map_center);
+                        var centr = new Microsoft.Maps.Location(self.map_center['lat'], self.map_center['long']);
+
                         this.map = new Microsoft.Maps.Map(this.$refs.mapContainer, {
                             credentials: Config.credentials,
-                            center: new Microsoft.Maps.Location(51.50632, -0.12714),
+                            center: centr,
                             mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-                            zoom: 10
+                            zoom: 12,
+                            disableScrollWheelZoom: true,
+                            mapTypeId: Microsoft.Maps.MapTypeId.road,
+                            disableStreetside: true,
+                            showZoomButtons: false,
+                            showLocateMeButton: false,
+                            disableMapTypeSelectorMouseOver: true,
+                            disableStreetside: true,
+                            showMapTypeSelector: false
                         });
+
+                        self.map.entities.push(new Microsoft.Maps.Pushpin(centr,{
+                            icon: SVG,
+                            anchor: new Microsoft.Maps.Point(0, 0)
+                        }))
+
+                        for(var coord of this.map_coords){
+                            var center = new Microsoft.Maps.Location(coord['lat'], coord['long']);
+                            var pin = new Microsoft.Maps.Pushpin(center, {
+                            icon: SVG,
+                            anchor: new Microsoft.Maps.Point(0, 0)
+                        });
+                        this.map.entities.push(pin);
+                        }
+
+
                         resolve();
                     }).catch(function(err){
                         reject(err);
@@ -68,6 +104,7 @@ import Config from './config.js'
             }
         },
     mounted(){
+        console.log(this.map_coords);
         this.render();
     }
     }
