@@ -28,7 +28,7 @@
           </li>
           <li class="nav-item" v-if="accessToken != null">
             <router-link to="/" class="nav-link">Become a Djiler</router-link>
-            <!-- Change path when car form is made -->
+            <!-- TODO: Change path when car form is made -->
           </li>
           <li class="nav-item dropdown" v-if="accessToken != null">
             <a
@@ -52,7 +52,7 @@
               </li>
               <li>
                 <router-link class="dropdown-item" to="/verification"
-                  >Verify driving license</router-link
+                  >Verify license</router-link
                 >
               </li>
               <!-- Change path when profile view is made-->
@@ -68,7 +68,14 @@
     </div>
   </nav>
 </template>
-
+<style scoped>
+.navbar {
+  padding-right: 50px;
+}
+.dropdown-menu-dark {
+  z-index: 10000;
+}
+</style>
 <script>
 import { mapState } from "vuex";
 export default {

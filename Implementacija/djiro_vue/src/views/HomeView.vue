@@ -40,7 +40,7 @@ export default {
   name: "HomeView",
   components: {},
   computed: mapState(["APIData"]),
-  created() {
+  mounted() {
     // TODO: Change this with car api and car cards, this only served for testing
     getAPI
       .get("/api/sample", {
