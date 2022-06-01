@@ -3,7 +3,17 @@
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
-        <form enctype=”multipart/form-data”>
+        <div id="error-div" class="alert alert-danger" role="alert" style="display: none">
+          Please correct the following errors:
+              <ul>
+                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+              </ul>
+        </div>
+        <form 
+        id="registration-form" 
+        enctype=”multipart/form-data”
+        method="post"
+        >
         <div class="input-group">
           <div class="form-group my-3 mr-3">
             <label for="ime">Ime</label>
@@ -108,6 +118,7 @@
             class="btn btn-dark"
             v-on:click.prevent="submit_formdata"
             type="submit"
+            id="posalji"
             value="Pošalji"
           />
         </div>
@@ -122,7 +133,6 @@
 }
 </style>
 <script>
-import { getAPI } from "@/axios-api";
 import axios from "axios";
 
 export default {
@@ -137,52 +147,13 @@ export default {
       tel: "",
       bio: "",
       selectedDoc: null,
+      errors: [],
     };
   },
   methods: {
     onDocSelected(event) {
       this.selectedFile = event.target.files[0];
     },
-    submit() {
-      new Promise((resolve, reject) => {
-        getAPI
-          .post("/api/registration/", {
-            email: this.email,
-            password1: this.password1,
-            password2: this.password2,
-            first_name: this.firstname,
-            last_name: this.lastname,
-            tel: this.tel,
-            bio: this.bio,
-          })
-          .then((response) => {
-            console.log(response.data);
-            this.$store
-              .dispatch("userLogin", {
-                email: this.email,
-                password: this.password1,
-              })
-              .then(() => {
-                this.$router.push({ name: "home" });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            resolve();
-          })
-          .catch((err) => {
-            console.log(err);
-            reject();
-          });
-      });
-    },
-    // email: this.email,
-    // password1: this.password1,
-    // password2: this.password2,
-    // first_name: this.firstname,
-    // last_name: this.lastname,
-    // tel: this.tel,
-    // bio: this.bio,
     submit_formdata() {
       var formElement = document.querySelector("form");
       var formData = new FormData(formElement);
@@ -190,7 +161,7 @@ export default {
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
       }
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         axios({
           method: "post",
           url: "http://127.0.0.1:8000/api/registration/",
@@ -213,8 +184,13 @@ export default {
             resolve();
           })
           .catch((err) => {
-            console.log(err);
-            reject();
+            console.log(err.response.data);
+            this.errors = [];
+            for (let key in err.response.data) {
+              this.errors.push(key + " : " + err.response.data[key]);
+            }
+            document.getElementById("error-div").style.display = "block";
+            resolve();
           });
       });
     },
