@@ -63,12 +63,12 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=50, unique=True)
-    first_name = models.CharField(max_length=30, blank=True, null=False)
-    last_name = models.CharField(max_length=30, blank=True, null=False)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     thumbnail = models.ImageField(upload_to="thumbnails/", blank=True, null=True)
     email_verified = models.IntegerField(blank=True, null=True)
-    tel = models.CharField(max_length=20, blank=True, null=False)
+    tel = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=256, blank=True, null=True)
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
