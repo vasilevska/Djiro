@@ -4,5 +4,5 @@ import router from "./router";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-
-createApp(App).use(store).use(router).mount("#app");
+var cors = require('cors');
+createApp(App).use(store).use(router).use(cors).mount("#app");
