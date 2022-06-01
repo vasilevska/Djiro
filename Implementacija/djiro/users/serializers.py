@@ -29,16 +29,12 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'first_name', 'last_name', 'email',
                   'email_verified', 'tel', 'doc_verified', 'is_djiler',
-                 'bio', 'avatar', 'idd')
+                 'bio', 'get_avatar', 'get_thumbnail', 'idd')
         read_only_fields = ('email', )
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    first_name = serializers.CharField(required=False, write_only=True)
-    last_name = serializers.CharField(required=False, write_only=True)
-    email = serializers.EmailField(required=settings.ACCOUNT_EMAIL_REQUIRED)
-    tel = serializers.CharField(required=False, write_only=True)
-    bio = serializers.CharField(required=False, write_only=True)
+    avatar = serializers.ImageField(required=True)
 
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
@@ -46,8 +42,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'tel', 'bio',
-        'get_avatar', 'get_thumbnail')
+        fields = ('pk', 'email', 'first_name', 'last_name', 'password1', 'password2', 'tel', 'bio',
+        'avatar')
 
     def validate_password1(self, password):
         return get_adapter().clean_password(password)
@@ -68,6 +64,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'password1': self.validated_data.get('password1', ''),
             'password2': self.validated_data.get('password2', ''),
             'email': self.validated_data.get('email', ''),
+            'avatar': self.validated_data.get('avatar', ''),
             'tel': self.validated_data.get('tel', ''),
             'bio': self.validated_data.get('bio', ''),
         }
@@ -82,8 +79,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.email_verified = True
         user.doc_verified= True
 
-        user.save()
-        return user
+        user.avatar = request.FILES['avatar']
+        user.tel = self.cleaned_data['tel']
+        user.bio = self.cleaned_data['bio']
 
         user.save()
         return user

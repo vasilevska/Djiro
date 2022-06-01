@@ -46,7 +46,14 @@
               aria-labelledby="navbarDarkDropdownMenuLink"
             >
               <li>
-                <router-link class="dropdown-item" to="/">Profile</router-link>
+                <router-link class="dropdown-item" to="/profile"
+                  >Profile</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/verification"
+                  >Verify driving license</router-link
+                >
               </li>
               <!-- Change path when profile view is made-->
               <li>
@@ -66,7 +73,7 @@
 import { mapState } from "vuex";
 export default {
   name: "NavigationBar",
-  computed: mapState(["accessToken"]),
+  computed: mapState(["accessToken", "id"]),
   setup() {},
 };
 </script>

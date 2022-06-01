@@ -13,8 +13,8 @@ class Document(models.Model):
     valid_date = models.DateField(blank=True, null=True)
     issuing_place = models.CharField(max_length=50, blank=True, null=True)
     reg_number = models.CharField(max_length=20, blank=True, null=True)
-    image1 = models.ImageField(upload_to="uploads/", blank=True, null=True)
-    image2 = models.ImageField(upload_to="uploads/", blank=True, null=True)
+    image1 = models.ImageField(upload_to="documents/", blank=True, null=True)
+    image2 = models.ImageField(upload_to="documents/", blank=True, null=True)
 
     class Meta:
         managed = True
@@ -65,8 +65,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
-    avatar = models.ImageField(upload_to="uploads/", blank=True, null=True)
-    thumbnail = models.ImageField(upload_to="uploads/", blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    thumbnail = models.ImageField(upload_to="thumbnails/", blank=True, null=True)
     email_verified = models.IntegerField(blank=True, null=True)
     tel = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=256, blank=True, null=True)
@@ -89,18 +89,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return ""
 
     def get_thumbnail(self):
-        if self.scaled_avatar:
-            return "http://127.0.0.1:8000" + self.scaled_avatar.url
+        if self.thumbnail:
+            return "http://127.0.0.1:8000" + self.thumbnail.url
         else:
             if self.avatar:
-                self.thumbnail = self.make_thumbnail(self.image)
+                self.thumbnail = self.make_thumbnail(self.avatar)
                 self.save()
 
                 return "http://127.0.0.1:8000" + self.thumbnail.url
             else:
                 return ""
 
-    def make_thumbnail(self, image, size=(100,100)):
+    def make_thumbnail(self, image, size=(150,150)):
         img = Image.open(image)
         img.convert("RGB")
         img.thumbnail(size)
@@ -108,7 +108,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         thumb_io = BytesIO()
         img.save(thumb_io, "JPEG", quality=85)
 
-        thumbnail = File(thumb_io, nmae=image.name)
+        thumbnail = File(thumb_io, name=image.name)
 
         return thumbnail
 

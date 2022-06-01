@@ -10,5 +10,6 @@ urlpatterns = [
     path('sample/', SampleView.as_view()),
     path('api-token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('registration/', registration_view, name="registration")
+    path('registration/', UserRegistration.as_view(), name='registration'),
+    path('get-id/', RetrieveIdView.as_view(), name='get-id'),
 ]

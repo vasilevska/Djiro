@@ -5,6 +5,7 @@ export default createStore({
   state: {
     accessToken: null,
     refreshToken: null,
+    id: "",
     APIData: "",
   },
   getters: {
@@ -13,17 +14,21 @@ export default createStore({
     },
   },
   mutations: {
-    updateStorage(state, { access, refresh }) {
+    updateStorage(state, { access, refresh, id }) {
       state.accessToken = access;
       state.refreshToken = refresh;
+      state.id = id;
       localStorage.setItem("access", access);
       localStorage.setItem("refresh", access);
+      localStorage.setItem("id", id);
     },
     destroyToken(state) {
       state.accessToken = null;
       state.refreshToken = null;
+      state.id = null;
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
+      localStorage.removeItem("id");
     },
   },
   actions: {
@@ -40,10 +45,25 @@ export default createStore({
             password: userCredentials.password,
           })
           .then((response) => {
-            context.commit("updateStorage", {
-              access: response.data.access,
-              refresh: response.data.refresh,
-            });
+            var access = response.data.access;
+            var refresh = response.data.refresh;
+            getAPI
+            .get("/api/get-id/", {
+            headers: { Authorization: `Bearer ${access}` }
+            })
+              .then((response) => {
+                // TODO: Obrisi odmah posle testiranja
+                console.log(response.data.id)
+                context.commit("updateStorage", {
+                  access: access,
+                  refresh: refresh,
+                  id: response.data.id
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                reject();
+              });
             resolve();
           })
           .catch((err) => {
@@ -56,6 +76,7 @@ export default createStore({
       commit("updateStorage", {
         access: localStorage.getItem("access"),
         refresh: localStorage.getItem("refresh"),
+        id: localStorage.getItem("id"),
       });
     },
   },
