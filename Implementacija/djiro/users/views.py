@@ -13,7 +13,6 @@ from .serializers import *
 # Create your views here.
 # TODO: Testing authentication through fetching users, will be returned to APIView later
 class SampleView(generics.RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
 
     def get(self, request, format=None):
