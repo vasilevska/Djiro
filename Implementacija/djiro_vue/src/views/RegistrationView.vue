@@ -3,6 +3,9 @@
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
+        <div class="alert alert-danger" role="alert">
+          Please correct the following errors:
+        </div>
         <form enctype=”multipart/form-data”>
         <div class="input-group">
           <div class="form-group my-3 mr-3">
@@ -137,6 +140,7 @@ export default {
       tel: "",
       bio: "",
       selectedDoc: null,
+      errors: [],
     };
   },
   methods: {
@@ -176,13 +180,6 @@ export default {
           });
       });
     },
-    // email: this.email,
-    // password1: this.password1,
-    // password2: this.password2,
-    // first_name: this.firstname,
-    // last_name: this.lastname,
-    // tel: this.tel,
-    // bio: this.bio,
     submit_formdata() {
       var formElement = document.querySelector("form");
       var formData = new FormData(formElement);
