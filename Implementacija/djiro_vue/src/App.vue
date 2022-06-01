@@ -1,13 +1,11 @@
 <template>
   <div>
     <div class="header">
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
       <navigation-bar></navigation-bar>
     </div>
 
-    <div class="container">
-      <router-view />
+    <div class="container-fluid p-0">
+      <router-view/>
     </div>
 
     <div class="footer"></div>
