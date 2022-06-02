@@ -16,8 +16,10 @@
     "core-js": "^3.8.3",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
+    "stripe": "^9.6.0",
     "vue": "^3.2.36",
     "vue-router": "^4.0.3",
+    "vue-spinner": "^1.0.4",
     "vuex": "^4.0.0",
     "vuex-persistedstate": "^4.1.0"
   },
