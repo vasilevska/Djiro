@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center" style="height:80vh">
       <div v-if="errors" id="error-div" class="alert alert-danger" role="alert">
             Ispravite sledece greske:
             <ul>
@@ -90,7 +90,7 @@
         </div>
         </form>
       </div>
-      <div v-else class="col-sm-6">
+      <div v-else class="col-auto">
           <ring-loader :color="color1" :height="height"></ring-loader>
       </div>
     </div>
@@ -113,10 +113,7 @@ export default {
       errors: null,
       sending: false,
       color1: '#3AB982',
-      height: '35px',
-      width: '4px',
-      margin: '2px',
-      radius: '2px'
+      height: '50px'
     };
   },
   methods: {
