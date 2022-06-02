@@ -39,6 +39,7 @@ class CarSerilizer(serializers.ModelSerializer):
             "descr",
             "transmision",
             "images",
+            "idu",
             "type",
             "slug",
             "get_image",

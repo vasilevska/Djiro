@@ -9,7 +9,12 @@
         </div>
         <div class="row">
             <div class="col-6" style="text-align: center;">
-                 <h3>{{car.model}} {{car.year}}</h3>
+                 <h3>{{model.name}} {{car.year}}</h3>
+                 <hr>
+                 <div style="text-align: left;">
+                    <h1>Opis:</h1>
+                    <h4>{{car.descr}}</h4>
+                 </div>
             </div>
             <div class="col-6">
                 <h2>Cena: {{car.price_per_day}}€/dan</h2>
