@@ -8,14 +8,14 @@
             type="text"
             name="username"
             class="username form-control my-3"
-            placeholder="Username"
+            placeholder="Email adresa"
             v-model="username"
           />
           <input
             type="password"
             name="password"
             class="password form-control"
-            placeholder="Password"
+            placeholder="Šifra"
             v-model="password"
           />
           <p class="error">
@@ -29,7 +29,7 @@
           <input
             class="btn btn btn-outline-secondary"
             type="button"
-            value="Login"
+            value="Loguj se"
             @click="login"
           />
         </form>

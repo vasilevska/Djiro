@@ -25,7 +25,7 @@
           <input
             class="form-control me-2"
             type="search"
-            placeholder="Enter a destiantion"
+            placeholder="Odaberite lokaciju"
             aria-label="Search"
             id="searchbar"
             required
@@ -40,7 +40,7 @@
           />
           <button
             class="btn btn-light btn-outline-secondary"
-            id="search"
+            id="Traži"
             @click="search()"
           >
             Search
@@ -94,7 +94,7 @@
 <style scoped>
 .home {
   background-image: url("@/assets/naslovna1a.jpeg");
-  min-height: 92.5vh;
+  min-height: 89.5vh;
   background-size: cover !important;
   top: 10vh;
 }

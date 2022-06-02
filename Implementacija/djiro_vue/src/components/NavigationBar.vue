@@ -2,7 +2,9 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand"
-        ><strong>Điro</strong></router-link
+        >
+        <img src="@/assets/djiro_logo.png" alt="logo" style = "height:40px;"/>
+        <strong>   Điro</strong></router-link
       >
       <button
         class="navbar-toggler"
@@ -22,7 +24,7 @@
             v-if="accessToken == null || accessToken == 'null'"
           >
             <router-link to="/registration" class="nav-link"
-              >Register</router-link
+              >Registruj se</router-link
             >
           </li>
           <!-- add v-if when you want to show an elemetn only if condition is satisified; needs to account for 'null' string value -->
@@ -36,7 +38,7 @@
             class="nav-item"
             v-if="accessToken != null && accessToken != 'null'"
           >
-            <router-link to="/create-listing" class="nav-link">Become a Djiler</router-link>
+            <router-link to="/create-listing" class="nav-link">Postani Điler</router-link>
             <!-- TODO: Change path when car form is made -->
           </li>
           <li
@@ -51,7 +53,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              User
+              Korisnik
             </a>
             <ul
               class="dropdown-menu dropdown-menu-dark"
@@ -61,18 +63,17 @@
                 <router-link
                   class="dropdown-item"
                   :to="'/profile/' + this.$store.state.id"
-                  >Profile</router-link
+                  >Profil</router-link
                 >
               </li>
               <li>
                 <router-link class="dropdown-item" to="/verification"
-                  >Verify license</router-link
+                  >Verifikuj vozačku</router-link
                 >
               </li>
-              <!-- Change path when profile view is made-->
               <li>
                 <router-link class="dropdown-item" to="/logout"
-                  >Logout</router-link
+                  >Izloguj se</router-link
                 >
               </li>
             </ul>
