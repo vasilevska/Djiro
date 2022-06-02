@@ -38,8 +38,8 @@
 
                                 <hr> 
                                 <div class="row align-bottom">
-                                    <!--<div class="col-3"><button class="btn btn-primary mt-4" style="width:150px"><router-link v-bind:to="car.get_absolute_url">
-                                        Vise detalja</router-link></button></div>-->
+                                    <div class="col-3"><button class="btn btn-primary" style="width:150px"><router-link v-bind:to="car.get_absolute_url" style="color: white;">
+                                        Vise detalja</router-link></button></div>
                                     <div class="col-3 align-right">
                                         <h3 class="id-size-4">{{car.price_per_day}}$/dan</h3>
                                     </div>

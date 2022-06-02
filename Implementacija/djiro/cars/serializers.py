@@ -23,6 +23,8 @@ class CarSerilizer(serializers.ModelSerializer):
             "transmision",
             "images",
             "type",
+            "slug",
             "get_image",
-            "get_thumbnail"
+            "get_thumbnail",
+            "get_absolute_url",
         ]

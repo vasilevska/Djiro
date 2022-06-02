@@ -14,7 +14,7 @@ class Reservation(models.Model):
     idc = models.ForeignKey(Car, models.DO_NOTHING, db_column='IdC', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'reservation'
 
 class Ratingdriver(models.Model):
@@ -26,7 +26,7 @@ class Ratingdriver(models.Model):
     descr = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ratingdriver'
 
 class Ratingcar(models.Model):
@@ -39,7 +39,7 @@ class Ratingcar(models.Model):
     idd = models.ForeignKey(User, models.DO_NOTHING, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ratingcar'
 
 class Holding(models.Model):
@@ -48,5 +48,5 @@ class Holding(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'holding'

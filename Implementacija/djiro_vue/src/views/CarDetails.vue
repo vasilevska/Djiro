@@ -4,7 +4,7 @@
         <div class="columns is-multiline">
             <div class="column is-9">
                 <figure class="image mb-6">
-                    <img v-bind:src="car.get_image">
+                    <img v-bind:src="car.get_image" style="width: 50%; height: 50%;">
                 </figure>
                 
                 <h1>{{car.descr}}</h1>
@@ -22,7 +22,7 @@ export default {
     name: 'CarDetails',
     data(){
         return{
-            car:{}
+            car:[]
         }
     },
     mounted(){
