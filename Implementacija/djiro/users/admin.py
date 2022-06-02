@@ -80,3 +80,4 @@ class ValidationAdmin(admin.ModelAdmin):
     actions = [verifikuj, odverifikuj, delete_model,]
 
 
+

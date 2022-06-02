@@ -2,10 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegistrationView from "../views/RegistrationView.vue";
 import LoginView from "../views/LoginView.vue";
+import ListingView from "../views/ListingView.vue"
+import CarDetails from "@/views/CarDetails.vue"
 import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import EditProfile from "../views/EditProfile.vue";
+
 
 const routes = [
   {
@@ -45,6 +48,16 @@ const routes = [
     component: LoginView,
   },
   {
+
+    path: "/listing",
+    name: "listing",
+    component: ListingView
+  },
+  {
+    path: '/:car_slug/',
+    name: 'carDetails',
+    component: CarDetails
+  },
     path: "/logout",
     name: "logout",
     component: LogoutView,
