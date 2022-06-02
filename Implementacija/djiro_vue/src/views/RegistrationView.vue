@@ -3,7 +3,13 @@
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
-        <form>
+        <div id="error-div" class="alert alert-danger" role="alert">
+            Please correct the following errors:
+            <ul>
+              <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            </ul>
+        </div>
+        <form enctype="multipart/form-data">
           <div class="input-group">
             <div class="form-group my-3 mr-3">
               <label for="ime">Ime</label>
@@ -11,6 +17,7 @@
                 type="text"
                 class="form-control"
                 id="ime"
+                name="first_name"
                 placeholder="Unesite ime"
                 required
                 v-model="firstname"
@@ -22,6 +29,7 @@
                 type="text"
                 class="form-control"
                 id="prezime"
+                name="last_name"
                 placeholder="Unesite prezime"
                 required
                 v-model="lastname"
@@ -36,6 +44,7 @@
                 type="email"
                 class="form-control"
                 id="email"
+                name="email"
                 placeholder="Unesite e-mail"
                 required
                 v-model="email"
@@ -47,6 +56,7 @@
                 type="tel"
                 class="form-control"
                 id="telefon"
+                name="tel"
                 placeholder="Broj telefona"
                 required
                 v-model="tel"
@@ -60,6 +70,7 @@
                 type="password"
                 class="form-control"
                 id="password1"
+                name="password1"
                 placeholder="Unesite lozinku"
                 required
                 v-model="password1"
@@ -71,6 +82,7 @@
                 type="password"
                 class="form-control"
                 id="password2"
+                name="password2"
                 placeholder="Ponovite lozinku"
                 required
                 v-model="password2"
@@ -79,54 +91,31 @@
           </div>
           <div class="form-group my-3">
             <label for="profilna" class="mb-1">Profilna slika</label> <br />
+            <!-- style="display: none" -->
             <input
-              style="display: none"
               type="file"
               id="profilna"
+              name="avatar"
               accept="image/png, image/jpeg"
-              required
-              @change="onAvatarSelected"
-              ref="avatarInput"
             />
-            <button
-              type="button"
-              class="btn btn-dark"
-              @click="$refs.avatarInput.click()"
-            >
-              Izaberi profilnu sliku
-            </button>
-          </div>
-          <div class="form-group my-3">
-            <label for="vozacka" class="mb-1">Slike vozačke</label> <br />
-            <input
-              style="display: none"
-              type="file"
-              id="vozacka"
-              accept="image/png, image/jpeg"
-              multiple
-              required
-              @change="onDocSelected"
-              ref="docInput"
-            />
-            <button
-              type="button"
-              class="btn btn-dark"
-              @click="$refs.docInput.click()"
-            >
-              Izaberi sliku dokumenta
-            </button>
           </div>
           <div class="form-group">
             <label for="bio">Bio</label>
             <textarea
               class="form-control"
               id="bio"
+              name="bio"
               rows="5"
-              required
+              v-model="bio"
             ></textarea>
           </div>
           <div class="form-group my-3">
-            <button class="btn btn-dark" @click="submit">Pošalji</button>
+            <input
+              class="btn btn-dark"
+              v-on:click.prevent="submit_formdata"
+              type="submit"
+              value="Pošalji"
+            />
           </div>
         </form>
       </div>
@@ -137,9 +126,12 @@
 .container {
   justify-content: center;
 }
+#error-div {
+  display : none;
+}
 </style>
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "RegistrationView",
@@ -148,17 +140,58 @@ export default {
       firstname: "",
       lastname: "",
       email: "",
-      tel: "",
       password1: "",
       password2: "",
-      selectedDoc: null,
+      tel: "",
+      bio: "",
+      errors: [],
     };
   },
   methods: {
     onDocSelected(event) {
       this.selectedFile = event.target.files[0];
     },
-    submit() {},
+    submit_formdata() {
+      var formElement = document.querySelector("form");
+      var formData = new FormData(formElement);
+      // Display the key/value pairs
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      new Promise((resolve) => {
+        axios({
+          method: "post",
+          url: "http://127.0.0.1:8000/api/registration/",
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then((response) => {
+            console.log(response.data);
+            document.getElementById("error-div").style.display = "none";
+            this.$store
+              .dispatch("userLogin", {
+                email: this.email,
+                password: this.password1,
+              })
+              .then(() => {
+                this.$router.push({ name: "home" });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            resolve();
+          })
+          .catch((err) => {
+            console.log(err);
+            this.errors = []
+            for (let key in err.response.data) {
+              this.errors.push(key + " : " + err.response.data[key]);
+            }
+            document.getElementById("error-div").style.display = "block";
+            resolve();
+          });
+      });
+    },
   },
   setup() {},
 };

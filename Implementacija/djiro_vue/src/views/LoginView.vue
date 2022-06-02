@@ -8,14 +8,14 @@
             type="text"
             name="username"
             class="username form-control my-3"
-            placeholder="Username"
+            placeholder="Email adresa"
             v-model="username"
           />
           <input
             type="password"
             name="password"
             class="password form-control"
-            placeholder="Password"
+            placeholder="Šifra"
             v-model="password"
           />
           <p class="error">
@@ -29,8 +29,8 @@
           <input
             class="btn btn btn-outline-secondary"
             type="button"
-            value="Login"
-            @click="submitInfo"
+            value="Loguj se"
+            @click="login"
           />
         </form>
       </div>
@@ -39,33 +39,44 @@
 </template>
 <style>
 h1 {
-    padding: 10px;
+  padding: 10px;
 }
 p {
-    padding-left: 6px;
-    padding-top: 2px
+  padding-left: 6px;
+  padding-top: 2px;
 }
 .error {
-    color: red;
+  color: red;
 }
 </style>
 <script>
 export default {
   name: "LoginView",
   data() {
-      return {
-          username: "",
-          pasword: "",
-          error: ""
-      }
+    return {
+      username: "",
+      pasword: "",
+      incorrectAuth: false,
+      error: "",
+    };
   },
   setup() {},
   methods: {
-      submitInfo() {
-          if (this.username == "" || this.pasword == "") {
-              this.error = "Please fill both username and password fields."
-          }
-      }
-  }
+    login() {
+      this.$store
+        .dispatch("userLogin", {
+          email: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: "home" });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.error = "Make sure both username and password are correct.";
+          this.incorrectAuth = true;
+        });
+    },
+  },
 };
 </script>
