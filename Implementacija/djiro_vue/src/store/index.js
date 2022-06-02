@@ -48,16 +48,16 @@ export default createStore({
             var access = response.data.access;
             var refresh = response.data.refresh;
             getAPI
-            .get("/api/get-id/", {
-            headers: { Authorization: `Bearer ${access}` }
-            })
+              .get("/api/get-id/", {
+                headers: { Authorization: `Bearer ${access}` },
+              })
               .then((response) => {
                 // TODO: Obrisi odmah posle testiranja
-                console.log(response.data.id)
+                console.log(response.data.id);
                 context.commit("updateStorage", {
                   access: access,
                   refresh: refresh,
-                  id: response.data.id
+                  id: response.data.id,
                 });
               })
               .catch((err) => {
