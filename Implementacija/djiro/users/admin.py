@@ -36,14 +36,33 @@ class VerifikovanoFIlter(SimpleListFilter):
 @admin.action(description='Verifikuj vozacku')
 def verifikuj(modeladmin, request, queryset):
     queryset.update(verifikovan=True)
+    for ver in queryset:
+        user = ver.user
+        user.doc_verified = True
+        user.save(update_fields=["doc_verified"])
+
 
 
 @admin.action(description='Ukloni verifikaciju')
 def odverifikuj(modeladmin, request, queryset):
     queryset.update(verifikovan=False)
+    for ver in queryset:
+        user = ver.user
+        user.doc_verified = False
+        user.save(update_fields=["doc_verified"])
+
+@admin.action(description='Izbrisi oznaceno')
+def delete_model(self, request, obj):
+        for o in obj.all():
+            o.delete()
 
 @admin.register(Validacija)
 class ValidationAdmin(admin.ModelAdmin):
+
+    def get_actions(self, request):
+        actions = super(ValidationAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
 
     def image1_tag(self, object): 
         return format_html('<img src="{}" height="200"/>'.format(object.getImage1()))
@@ -58,6 +77,6 @@ class ValidationAdmin(admin.ModelAdmin):
     list_display= ('verifikovan', 'user', 'image1_tag', 'image2_tag', )
     list_filter = (VerifikovanoFIlter,)
     search_fields = ('user__email',)
-    actions = [verifikuj,odverifikuj,]
+    actions = [verifikuj, odverifikuj, delete_model,]
 
 
