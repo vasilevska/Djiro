@@ -64,7 +64,7 @@ class Car(models.Model):
 
     class Meta:
         managed = True
-db_table = 'car'
+        db_table = 'car'
 
     def __str__(self):
         return str(self.idc)

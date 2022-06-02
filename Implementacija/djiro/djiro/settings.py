@@ -97,9 +97,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djiro',
         'USER': 'root',
-        'PASSWORD': '123',  # TODO: root
+        'PASSWORD': 'root',  # TODO: root
         'HOST': '127.0.0.1',
-        'PORT': '3308' # TODO: 3306
+        'PORT': '3306' # TODO: 3306
     }
 }
 
@@ -149,7 +149,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
-=======
 
 ACCOUNT_EMAIL_REQUIRED = True
 
