@@ -169,9 +169,16 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <h6 class="mb-0">Full Name</h6>
+                  <h6 class="mb-0">First Name</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.first_name + " " + user.last_name }}</div>
+                <div class="col-sm-9 text-secondary">{{ user.first_name }}</div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Last Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">{{ user.last_name }}</div>
               </div>
               <hr />
               <div class="row">
@@ -206,11 +213,11 @@
               <hr />
               <div class="row">
                 <div class="col-sm-12">
-                  <a
-                    class="btn btn-info"
-                    target="__blank"
-                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
-                    >Edit</a>
+                  <router-link
+                    class="btn btn-dark"
+                    :to="'/edit-profile/' + this.$store.state.id"
+                    v-if="myProfile == true"
+                    >Edit</router-link>
                 </div>
               </div>
           </div>
@@ -220,6 +227,7 @@
   </div>
 </div>
 </template>
+<!-- "https://www.bootdey.com/snippets/view/profile-edit-data-and-skills" -->
 <style scoped>
 body {
     margin-top:20px;
@@ -283,13 +291,17 @@ export default {
     data() {
       return {
         user: null,
+        myProfile: false,
       }
     },
     created() {
-      console.log(this.$store.state.id);
+      // Check if you can edit user profile
+      if (this.$route.params.id == this.$store.state.id) {
+        this.myProfile = true;
+      }
       axios({
           method: "get",
-          url: `http://127.0.0.1:8000/api/get-user/?id=${this.$store.state.id}`,
+          url: `http://127.0.0.1:8000/api/get-user/?id=${this.$route.params.id}`,
         })
           .then((response) => {
             // Get the first and only user from the response

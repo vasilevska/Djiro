@@ -17,20 +17,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item" v-if="accessToken == null">
+          <li class="nav-item" v-if="accessToken == null || accessToken == 'null'">
             <router-link to="/registration" class="nav-link"
               >Register</router-link
             >
           </li>
-          <!-- add v-if when you want to show an elemetn only if condition is satisified -->
-          <li class="nav-item" v-if="accessToken == null">
+          <!-- add v-if when you want to show an elemetn only if condition is satisified; needs to account for 'null' string value -->
+          <li class="nav-item" v-if="accessToken == null || accessToken == 'null'">
             <router-link to="/login" class="nav-link">Sign In</router-link>
           </li>
-          <li class="nav-item" v-if="accessToken != null">
+          <li class="nav-item" v-if="accessToken != null && accessToken != 'null'">
             <router-link to="/" class="nav-link">Become a Djiler</router-link>
             <!-- TODO: Change path when car form is made -->
           </li>
-          <li class="nav-item dropdown" v-if="accessToken != null">
+          <li class="nav-item dropdown" v-if="accessToken != null && accessToken != 'null'">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -46,7 +46,7 @@
               aria-labelledby="navbarDarkDropdownMenuLink"
             >
               <li>
-                <router-link class="dropdown-item" to="/profile"
+                <router-link class="dropdown-item" :to="'/profile/' + this.$store.state.id"
                   >Profile</router-link
                 >
               </li>

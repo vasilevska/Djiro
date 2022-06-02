@@ -45,11 +45,13 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_staff', False)
         return self._create_user(email, password,
                                  **extra_fields)
 
     def create_superuser(self,email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_staff', True)
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
@@ -72,6 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     bio = models.CharField(max_length=256, blank=True, null=True)
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
     is_staff = models.BooleanField(default=False)
     id = models.AutoField(db_column='id', primary_key=True)
