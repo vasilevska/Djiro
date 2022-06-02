@@ -25,11 +25,10 @@ class Document(models.Model):
             return "http://127.0.0.1:8000" + self.image1.url
         return ""
 
-    def get_image1(self):
+    def get_image2(self):
         if self.image2:
             return "http://127.0.0.1:8000" + self.image2.url
         return ""
-
 
 class UserManager(BaseUserManager):
 
@@ -127,3 +126,18 @@ class Passwordreset(models.Model):
         managed = False
         db_table = 'passwordreset'
 """
+
+class Validacija(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    document = models.ForeignKey(Document, models.CASCADE)
+    verifikovan = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+        db_table = 'validation'
+    
+    def getImage1(self):
+        return self.document.get_image1()
+
+    def getImage2(self):
+        return self.document.get_image2()

@@ -78,3 +78,17 @@ class UserRegistration(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class VozackaValidation(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = DocumentDetailsSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save(request)
+            serializer = UserDetailsSerializer(user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
