@@ -57,6 +57,8 @@ class UserManager(BaseUserManager):
         user = self._create_user(email, password,
                                  **extra_fields)
         
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -73,6 +75,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()
 
