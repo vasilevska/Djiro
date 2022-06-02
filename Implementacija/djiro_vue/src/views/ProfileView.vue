@@ -210,6 +210,7 @@
                     class="btn btn-info"
                     target="__blank"
                     href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                    v-if="myProfile == true"
                     >Edit</a>
                 </div>
               </div>
@@ -283,13 +284,17 @@ export default {
     data() {
       return {
         user: null,
+        myProfile: false,
       }
     },
     created() {
-      console.log(this.$store.state.id);
+      // Check if you can edit user profile
+      if (this.$route.params.id == this.$store.state.id) {
+        this.myProfile = true;
+      }
       axios({
           method: "get",
-          url: `http://127.0.0.1:8000/api/get-user/?id=${this.$store.state.id}`,
+          url: `http://127.0.0.1:8000/api/get-user/?id=${this.$route.params.id}`,
         })
           .then((response) => {
             // Get the first and only user from the response

@@ -46,12 +46,13 @@ const routes = [
     component: LogoutView,
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
     component: ProfileView,
-    meta: {
-      requiresLogin: true,
-    },
+    props: true,
+    // meta: {
+    //   requiresLogin: true,
+    // },
   },
 ];
 
