@@ -1,4 +1,5 @@
 <template>
+
   <div  class="fill-height home">
     <div class="row justify-content-center fixed-top pb-5 bg-black m-5" id="search_row" style="--bs-bg-opacity: .4;position:fixed; top:5vh; height: 83vh">
         <div class="col-6 my-2 text-center py-2 mt-2 opacity-70" style="max-height: 90vh;">
@@ -17,11 +18,33 @@
               <input class="form-control me-2" type="text" placeholder="Model" id="model">
             </div>
         </div>
+        <div class="d-flex filteri mt-1 d-none">
+          <input
+            class="form-control me-2"
+            type="text"
+            placeholder="Godiste"
+            id="godiste"
+          />
+          <input
+            class="form-control me-2"
+            type="text"
+            placeholder="Marka"
+            id="marka"
+          />
+          <input
+            class="form-control me-2"
+            type="text"
+            placeholder="Model"
+            id="model"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
 
   .home{
     background-image: url("@/assets/naslovna1a.jpeg");
@@ -29,11 +52,12 @@
     background-size: cover !important;
     top: 10vh;
   }
-
 </style>
 
 <script>
-//import CarCard from '../components/CarCard.vue';
+// import CarCard from '../components/CarCard.vue';
+import { getAPI } from "@/axios-api";
+import { mapState } from "vuex";
 
 export default {
   name: "HomeView",

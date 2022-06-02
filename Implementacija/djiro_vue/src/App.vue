@@ -5,7 +5,7 @@
     </div>
 
     <div class="container-fluid p-0">
-      <router-view/>
+      <router-view />
     </div>
 
     <div class="footer">
@@ -18,12 +18,19 @@
 </style>
 
 <script>
+import { mapActions } from "vuex";
 import NavigationBar from "./components/NavigationBar.vue";
 
 export default {
   name: "App",
   components: {
     NavigationBar,
+  },
+  methods: {
+    ...mapActions(["fetchAccessToken"]),
+  },
+  created() {
+    this.fetchAccessToken();
   },
 };
 </script>

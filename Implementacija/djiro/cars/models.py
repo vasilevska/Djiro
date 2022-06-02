@@ -56,7 +56,7 @@ class Car(models.Model):
     images = models.ImageField(upload_to='uploads/', blank=True, null=True)
     descr = models.CharField(max_length=500, blank=True, null=True)
     idman = models.ForeignKey(Model, models.DO_NOTHING, related_name='IdMan', db_column='IdMan', blank=True, null=True)  # Field name made lowercase.
-    idu = models.ForeignKey(User, models.DO_NOTHING, db_column='IdU', blank=True, null=True)  # Field name made lowercase.
+    idu = models.ForeignKey(User, models.DO_NOTHING, db_column='id', blank=True, null=True)  # Field name made lowercase. # TODO: Changed db_column form IdU
     type = models.CharField(max_length=20, blank=True, null=True)
     model = models.ForeignKey(Model, models.DO_NOTHING, related_name='Model', db_column='name', blank=True, null=True)
     slug = models.SlugField()
@@ -64,7 +64,7 @@ class Car(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'car'
+db_table = 'car'
 
     def __str__(self):
         return str(self.idc)
@@ -98,3 +98,5 @@ class Car(models.Model):
         thumbnail = File(thumb_io, name=images.name)
 
         return thumbnail
+
+        db_table = 'car'
