@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import EditProfile from "../views/EditProfile.vue";
 
 const routes = [
   {
@@ -53,6 +54,15 @@ const routes = [
     // meta: {
     //   requiresLogin: true,
     // },
+  },
+  {
+    path: "/edit-profile/:id",
+    name: "edit-profile",
+    component: EditProfile,
+    props: true,
+    meta: {
+      requiresLogin: true,
+    },
   },
 ];
 

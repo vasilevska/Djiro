@@ -22,7 +22,7 @@
               >Register</router-link
             >
           </li>
-          <!-- add v-if when you want to show an elemetn only if condition is satisified -->
+          <!-- add v-if when you want to show an elemetn only if condition is satisified; needs to account for 'null' string value -->
           <li class="nav-item" v-if="accessToken == null || accessToken == 'null'">
             <router-link to="/login" class="nav-link">Sign In</router-link>
           </li>
