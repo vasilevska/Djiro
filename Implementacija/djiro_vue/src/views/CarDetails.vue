@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-6" style="text-align: center;">
-                 <h3>{{model.name}} {{car.year}}</h3>
+                 <h3>{{car.year}}</h3>
                  <hr>
                  <div style="text-align: left;">
                     <h1>Opis:</h1>

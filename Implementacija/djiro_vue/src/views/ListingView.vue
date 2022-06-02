@@ -3,11 +3,12 @@
         <div class="row mt-2 pl-2">
             <div class="d-flex filteri mt-1">
                 <h3>Sortiranje:&nbsp;&nbsp;</h3>
-              <select name="sort" id="sort" class="form-control" style="width:280px;">
-                <option value="cena_desc">Cena (Od najvece do najmanje)</option>
-                <option value="cena_asc">Cena (Od najmanje do najvece)</option>
-                <option value="ocena_desc">Ocena vozila (Od najvece do najmanje)</option>
-                <option value="ocena_desc">Ocena vozila (Od najmanje do najvece)</option>
+              <select name="sort" id="sortiranje" class="form-control" style="width:280px;" v-model="selected" v-on:change="sortF($event)">
+                <option value="bez-sort">Izaberite sortiranje</option>
+                <option value="god_desc">Godiste vozila (Od najvece do najmanje)</option>
+                <option value="god_asc">Godiste vozila (Od najmanje do najvece)</option>
+                <option value="km_desc">Kilometraza vozila (Od najvece do najmanje)</option>
+                <option value="km_asc">Kilometraza vozila (Od najmanje do najvece)</option>
               </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -89,7 +90,44 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+
+        sortF: function(e){
+
+            console.log(e.target.value)
+            var tmp = e.target.value;
+
+            switch (tmp){
+                case "god_desc":
+                    console.log(this.cars)
+                    this.cars.sort(function(first, second) {
+                        return second.year - first.year;
+                    });
+                    console.log(this.cars)
+                break;
+                case "god_asc":
+                    this.cars.sort(function(first, second) {
+                        return -(second.year - first.year);
+                    });
+                break;
+                case "km_desc":
+                    this.cars.sort(function(first, second) {
+                        console.log(second.km)
+                        console.log(first.km)
+                        return second.km - first.km;
+                    });
+                break;
+                case "km_asc":
+                    this.cars.sort(function(first, second) {
+                        return -(second.km - first.km);
+                    });
+                break;
+                default:
+                break;
+            }
+
         }
+
     }
 }
 </script>
