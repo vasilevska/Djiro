@@ -36,7 +36,7 @@
             class="nav-item"
             v-if="accessToken != null && accessToken != 'null'"
           >
-            <router-link to="/" class="nav-link">Become a Djiler</router-link>
+            <router-link to="/listing" class="nav-link">Become a Djiler</router-link>
             <!-- TODO: Change path when car form is made -->
           </li>
           <li
