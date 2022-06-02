@@ -1,8 +1,14 @@
 from rest_framework import serializers
 
 from .models import *
+from users.serializers import UserDetailsSerializer
 
 class ReservationsSerializer(serializers.ModelSerializer):
+    driver = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='id', write_only=True)
+    djiler = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='id', write_only=True)
+    car = serializers.SlugRelatedField(queryset=Car.objects.all(), slug_field='idc', write_only=True)
+    idu =  UserDetailsSerializer(read_only=True)
+    idd =  UserDetailsSerializer(read_only=True)
     class Meta:
         model = Reservation
         fields = "__all__"

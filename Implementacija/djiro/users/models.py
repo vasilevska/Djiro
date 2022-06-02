@@ -73,7 +73,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
-
+    is_staff = models.BooleanField(default=False)
+    id = models.AutoField(db_column='id', primary_key=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

@@ -13,7 +13,7 @@ class DriverReservationView(APIView):
         driverId = id
 
         if driverId:
-            reservations = Reservation.objects.filter(idu=driverId)
+            reservations = Reservation.objects.filter(idu__pk=driverId)
             serializer = ReservationsSerializer(reservations, many=True)
             return Response(serializer.data)
         else:
@@ -23,6 +23,15 @@ class DriverReservationView(APIView):
         serializer = ReservationsSerializer(data = request.data)
 
         if serializer.is_valid():
+            user_id = serializer.validated_data.get("driver")
+            serializer.validated_data['idu'] = user_id
+            serializer.validated_data.pop("driver")
+            djiler_id = serializer.validated_data.get("djiler")
+            serializer.validated_data['idd'] = djiler_id
+            serializer.validated_data.pop("djiler")
+            car_id = serializer.validated_data.get("car")
+            serializer.validated_data['idc'] = car_id
+            serializer.validated_data.pop("car")
             serializer.save()
             return Response(serializer.data)
         else:
@@ -34,15 +43,15 @@ class DriverReservationView(APIView):
             "date_from": "2022-05-30",
             "date_to": "2022-06-03",
             "status": "R",
-            "idu": 1,
-            "idd": 1,
-            "idc": 1
+            "driver": 3,
+            "djiler": 4,
+            "car": 1
         }
 
         statusi:
         R - requested
         P - pending
-        A - active
+        F - finished
         C - cancelled
         D - declined
         """
@@ -63,7 +72,7 @@ class DjilerReservationView(APIView):
     def get(self, request, id):
         djilerId = id
         if djilerId:            
-            reservations = Reservation.objects.filter(idd=djilerId)
+            reservations = Reservation.objects.filter(idd__pk=djilerId)
             serializer = ReservationsSerializer(reservations, many=True)
             return Response(serializer.data)
         else:
@@ -74,12 +83,19 @@ class DjilerReservationView(APIView):
             res = Reservation.objects.get(idr = id)
         except:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
-        if request.data.accept == 1 :
+        if request.data['accept']:
             res.status = 'P'
         else:
             res.status = 'D'
         res.save()
-        return Response(res)
+        serializer = ReservationsSerializer(res)
+        return Response(serializer.data)
+        """
+        {
+            "accept":1
+        }
+
+        """
 
 
 class DriverRatingsView(APIView):

@@ -10,7 +10,7 @@ class Reservation(models.Model):
     date_from = models.DateField(blank=True, null=True)
     date_to = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=1, blank=True, null=True)
-    idu = models.ForeignKey(User, models.DO_NOTHING, related_name='IdUr', db_column='id', blank=True, null=True)  # Field name made lowercase.
+    idu = models.ForeignKey(User, models.DO_NOTHING, related_name='IdUr', db_column='idU', blank=True, null=True)  # Field name made lowercase.
     idd = models.ForeignKey(User, models.DO_NOTHING, related_name='IdDr', db_column='IdD', blank=True, null=True)  # Field name made lowercase.
     idc = models.ForeignKey(Car, models.DO_NOTHING, db_column='IdC', blank=True, null=True)  # Field name made lowercase.
 
@@ -22,7 +22,7 @@ class Ratingdriver(models.Model):
     ido = models.AutoField(db_column='IdO', primary_key=True)  # Field name made lowercase.
     rating = models.IntegerField(blank=True, null=True)
     idr = models.ForeignKey(Reservation, models.DO_NOTHING, db_column='IdR', blank=True, null=True)  # Field name made lowercase.
-    idu = models.ForeignKey(User, models.DO_NOTHING, related_name='IdU', db_column='id', blank=True, null=True)  # Field name made lowercase.
+    idu = models.ForeignKey(User, models.DO_NOTHING, related_name='IdU', db_column='idU', blank=True, null=True)  # Field name made lowercase.
     idd = models.ForeignKey(User, models.DO_NOTHING, related_name='IdD', db_column='IdD', blank=True, null=True)  # Field name made lowercase.
     descr = models.CharField(max_length=500, blank=True, null=True)
 
