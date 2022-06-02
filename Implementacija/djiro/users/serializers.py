@@ -73,6 +73,13 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'tel': self.validated_data.get('tel', ''),
             'bio': self.validated_data.get('bio', ''),
         }
+    
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.tel = validated_data.get('tel', instance.tel)
+        instance.bio = validated_data.get('bio', instance.bio)
+
 
     def save(self, request):
         adapter = get_adapter()
