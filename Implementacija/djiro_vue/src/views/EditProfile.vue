@@ -27,17 +27,22 @@
                 <div class="mt-3">
                   <h4>{{user.first_name + " " + user.last_name }}</h4>
                   <p class="text-secondary mb-1">Full Stack Developer</p>
-                  <form enctype="multipart/form-data">
+                  <form 
+                    id="profilna-forma"
+                    enctype="multipart/form-data"
+                    type="post"
+                    :action="'http://127.0.0.1:8000/api/update-avatar/'+ this.$route.params.id"
+                   >
                     <input
                         type="file"
                         id="profilna"
                         name="avatar"
                         accept="image/png, image/jpeg"
-                        style="display: none"
                         ref="avatarImage"
-                        @click="submitImage()"
+                        class="btn btn-dark"
+                        @change="submitImage"
                     />
-                    <button class="btn btn-dark" @click="this.$refs.avatarImage.click()">Upload image</button>
+                    <!-- <button class="btn btn-dark" @click="document.getElementById('profilna-forma').submit()">Upload image</button> -->
                   </form>
                 </div>
               </div>
@@ -172,21 +177,21 @@
           </div>
         </div>
         <div class="col-md-8">
-          <form>
+          <form id="user-info">
             <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
                 <div class="col-sm-3">
                     <h6 class="mb-0">First Name</h6>
                 </div>
-                <div class="col-sm-9 text-secondary"><input type="text" class="form-control" :value="user.first_name"></div>
+                <div class="col-sm-9 text-secondary"><input name="first_name" type="text" class="form-control" :value="user.first_name"></div>
                 </div>
                 <hr />
                 <div class="row">
                 <div class="col-sm-3">
                     <h6 class="mb-0">Last Name</h6>
                 </div>
-                <div class="col-sm-9 text-secondary"><input type="text" class="form-control" :value="user.last_name"></div>
+                <div class="col-sm-9 text-secondary"><input name="last_name" type="text" class="form-control" :value="user.last_name"></div>
                 </div>
                 <hr />
                 <div class="row">
@@ -203,7 +208,7 @@
                 <div class="col-sm-3">
                     <h6 class="mb-0">Phone</h6>
                 </div>
-                <div class="col-sm-9 text-secondary"><input type="text" class="form-control" :value="user.tel"></div>
+                <div class="col-sm-9 text-secondary"><input name="tel" type="text" class="form-control" :value="user.tel"></div>
                 </div>
                 <hr />
                 <div class="row">
@@ -211,7 +216,7 @@
                     <h6 class="mb-0">About me</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <textarea class="form-control" rows="3" cols="20"></textarea>
+                    <textarea name="bio" class="form-control" rows="3" cols="20" :value="user.bio"></textarea>
                 </div>
                 </div>
                 <hr />
@@ -219,8 +224,7 @@
                 <div class="col-sm-12">
                     <button
                     class="btn btn-dark"
-                    target="__blank"
-                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                    @click="submitUserInfo"
                     >Update</button>
                 </div>
                 </div>
@@ -286,6 +290,7 @@ body {
 .shadow-none {
     box-shadow: none!important;
 }
+
 </style>
 <script>
 import axios from 'axios';
@@ -317,7 +322,6 @@ export default {
     },
     methods: {
         submitImage() {
-            console.log("Usao")
             var formData = new FormData();
             formData.append("avatar", document.querySelector("#profilna").files[0]);
             axios({
@@ -326,6 +330,31 @@ export default {
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data" },
             })
+              .then((response) => {
+                console.log(response);
+                this.user.get_avatar = response.data.get_avatar;
+                this.user.get_thumbnail = response.data.get_thumbnail;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+        },
+        submitUserInfo() {
+          console.log("Usao");
+          var formData = new FormData(document.querySelector("#user-info"));
+          axios({
+                method: "post",
+                url: `http://127.0.0.1:8000/api/update-user/${this.$route.params.id}`,
+                data: formData,
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+              .then((response) => {
+                console.log(response);
+                this.user = response.data;
+              })
+              .catch((err) => {
+                console.log(err);
+              });
         }
     }
 }
