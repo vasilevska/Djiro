@@ -6,6 +6,7 @@ import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import EditProfile from "../views/EditProfile.vue";
+import CreateListing from "../views/CreateListing.vue";
 
 const routes = [
   {
@@ -60,6 +61,14 @@ const routes = [
     name: "edit-profile",
     component: EditProfile,
     props: true,
+    meta: {
+      requiresLogin: true,
+    },
+  },
+  {
+    path: "/create-listing/",
+    name: "create-listing",
+    component: CreateListing,
     meta: {
       requiresLogin: true,
     },
