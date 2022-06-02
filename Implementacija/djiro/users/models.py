@@ -25,11 +25,10 @@ class Document(models.Model):
             return "http://127.0.0.1:8000" + self.image1.url
         return ""
 
-    def get_image1(self):
+    def get_image2(self):
         if self.image2:
             return "http://127.0.0.1:8000" + self.image2.url
         return ""
-
 
 class UserManager(BaseUserManager):
 
@@ -57,6 +56,8 @@ class UserManager(BaseUserManager):
         user = self._create_user(email, password,
                                  **extra_fields)
         
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -65,14 +66,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=30, blank=True, null=False)
     last_name = models.CharField(max_length=30, blank=True, null=False)
-    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True, default="default.jpg")
     thumbnail = models.ImageField(upload_to="thumbnails/", blank=True, null=True)
     email_verified = models.IntegerField(blank=True, null=True)
-    tel = models.CharField(max_length=20, blank=True, null=False)
+    tel = models.CharField(max_length=20, blank=True, null=True)
     bio = models.CharField(max_length=256, blank=True, null=True)
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -123,3 +126,18 @@ class Passwordreset(models.Model):
         managed = False
         db_table = 'passwordreset'
 """
+
+class Validacija(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    document = models.ForeignKey(Document, models.CASCADE)
+    verifikovan = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+        db_table = 'validation'
+    
+    def getImage1(self):
+        return self.document.get_image1()
+
+    def getImage2(self):
+        return self.document.get_image2()

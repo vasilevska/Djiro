@@ -3,17 +3,13 @@
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
-        <div id="error-div" class="alert alert-danger" role="alert" style="display: none">
-          Please correct the following errors:
-              <ul>
-                <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-              </ul>
+        <div id="error-div" class="alert alert-danger" role="alert">
+            Please correct the following errors:
+            <ul>
+              <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            </ul>
         </div>
-        <form 
-        id="registration-form" 
-        enctype=”multipart/form-data”
-        method="post"
-        >
+        <form enctype=”multipart/form-data”>
         <div class="input-group">
           <div class="form-group my-3 mr-3">
             <label for="ime">Ime</label>
@@ -118,7 +114,6 @@
             class="btn btn-dark"
             v-on:click.prevent="submit_formdata"
             type="submit"
-            id="posalji"
             value="Pošalji"
           />
         </div>
@@ -130,6 +125,9 @@
 <style scoped>
 .container {
   justify-content: center;
+}
+#error-div {
+  display : none;
 }
 </style>
 <script>
@@ -146,7 +144,6 @@ export default {
       password2: "",
       tel: "",
       bio: "",
-      selectedDoc: null,
       errors: [],
     };
   },
@@ -170,6 +167,7 @@ export default {
         })
           .then((response) => {
             console.log(response.data);
+            document.getElementById("error-div").style.display = "none";
             this.$store
               .dispatch("userLogin", {
                 email: this.email,
@@ -184,8 +182,8 @@ export default {
             resolve();
           })
           .catch((err) => {
-            console.log(err.response.data);
-            this.errors = [];
+            console.log(err);
+            this.errors = []
             for (let key in err.response.data) {
               this.errors.push(key + " : " + err.response.data[key]);
             }

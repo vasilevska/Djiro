@@ -4,7 +4,6 @@ from djiro import settings
 from .models import User
 from allauth.account.utils import setup_user_email
 import re
-
 from .models import *
 
 
@@ -17,10 +16,51 @@ class DocumentDetailsSerializer(serializers.ModelSerializer):
             "valid_date",
             "issuing_place",
             "reg_number",
-            "get_image1",
-            "get_image2"
+            "image1",
+            "image2"
         )
 
+    def validate(self, data):
+        print(data)
+        if not data['image1']:
+            raise serializers.ValidationError(
+                ("Nema slike 1"))
+
+        if not data['image2']:
+            raise serializers.ValidationError(
+                ("Nema slike 2"))
+
+        return data
+    
+    def get_cleaned_data(self):
+        return {
+            'issuing_date': self.validated_data.get('issuing_date', ''),
+            'valid_date': self.validated_data.get('valid_date', ''),
+            'issuing_place': self.validated_data.get('issuing_place', ''),
+            'reg_number': self.validated_data.get('reg_number', ''),
+            'image1': self.validated_data.get('image1', ''),
+            'image2': self.validated_data.get('image2', ''),
+        }
+
+    def save(self, request):
+        doc = Document()
+        self.cleaned_data = self.get_cleaned_data()
+        doc.issuing_date = self.cleaned_data['issuing_date']
+        doc.valid_date = self.cleaned_data['valid_date']
+        doc.issuing_place = self.cleaned_data['issuing_place']
+        doc.reg_number = self.cleaned_data['reg_number']
+        
+        doc.image1 = request.FILES['image1']
+        doc.image2 = request.FILES['image2']
+
+        doc.save()
+
+        user = User.objects.get(email=request.user)
+
+        Validacija(user = user, document = doc).save()
+        
+        return doc
+    
 
 class UserDetailsSerializer(serializers.ModelSerializer):
     """
@@ -35,13 +75,11 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(required=False)
-
     first_name = serializers.CharField(required=True, write_only=True)
     last_name = serializers.CharField(required=True, write_only=True)
+
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
-    tel = serializers.CharField(required=True, write_only=True)
     
 
     class Meta:
@@ -57,9 +95,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         if data['password1'] != data['password2']:
             raise serializers.ValidationError(
                 ("The two password fields didn't match."))
-        elif prog.match(data['tel']) is None:
+        elif data['tel'] != "" and prog.match(data['tel']) is None:
             raise serializers.ValidationError(
-                ("Insert the phone number in the correct format."))
+                ("Please insert telephone in the correct 10-digit format"))
         return data
 
     def custom_signup(self, request, user):
@@ -87,10 +125,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.email_verified = True
         user.doc_verified= True
 
-        if 'avatar' in request.FILES:
+        if 'avatar' in request.FILES and request.FILES['avatar'] != '':
             user.avatar = request.FILES['avatar']
-        else:
-            user.avatar = None
         user.tel = self.cleaned_data['tel']
         user.bio = self.cleaned_data['bio']
 

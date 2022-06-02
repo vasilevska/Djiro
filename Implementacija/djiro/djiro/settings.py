@@ -72,7 +72,7 @@ ROOT_URLCONF = 'djiro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,9 +96,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djiro',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'root',  # TODO: root
         'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'PORT': '3306' # TODO: 3306
     }
 }
 

@@ -12,4 +12,6 @@ urlpatterns = [
     path('api-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('registration/', UserRegistration.as_view(), name='registration'),
     path('get-id/', RetrieveIdView.as_view(), name='get-id'),
+    path('get-user/', RetrieveUser.as_view(), name='get-user'),
+    path('verification/', VozackaValidation.as_view(), name='verify-vozacka')
 ]
