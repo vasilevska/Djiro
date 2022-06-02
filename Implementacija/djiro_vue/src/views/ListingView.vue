@@ -32,7 +32,7 @@
                                 <img v-bind:src="car.get_thumbnail">
                             </div>
                             <div class="col-4">
-                                <h3 class="id-size-4">Fuel: {{car.fuel}}</h3>
+                                <h3 class="id-size-4">Model: {{car.model.name}}</h3>
                                 <h3 class="id-size-4">Type: {{car.type}}</h3>
                                 <!-- Fali ocena -->
 
@@ -41,7 +41,7 @@
                                     <div class="col-3"><button class="btn btn-primary" style="width:150px"><router-link v-bind:to="car.get_absolute_url" style="color: white;">
                                         Vise detalja</router-link></button></div>
                                     <div class="col-3 align-right">
-                                        <h3 class="id-size-4">{{car.price_per_day}}$/dan</h3>
+                                        <h3 class="id-size-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{car.price_per_day}}$/dan</h3>
                                     </div>
                                     
                                 </div>

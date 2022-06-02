@@ -1,14 +1,26 @@
 <template>
-    
-    <div class="page-car">
-        <div class="columns is-multiline">
-            <div class="column is-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
                 <figure class="image mb-6">
-                    <img v-bind:src="car.get_image" style="width: 50%; height: 50%;">
+                    <img v-bind:src="car.get_image" style="width: 70%; height: 70%;">
                 </figure>
-                
-                <h1>{{car.descr}}</h1>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6" style="text-align: center;">
+                 <h3>{{car.model}} {{car.year}}</h3>
+            </div>
+            <div class="col-6">
+                <h2>Cena: {{car.price_per_day}}€/dan</h2>
+                <hr>
+                <h3>Izaberite datume:</h3>
+                <form style="margin: 10px;">
+                    Od: <input type="date" name="datumOd" id="datumOd">
+                    Do: <input type="date" name="datumDo" id="datumDo">
+                    <div class="col-3" style="margin-top: 40px;"><button class="btn btn-primary" style="width:150px">
+                        REZERVISI</button></div>
+                </form>
             </div>
         </div>
     </div>
