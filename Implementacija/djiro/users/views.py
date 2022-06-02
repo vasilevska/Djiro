@@ -66,6 +66,31 @@ class RetrieveUser(generics.ListAPIView):
         return queryset
 
 
+@api_view(['POST',])
+def update_avatar(request, id):
+    user = User.objects.get(pk=id)
+    print("Prosao get")
+    if 'avatar' in request.FILES and request.FILES['avatar'] != '':
+        user.avatar = request.FILES['avatar']
+        user.thumbnail = user.make_thumbnail(user.avatar)
+        user.save()
+        serializer = UserDetailsSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST',])
+def update_user_info(request, id):
+    user = User.objects.get(pk=id)
+    serializer = UserUpdateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.update(user, request.data)
+        user.save()
+        serializer = UserDetailsSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserRegistration(APIView):
     parser_classes = [MultiPartParser, FormParser]

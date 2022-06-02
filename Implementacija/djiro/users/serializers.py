@@ -34,6 +34,9 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
+    """
+    Author: Stefan Brankovic 2019/0253
+    """
     first_name = serializers.CharField(required=True, write_only=True)
     last_name = serializers.CharField(required=True, write_only=True)
 
@@ -51,7 +54,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         prog = re.compile(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
-        if data['password1'] != data['password2']:
+        if 'password1' in data and data['password1'] != data['password2']:
             raise serializers.ValidationError(
                 ("The two password fields didn't match."))
         elif data['tel'] != "" and prog.match(data['tel']) is None:
@@ -73,12 +76,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'tel': self.validated_data.get('tel', ''),
             'bio': self.validated_data.get('bio', ''),
         }
-    
-    def update(self, instance, validated_data):
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.tel = validated_data.get('tel', instance.tel)
-        instance.bio = validated_data.get('bio', instance.bio)
 
 
     def save(self, request):
@@ -99,3 +96,23 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'tel', 'bio',
+        'avatar')
+
+    def validate(self, data):
+        prog = re.compile(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
+        if data['tel'] != "" and prog.match(data['tel']) is None:
+            raise serializers.ValidationError(
+                ("Please insert telephone in the correct 10-digit format"))
+        return data
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.tel = validated_data.get('tel', instance.tel)
+        instance.bio = validated_data.get('bio', instance.bio)
