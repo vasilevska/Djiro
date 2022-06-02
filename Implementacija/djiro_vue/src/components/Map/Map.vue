@@ -1,13 +1,21 @@
 <template>
-  <div
+<div class="col-auto justify-content-center align-items-center">
+    <div v-if="rendering" class="text-center">
+    <ring-loader :color="color1" :height="height"></ring-loader>
+    </div>
+    <div 
+    v-else
     ref="mapContainer"
-    style="position: relative; width: 600px; height: 400px"
+    class= "v-100"
   ></div>
+</div>
 </template>
 
 <script>
 import Config from "./config.js";
 import SVG from "./pin.svg";
+import RingLoader from 'vue-spinner/src/RingLoader.vue'
+
 export default {
   name: "MapComponent",
   props: ["coords", "center"],
@@ -17,6 +25,9 @@ export default {
       map: null,
       map_coords: this.coords,
       map_center: this.center,
+      rendering : true,
+      color1: '#3AB982',
+      height: '70px'
     };
   },
   methods: {
@@ -42,7 +53,6 @@ export default {
           resolve();
         } else {
           window[self.getInitCallbackFnName()] = function () {
-            //delete window[self.getInitCallbackFnName()];
             self.apiLoaded = true;
             resolve();
           };
@@ -52,7 +62,6 @@ export default {
           tag.async = true;
           tag.defer = true;
           tag.onerror = function (event) {
-            //delete window[self.getInitCallbackFnName()];
             reject(event);
           };
           document.head.append(tag);
@@ -64,7 +73,6 @@ export default {
       return new Promise((resolve, reject) => {
         Promise.all([self.loadApi()])
           .then(() => {
-            //console.log(self.map_center);
             var centr = new Microsoft.Maps.Location(
               self.map_center["lat"],
               self.map_center["long"]
@@ -116,8 +124,11 @@ export default {
     },
   },
   mounted() {
-    console.log(this.map_coords);
+      this.rendering = true;
     this.render();
   },
+  components:{
+    RingLoader
+  }
 };
 </script>
