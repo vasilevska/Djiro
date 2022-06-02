@@ -2,9 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegistrationView from "../views/RegistrationView.vue";
 import LoginView from "../views/LoginView.vue";
+import ListingView from "../views/ListingView.vue"
+import CarDetails from "@/views/CarDetails.vue"
 import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import EditProfile from "../views/EditProfile.vue";
+
 
 const routes = [
   {
@@ -34,6 +38,9 @@ const routes = [
     path: "/verification",
     name: "verification",
     component: VerificationView,
+    meta: {
+      requiresLogin: true,
+    },
   },
   {
     path: "/login",
@@ -41,17 +48,46 @@ const routes = [
     component: LoginView,
   },
   {
+
+    path: "/listing",
+    name: "listing",
+    component: ListingView
+  },
+  {
+    path: '/:car_slug/',
+    name: 'carDetails',
+    component: CarDetails
+  },
     path: "/logout",
     name: "logout",
     component: LogoutView,
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
     component: ProfileView,
+    props: true,
+    // meta: {
+    //   requiresLogin: true,
+    // },
+  },
+  {
+    path: "/edit-profile/:id",
+    name: "edit-profile",
+    component: EditProfile,
+    props: true,
     meta: {
       requiresLogin: true,
     },
+  },
+  {
+    path: "/reservations",
+    name: "reservations",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ReservationsView.vue"),
   },
 ];
 

@@ -5,10 +5,11 @@
     </div>
 
     <div class="container-fluid p-0">
-      <router-view/>
+      <router-view />
     </div>
 
-    <div class="footer"></div>
+    <div class="footer">
+    </div>
   </div>
 </template>
 
