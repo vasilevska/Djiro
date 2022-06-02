@@ -22,11 +22,48 @@ class SampleView(generics.RetrieveAPIView):
         serializer = UserDetailsSerializer(users, many=True)
         return Response(serializer.data)
 
+
 class RetrieveIdView(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     # Function to get encrypted user_id when we're logged in
     def get(self, request, format=None):
         return Response({"id": request.user.id})
+
+
+class RetrieveUser(generics.ListAPIView):
+    serializer_class = UserDetailsSerializer
+
+    def get_queryset(self):
+        """
+            Return format:
+            {
+                "count": 1,
+                "next": null,
+                "previous": null,
+                "results": [
+                    {
+                        "pk": 1,
+                        "first_name": "",
+                        "last_name": "",
+                        "email": "admin@etf.rs",
+                        "email_verified": null,
+                        "tel": "",
+                        "doc_verified": false,
+                        "is_djiler": false,
+                        "bio": null,
+                        "get_avatar": "",
+                        "get_thumbnail": "",
+                        "idd": null
+                    }
+                ]
+            }
+            """
+        queryset = User.objects.all()
+        id = self.request.query_params.get('id')
+        if id is not None:
+            queryset = queryset.filter(pk=id)
+        return queryset
+
 
 
 class UserRegistration(APIView):
