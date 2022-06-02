@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from re import M
+import datetime
 
 import os
 
@@ -191,3 +192,14 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 STATIC_URL = "/static/"
+JWT_AUTH = {
+    # how long the original token is valid for
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=2),
+
+    # allow refreshing of tokens
+    'JWT_ALLOW_REFRESH': True,
+
+    # this is the maximum time AFTER the token was issued that
+    # it can be refreshed.  exprired tokens can't be refreshed.
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+}
