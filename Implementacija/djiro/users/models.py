@@ -71,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True, default="default.jpg")
     thumbnail = models.ImageField(upload_to="thumbnails/", blank=True, null=True)
     email_verified = models.IntegerField(blank=True, null=True)
-    tel = models.CharField(max_length=20, blank=True, null=True)
+    tel = models.CharField(max_length=20, blank=True, null=False)
     bio = models.CharField(max_length=256, blank=True, null=True)
     doc_verified = models.BooleanField(default=False)
     is_djiler = models.BooleanField(default=False)
