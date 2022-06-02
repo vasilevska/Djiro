@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import EditProfile from "../views/EditProfile.vue";
 
 const routes = [
   {
@@ -49,12 +50,31 @@ const routes = [
     component: LogoutView,
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
     component: ProfileView,
+    props: true,
+    // meta: {
+    //   requiresLogin: true,
+    // },
+  },
+  {
+    path: "/edit-profile/:id",
+    name: "edit-profile",
+    component: EditProfile,
+    props: true,
     meta: {
       requiresLogin: true,
     },
+  },
+  {
+    path: "/reservations",
+    name: "reservations",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ReservationsView.vue"),
   },
 ];
 

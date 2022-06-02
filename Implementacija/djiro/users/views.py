@@ -28,7 +28,8 @@ class RetrieveIdView(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     # Function to get encrypted user_id when we're logged in
     def get(self, request, format=None):
-        return Response({"id": request.user.id})
+        serializer = UserDetailsSerializer(request.user)
+        return Response(serializer.data)
 
 
 class RetrieveUser(generics.ListAPIView):
@@ -65,6 +66,31 @@ class RetrieveUser(generics.ListAPIView):
             queryset = queryset.filter(pk=id)
         return queryset
 
+
+@api_view(['POST',])
+def update_avatar(request, id):
+    user = User.objects.get(pk=id)
+    print("Prosao get")
+    if 'avatar' in request.FILES and request.FILES['avatar'] != '':
+        user.avatar = request.FILES['avatar']
+        user.thumbnail = user.make_thumbnail(user.avatar)
+        user.save()
+        serializer = UserDetailsSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST',])
+def update_user_info(request, id):
+    user = User.objects.get(pk=id)
+    serializer = UserUpdateSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.update(user, request.data)
+        user.save()
+        serializer = UserDetailsSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegistration(APIView):

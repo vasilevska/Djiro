@@ -9,114 +9,114 @@
               <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
             </ul>
         </div>
-        <form enctype=”multipart/form-data”>
-        <div class="input-group">
-          <div class="form-group my-3 mr-3">
-            <label for="ime">Ime</label>
-            <input
-              type="text"
-              class="form-control"
-              id="ime"
-              name="first_name"
-              placeholder="Unesite ime"
-              required
-              v-model="firstname"
-            />
+        <form enctype="multipart/form-data">
+          <div class="input-group">
+            <div class="form-group my-3 mr-3">
+              <label for="ime">Ime</label>
+              <input
+                type="text"
+                class="form-control"
+                id="ime"
+                name="first_name"
+                placeholder="Unesite ime"
+                required
+                v-model="firstname"
+              />
+            </div>
+            <div class="form-group my-3 mx-3">
+              <label for="prezime">Prezime</label>
+              <input
+                type="text"
+                class="form-control"
+                id="prezime"
+                name="last_name"
+                placeholder="Unesite prezime"
+                required
+                v-model="lastname"
+              />
+            </div>
           </div>
-          <div class="form-group my-3 mx-3">
-            <label for="prezime">Prezime</label>
-            <input
-              type="text"
-              class="form-control"
-              id="prezime"
-              name="last_name"
-              placeholder="Unesite prezime"
-              required
-              v-model="lastname"
-            />
-          </div>
-        </div>
 
-        <div class="input-group">
-          <div class="form-group my-3 mr-3">
-            <label for="email">E-mail</label>
+          <div class="input-group">
+            <div class="form-group my-3 mr-3">
+              <label for="email">E-mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Unesite e-mail"
+                required
+                v-model="email"
+              />
+            </div>
+            <div class="form-group my-3 mx-3">
+              <label for="telefon">Broj telefona</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="telefon"
+                name="tel"
+                placeholder="Broj telefona"
+                required
+                v-model="tel"
+              />
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="form-group my-3 mr-3">
+              <label for="email">Lozinka</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password1"
+                name="password1"
+                placeholder="Unesite lozinku"
+                required
+                v-model="password1"
+              />
+            </div>
+            <div class="form-group my-3 mx-3">
+              <label for="telefon">Ponovite lozinku</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password2"
+                name="password2"
+                placeholder="Ponovite lozinku"
+                required
+                v-model="password2"
+              />
+            </div>
+          </div>
+          <div class="form-group my-3">
+            <label for="profilna" class="mb-1">Profilna slika</label> <br />
+            <!-- style="display: none" -->
             <input
-              type="email"
-              class="form-control"
-              id="email"
-              name="email"
-              placeholder="Unesite e-mail"
-              required
-              v-model="email"
+              type="file"
+              id="profilna"
+              name="avatar"
+              accept="image/png, image/jpeg"
             />
           </div>
-          <div class="form-group my-3 mx-3">
-            <label for="telefon">Broj telefona</label>
-            <input
-              type="tel"
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea
               class="form-control"
-              id="telefon"
-              name="tel"
-              placeholder="Broj telefona"
-              required
-              v-model="tel"
+              id="bio"
+              name="bio"
+              rows="5"
+              v-model="bio"
+            ></textarea>
+          </div>
+          <div class="form-group my-3">
+            <input
+              class="btn btn-dark"
+              v-on:click.prevent="submit_formdata"
+              type="submit"
+              value="Pošalji"
             />
           </div>
-        </div>
-        <div class="input-group">
-          <div class="form-group my-3 mr-3">
-            <label for="email">Lozinka</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password1"
-              name="password1"
-              placeholder="Unesite lozinku"
-              required
-              v-model="password1"
-            />
-          </div>
-          <div class="form-group my-3 mx-3">
-            <label for="telefon">Ponovite lozinku</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password2"
-              name="password2"
-              placeholder="Ponovite lozinku"
-              required
-              v-model="password2"
-            />
-          </div>
-        </div>
-        <div class="form-group my-3">
-          <label for="profilna" class="mb-1">Profilna slika</label> <br />
-          <!-- style="display: none" -->
-          <input
-            type="file"
-            id="profilna"
-            name="avatar"
-            accept="image/png, image/jpeg"
-          />
-        </div>
-        <div class="form-group">
-          <label for="bio">Bio</label>
-          <textarea
-            class="form-control"
-            id="bio"
-            name="bio"
-            rows="5"
-            v-model="bio"
-          ></textarea>
-        </div>
-        <div class="form-group my-3">
-          <input
-            class="btn btn-dark"
-            v-on:click.prevent="submit_formdata"
-            type="submit"
-            value="Pošalji"
-          />
-        </div>
         </form>
       </div>
     </div>
