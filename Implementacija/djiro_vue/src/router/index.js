@@ -58,6 +58,7 @@ const routes = [
     name: 'carDetails',
     component: CarDetails
   },
+  {
     path: "/logout",
     name: "logout",
     component: LogoutView,
