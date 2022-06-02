@@ -1,8 +1,10 @@
 from re import L
+from rest_framework.decorators import api_view
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from stripe import api_base
 
 from .models import *
 from .serializers import *
@@ -33,6 +35,20 @@ class DriverReservationView(APIView):
             serializer.validated_data['idc'] = car_id
             serializer.validated_data.pop("car")
             serializer.save()
+
+            car = Car.objects.get(pk=car_id.idc)
+            
+
+            serializerHolding = HoldingSerializer(data = {
+                "idc": serializer.validated_data['idc'].idc,
+                "idr": serializer.data['idr'],
+                "price": car.price_per_day,
+                "date_from": serializer.validated_data['date_from'],
+                "date_to": serializer.validated_data['date_to'],
+            })
+            if serializerHolding.is_valid():
+                serializerHolding.save()
+
             return Response(serializer.data)
         else:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
@@ -65,9 +81,6 @@ class DriverReservationView(APIView):
         serializer = ReservationsSerializer(res)
         return Response(serializer.data)
     
-
-    
-
 class DjilerReservationView(APIView):
     def get(self, request, id):
         djilerId = id
@@ -96,7 +109,6 @@ class DjilerReservationView(APIView):
         }
 
         """
-
 
 class DriverRatingsView(APIView):
     def get(self, request, id):
@@ -147,12 +159,48 @@ class CarRatingsView(APIView):
 class DjilerRatingsView(APIView):
     def get(self, request, id):
         if id:            
-            ratings = Ratingcar.objects.filter(idd=id)
+            ratings = Ratingcar.objects.filter(idd = id)
             serializer = DjilerRatingSerializer(ratings, many=True)
             return Response(serializer.data)
         else:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
+class HoldingsView(APIView):
+    def get(self, request, id):
+        holdings = Holding.objects.filter(idc = id)
+        serializer = HoldingSerializer(holdings, many = True)
+        return Response(serializer.data)
 
+@api_view(['GET'])
+def car_rating(request, id):
+    ratings = Ratingcar.objects.filter(idc=id)
+    count = 0
+    sum = 0.0
+    for rating in ratings:
+        count+=1
+        sum+=rating.car_rating
+    return Response({"rating": sum/count})
     
+@api_view(['GET'])
+def djiler_rating(request, id):
+    ratings = Ratingcar.objects.filter(idd=id)
+    count = 0
+    sum = 0.0
+    for rating in ratings:
+        count+=1
+        sum+=rating.djiler_rating
+    return Response({"rating": sum/count})
+    
+@api_view(['GET'])
+def driver_rating(request, id):
+    ratings = Ratingdriver.objects.filter(idu=id)
+    count = 0
+    sum = 0.0
+    for rating in ratings:
+        count+=1
+        sum+=rating.rating
+    return Response({"rating": sum/count})
+    
+    
+
     

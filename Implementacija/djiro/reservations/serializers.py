@@ -31,5 +31,11 @@ class DjilerRatingSerializer(serializers.ModelSerializer):
 class HoldingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Holding
+        write_only_fields = ('idr','idc', 'price')
         fields = "__all__"
+        extra_kwargs = {
+            'idr': {'write_only': True},
+            'idc': {'write_only': True},
+            'price': {'write_only': True},
+        }
 
