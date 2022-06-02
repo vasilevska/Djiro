@@ -8,6 +8,7 @@ import LogoutView from "../views/LogoutView.vue";
 import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import EditProfile from "../views/EditProfile.vue";
+import CreateListing from "../views/CreateListing.vue";
 
 
 const routes = [
@@ -89,6 +90,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/ReservationsView.vue"),
+  },
+  {
+    path: "/create-listing",
+    name: "create-listing",
+    component: CreateListing,
   },
 ];
 
