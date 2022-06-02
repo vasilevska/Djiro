@@ -28,3 +28,8 @@ class DjilerRatingSerializer(serializers.ModelSerializer):
         model = Ratingcar
         fields = "__all__"
 
+class HoldingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Holding
+        fields = "__all__"
+

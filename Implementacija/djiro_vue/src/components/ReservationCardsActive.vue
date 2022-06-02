@@ -6,10 +6,10 @@
         v-for="reservation in reservations"
         :key="reservation.idr"
       >
-        <ReservationCard
-          v-if="reservation.status == 'P'"
-          :resInfo="reservation"
-        ></ReservationCard>
+        <div class="card" v-if="reservation['status'] == 'P'">
+          <h2>{{ reservation.idr }}</h2>
+          <button onclick="">Otkazi</button>
+        </div>
       </div>
     </div>
   </div>
@@ -18,7 +18,6 @@
 <script>
 import axios from "axios";
 
-import ReservationCard from "./ReservationCard.vue";
 export default {
   data() {
     return {
@@ -27,18 +26,33 @@ export default {
   },
   created() {
     console.log(this.$store.state.id);
-    axios({
-      method: "get",
-      //url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
-      url: `http://127.0.0.1:8000/api/reservations/driver/3`,
-    })
-      .then((response) => {
-        this.reservations = response.data.results;
+    if (this.$store.state.user["is_djiler"]) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/reservations/djiler/${this.$store.state.id}`,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {
+          this.reservations = response.data;
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
+      })
+        .then((response) => {
+          this.reservations = response.data;
+          console.log(response.data);
+          console.log("nije djiler");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
-  components: { ReservationCard },
+  components: {},
 };
 </script>

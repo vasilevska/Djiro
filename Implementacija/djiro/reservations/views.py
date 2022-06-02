@@ -21,7 +21,7 @@ class DriverReservationView(APIView):
     
     def post(self, request, id):
         serializer = ReservationsSerializer(data = request.data)
-
+        
         if serializer.is_valid():
             user_id = serializer.validated_data.get("driver")
             serializer.validated_data['idu'] = user_id

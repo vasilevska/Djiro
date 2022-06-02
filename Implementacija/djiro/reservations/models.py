@@ -49,7 +49,9 @@ class Holding(models.Model):
     idc = models.ForeignKey(Car, models.DO_NOTHING, db_column='IdC')  # Field name made lowercase.
     idr = models.OneToOneField(Reservation, models.DO_NOTHING, db_column='IdR', primary_key=True)  # Field name made lowercase.
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-
+    date_from = models.DateField(blank=True, null=True)
+    date_to = models.DateField(blank=True, null=True)
+    
     class Meta:
         managed = True
         db_table = 'holding'

@@ -27,7 +27,8 @@ class RetrieveIdView(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     # Function to get encrypted user_id when we're logged in
     def get(self, request, format=None):
-        return Response({"id": request.user.id})
+        serializer = UserDetailsSerializer(request.user)
+        return Response(serializer.data)
 
 
 class RetrieveUser(generics.ListAPIView):
