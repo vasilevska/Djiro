@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RegistrationView from "../views/RegistrationView.vue";
 import LoginView from "../views/LoginView.vue";
+import ListingView from "../views/ListingView.vue"
+import CarDetails from "@/views/CarDetails.vue"
 
 const routes = [
   {
@@ -28,6 +30,16 @@ const routes = [
     name: "login",
     component: LoginView,
   },
+  {
+    path: "/listing",
+    name: "listing",
+    component: ListingView
+  },
+  {
+    path: '/:car_slug/',
+    name: 'carDetails',
+    component: CarDetails
+  }
 ];
 
 const router = createRouter({

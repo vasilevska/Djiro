@@ -4,5 +4,8 @@ import router from "./router";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
+import axios from 'axios'
 
-createApp(App).use(store).use(router).mount("#app");
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+createApp(App).use(store).use(router, axios).mount("#app");
