@@ -25,11 +25,10 @@ class Document(models.Model):
             return "http://127.0.0.1:8000" + self.image1.url
         return ""
 
-    def get_image1(self):
+    def get_image2(self):
         if self.image2:
             return "http://127.0.0.1:8000" + self.image2.url
         return ""
-
 
 class UserManager(BaseUserManager):
 
@@ -59,6 +58,8 @@ class UserManager(BaseUserManager):
         user = self._create_user(email, password,
                                  **extra_fields)
         
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -78,6 +79,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
     is_staff = models.BooleanField(default=False)
     id = models.AutoField(db_column='id', primary_key=True)
+    is_superuser = models.BooleanField(default=False)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -127,3 +130,18 @@ class Passwordreset(models.Model):
         managed = False
         db_table = 'passwordreset'
 """
+
+class Validacija(models.Model):
+    user = models.ForeignKey(User, models.CASCADE)
+    document = models.ForeignKey(Document, models.CASCADE)
+    verifikovan = models.BooleanField(default=False)
+
+    class Meta:
+        managed = True
+        db_table = 'validation'
+    
+    def getImage1(self):
+        return self.document.get_image1()
+
+    def getImage2(self):
+        return self.document.get_image2()

@@ -35,6 +35,9 @@ const routes = [
     path: "/verification",
     name: "verification",
     component: VerificationView,
+    meta: {
+      requiresLogin: true,
+    },
   },
   {
     path: "/login",

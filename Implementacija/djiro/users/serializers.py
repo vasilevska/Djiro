@@ -16,10 +16,51 @@ class DocumentDetailsSerializer(serializers.ModelSerializer):
             "valid_date",
             "issuing_place",
             "reg_number",
-            "get_image1",
-            "get_image2"
+            "image1",
+            "image2"
         )
 
+    def validate(self, data):
+        print(data)
+        if not data['image1']:
+            raise serializers.ValidationError(
+                ("Nema slike 1"))
+
+        if not data['image2']:
+            raise serializers.ValidationError(
+                ("Nema slike 2"))
+
+        return data
+    
+    def get_cleaned_data(self):
+        return {
+            'issuing_date': self.validated_data.get('issuing_date', ''),
+            'valid_date': self.validated_data.get('valid_date', ''),
+            'issuing_place': self.validated_data.get('issuing_place', ''),
+            'reg_number': self.validated_data.get('reg_number', ''),
+            'image1': self.validated_data.get('image1', ''),
+            'image2': self.validated_data.get('image2', ''),
+        }
+
+    def save(self, request):
+        doc = Document()
+        self.cleaned_data = self.get_cleaned_data()
+        doc.issuing_date = self.cleaned_data['issuing_date']
+        doc.valid_date = self.cleaned_data['valid_date']
+        doc.issuing_place = self.cleaned_data['issuing_place']
+        doc.reg_number = self.cleaned_data['reg_number']
+        
+        doc.image1 = request.FILES['image1']
+        doc.image2 = request.FILES['image2']
+
+        doc.save()
+
+        user = User.objects.get(email=request.user)
+
+        Validacija(user = user, document = doc).save()
+        
+        return doc
+    
 
 class UserDetailsSerializer(serializers.ModelSerializer):
     """

@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -102,5 +103,18 @@ class UserRegistration(APIView):
             user = serializer.save(request)
             serializer = UserDetailsSerializer(user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class VozackaValidation(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, format=None):
+        serializer = DocumentDetailsSerializer(data=request.data)
+        print(request.user)
+        if serializer.is_valid():
+            serializer.save(request)
+            return Response({
+                'message': 'Zahtev prihvacen'
+            }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -15,5 +15,5 @@ urlpatterns = [
     path('get-user/', RetrieveUser.as_view(), name='get-user'),
     path('update-avatar/<int:id>', update_avatar, name='update-avatar'),
     path('update-user/<int:id>', update_user_info, name='update-user'),
-
+    path('verification/', VozackaValidation.as_view(), name='verify-vozacka')
 ]
