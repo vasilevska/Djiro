@@ -38,7 +38,6 @@
             id="model"
           />
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -55,9 +54,6 @@
 </style>
 
 <script>
-// import CarCard from '../components/CarCard.vue';
-import { getAPI } from "@/axios-api";
-import { mapState } from "vuex";
 
 export default {
   name: "HomeView",
