@@ -24,15 +24,14 @@ class ModelSerilizer(serializers.ModelSerializer):
 
 class CarSerilizer(serializers.ModelSerializer):
 
-    #modelP = serializers.SlugRelatedField(queryset=Model.objects.all(), slug_field='idman')
-
     class Meta:
         model = Car
         depth = 2
         #fields = '__all__'
         fields = [
             "idc",
-            "coordinates",
+            "lat",
+            "long",
             "year",
             "km",
             "fuel",
@@ -73,6 +72,37 @@ class CarCreation(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
+
+        required_fields = [
+            "coordinates",
+            "year",
+            "km",
+            "fuel",
+            "images",
+            "price_per_day",
+            "descr",
+            "transmision",
+            "type",
+            "car_model",
+            "manufacturer"
+        ]
+
+        for req_f in required_fields:
+            if req_f not in data:
+                raise serializers.ValidationError(
+                (f"Nema polja: {req_f}"))
+
+        coordinates = data['coordinates']
+        try:
+            coordinates = json.loads(coordinates)
+        except Exception:
+            raise serializers.ValidationError(
+                ("Parse coordinates error"))
+        
+        if 'lat' not in coordinates or 'long' not in coordinates:
+            raise serializers.ValidationError(
+                ("Nije dobar format coordinata"))
+
         if 'images' not in data or not data['images']:
             raise serializers.ValidationError(
                 ("Nema slike"))
@@ -106,15 +136,19 @@ class CarCreation(serializers.ModelSerializer):
             manufacturer.name = self.validated_data.get('manufacturer', '')
             manufacturer.slug = self.validated_data.get('manufacturer', '')
             manufacturer.save()
-
+            
 
         try:
             model = Model.objects.get(name=request.data['car_model'], manufacturer=manufacturer)
         except ObjectDoesNotExist:
             model = Model()
             model.manufacturer = manufacturer
+
             model.name = request.data["model"]
             model.slug = f'{manufacturer.slug}-{request.data["model"]}'
+
+            model.name = request.data['car_model']
+
             model.save()
 
         car.model = model

@@ -30,14 +30,14 @@
             id="searchbar"
             required
           />
-          <input
+          <!--<input
             type="date"
             class="me-2"
             name="date"
             id="date"
             style="width: 250px"
             required
-          />
+          />-->
           <button
             class="btn btn-light btn-outline-secondary"
             id="Traži"
