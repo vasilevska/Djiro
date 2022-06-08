@@ -4,7 +4,7 @@
       <div class="col-sm-6">
         <p class="h1 my-5">Unesite lične informacije</p>
         <div id="error-div" class="alert alert-danger" role="alert">
-            Please correct the following errors:
+            Ispravite sledece greske:
             <ul>
               <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
             </ul>

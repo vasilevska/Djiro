@@ -73,7 +73,7 @@ class CarCreation(serializers.ModelSerializer):
 
     def validate(self, data):
         print(data)
-        if not data['images']:
+        if 'images' not in data or not data['images']:
             raise serializers.ValidationError(
                 ("Nema slike"))
         return data
@@ -94,12 +94,13 @@ class CarCreation(serializers.ModelSerializer):
         car.user = user
 
         car.type = self.validated_data.get('type', '')
+        print(car.type)
         try:
             manufacturer = Manufacturer.objects.get(name=self.validated_data.get('manufacturer', ''))
         except ObjectDoesNotExist:
             manufacturer = Manufacturer()
-            manufacturer.name = self.validated_data.get('manufacturer', '')
-            manufacturer.slug = self.validated_data.get('manufacturer', '')
+            manufacturer.slug = manufacturer.name = self.validated_data.get('manufacturer', '')            
+            manufacturer.save()
 
         
         try:
@@ -107,15 +108,18 @@ class CarCreation(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             model = Model()
             model.manufacturer = manufacturer
-            model.name = request.data['model']
+            model.name = request.data["model"]
+            model.slug = f'{manufacturer.slug}-{request.data["model"]}'
             model.save()
             
         car.model = model
         
         car.images = request.FILES['images']
-
         car.save()
-
+        
+        # Now idc is created
+        car.slug = f"{model.slug}-{car.idc}"
+        car.save()
         return car
 
 

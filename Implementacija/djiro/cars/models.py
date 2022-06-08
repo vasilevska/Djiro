@@ -40,7 +40,7 @@ class Model(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/{self.idman.slug}/{self.slug}'
+        return f'/{self.slug}/'
 
 class Car(models.Model):
     idc = models.AutoField(db_column='IdC', primary_key=True)  # Field name made lowercase.

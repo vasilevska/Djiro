@@ -160,6 +160,8 @@ export default {
             }else{
                 formData.append("transmision", "automatic")
             }
+            var type = document.querySelector("#type")
+            formData.append("type", type[type.selectedIndex].value);
             formData.append("descr", document.querySelector("#opis-kola").value);
             formData.append("images",  document.querySelector("#car-photo").files[0]);
             formData.append("km", parseInt(document.getElementById("km").value));

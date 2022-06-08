@@ -77,8 +77,9 @@
 
                                 <hr> 
                                 <div class="row align-bottom">
-                                    <div class="col-3"><button class="btn btn-primary" style="width:150px"><router-link v-bind:to="car.get_absolute_url" style="color: white;">
-                                        Vise detalja</router-link></button></div>
+                                    <div class="col-3">
+                                        <router-link class="btn btn-primary" :to="car.get_absolute_url" style="width: 150px">Vise detalja</router-link>
+                                    </div>
                                     <div class="col-3 align-right">
                                         <h3 class="id-size-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{car.price_per_day}}€/dan</h3>
                                     </div>
@@ -124,6 +125,7 @@ export default {
                 .get('/api/list_of_all_cars/')
                 .then(response =>{
                     this.cars = response.data
+                    console.log(this.cars)
                 })
                 .catch(error => {
                     console.log(error)
