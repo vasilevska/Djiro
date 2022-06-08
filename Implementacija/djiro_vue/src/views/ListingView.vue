@@ -3,8 +3,8 @@
         <div class="row mt-2 pl-2">
             <div class="d-flex filteri mt-1">
                 <h3>Sortiranje:&nbsp;&nbsp;</h3>
-              <select name="sort" id="sortiranje" style="width:350px;" v-on:change="sortF($event)">
-                <option value="bez-sort" selected>Izaberite sortiranje</option>
+              <select name="sort" id="sortiranje" class="form-control" style="width:350px;" v-model="selected" v-on:change="sortF($event)">
+                <option value="bez-sort">Izaberite sortiranje</option>
                 <option value="god_desc">Godiste vozila (Od najvece do najmanje)</option>
                 <option value="god_asc">Godiste vozila (Od najmanje do najvece)</option>
                 <option value="km_desc">Kilometraza vozila (Od najvece do najmanje)</option>
@@ -23,7 +23,7 @@
             <hr>
             <input class="form-control me-2" type="text" placeholder="Godiste" style="width:200px;" id="godiste">
             <select name="markaS" id="markaS" style="width:200px;" class="mx-2">
-                <option value="" selected>Izaberi Marku</option>
+                <option value="" selected disabled>Izaberi Marku</option>
                 <option value="Peugeot">Peugeot</option>
                 <option value="Volvo">Volvo</option>
                 <option value="Toyota">Toyota</option>
@@ -38,7 +38,7 @@
                 <option value="Škoda">Škoda</option>
             </select>
             <select name="tipS" id="tipS" style="width:230px;" class="mx-2">
-                <option value="" selected>Izaberi tip Vozila</option>
+                <option value="" selected disabled>Izaberi tip Vozila</option>
                 <option value="sedan">Sedan</option>
                 <option value="kupe">Kupe</option>
                 <option value="kabriolet">Kabriolet</option>
@@ -48,7 +48,7 @@
                 <option value="limuzina">Limuzina</option>
             </select>
             <select name="gorivoS" id="gorivoS" style="width:200px;" class="mx-2">
-                <option value="" selected>Izaberi vrstu Gorivo</option>
+                <option value="" selected disabled>Izaberi vrstu Gorivo</option>
                 <option value="dizel">Dizel</option>
                 <option value="benzin">Benzin</option>
                 <option value="plin">Plin</option>
@@ -109,8 +109,7 @@ export default {
     name: 'ListingView',
     data(){
         return{
-            cars:[],
-            cars_unselected_filters: []
+            cars:[]
         }
     },
     components:{
@@ -171,103 +170,15 @@ export default {
         },
         f2(){
             var e = document.getElementById("markaS");
-            var marka = e.options[e.selectedIndex].value.toLowerCase();
+            var marka = e.options[e.selectedIndex].value;
             e = document.getElementById("tipS");
-            var tip = e.options[e.selectedIndex].value.toLowerCase();
+            var tip = e.options[e.selectedIndex].value;
             e = document.getElementById("gorivoS");
-            var gorivo = e.options[e.selectedIndex].value.toLowerCase();
-            var godiste = document.getElementById("godiste").value;
+            var gorivo = e.options[e.selectedIndex].value;
+            if(gorivo == "elektricni")
+            console.log(marka, tip, gorivo)
 
-            console.log(marka, tip, gorivo, godiste);
-
-            if(godiste == ''){
-                console.log('1')
-            }else if(godiste == 1){
-                console.log('2')
-            }
-
-
-
-            var len = this.cars.length;
-
-            var index_out = []
-
-            for(var i = 0; i < len; i++){
-                if(marka != '' && this.cars[i].model.manufacturer.name.toLowerCase() != marka){
-                    this.cars_unselected_filters.push(this.cars[i]);
-                    //this.cars.splice(i, 1);
-                    index_out.push(i)
-                    continue;
-                }else if(tip != '' && this.cars[i].type.toLowerCase() != tip){
-                    this.cars_unselected_filters.push(this.cars[i]);
-                    //this.cars.splice(i, 1);
-                    index_out.push(i)
-                    continue;
-                }else if(gorivo != '' && this.cars[i].fuel.toLowerCase() != gorivo){
-                    this.cars_unselected_filters.push(this.cars[i]);
-                    //this.cars.splice(i, 1);
-                    index_out.push(i)
-                    continue;
-                }else if(godiste != '' && parseInt(this.cars[i].year) != godiste){
-                    this.cars_unselected_filters.push(this.cars[i]);
-                    //this.cars.splice(i, 1);
-                    index_out.push(i)
-                    continue;
-                }
-
-            }
-
-            //izbacivanje iz liste auta
-            for(i = index_out.length - 1; i >= 0; i--){
-                this.cars.splice(index_out[i], 1);
-            }
-
-            len = this.cars_unselected_filters.length;
-
-            //predstavlja koliko moramo filteri proci da bi se vratio u listing
-            var indikator = 0;
-            if(marka != ''){
-                indikator += 1;
-            }
-            if(gorivo != ''){
-                indikator += 1;
-            }
-            if(godiste != ''){
-                indikator += 1;
-            }
-            if(tip != ''){
-                indikator += 1;
-            }
-            index_out = []
-
-            //ako su promenjena polja za filtriranje, pa mozda 
-            for(i = 0; i < len; i++){
-                var tmp = 0;
-                if(marka != '' && this.cars_unselected_filters[i].model.manufacturer.name.toLowerCase() == marka){
-                    tmp += 1;
-                }
-                if (tip != '' && this.cars_unselected_filters[i].type.toLowerCase() == tip){
-                    tmp += 1;
-                }
-                if (gorivo != '' && this.cars_unselected_filters[i].fuel.toLowerCase() == gorivo){
-                    tmp += 1;
-                }
-                if (godiste != '' && parseInt(this.cars_unselected_filters[i].year) == godiste){
-                    tmp += 1;
-                }
-                if(tmp == indikator){
-                    this.cars.push(this.cars_unselected_filters[i]);
-                    index_out.push(i)
-                }
-
-            }
-
-            //izbacivanje iz liste auta
-            for(i = index_out.length - 1; i >= 0; i--){
-                this.cars_unselected_filters.splice(index_out[i], 1);
-            }
-
-            document.getElementById("filteri").classList.add("d-none");
+             document.getElementById("filteri").classList.add("d-none");
         }
 
     }
