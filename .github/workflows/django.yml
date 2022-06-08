@@ -28,5 +28,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        cd djiro
+        cd Implementacija/djiro
         python manage.py test
