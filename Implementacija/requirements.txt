@@ -1,3 +1,4 @@
+django-allauth==0.51.0
 asgiref==3.5.2
 certifi==2022.5.18.1
 cffi==1.15.0
