@@ -1,3 +1,4 @@
+from random import random
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory, APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -11,9 +12,12 @@ import json
 import copy
 
 from users.models import User
+from cars.models import Car
+
+from .views import CarsByDistanceList
 
 
-class CreateListing(TestCase):
+class CarsTest(TestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = APIRequestFactory()
@@ -128,7 +132,6 @@ class CreateListing(TestCase):
         }
         
         response = self.client.post(url, request, headers={"Content-Type": "multipart/form-data"})
-        print(response.data)
         self.assertEqual(response.status_code, 400)
 
     def test_no_image(self):
@@ -156,3 +159,38 @@ class CreateListing(TestCase):
         response = self.client.post(url, request, headers={"Content-Type": "multipart/form-data"})
         self.assertEqual(response.status_code, 400)
         
+    def test_cars_by_distance(self):
+        url = reverse('cars_by_distance')
+
+        lat = 45.0
+        long = 0.6
+
+        lat_factor = 0.4
+        long_factor = 0.4
+
+        for i in range(20):
+            car = Car()
+            new_lat = (2*random()-1) * lat_factor + lat
+            new_long = (2*random()-1) * long_factor + long
+            car.lat= new_lat
+            car.long = new_long
+            car.save()
+        
+        for i in range(20):
+            car = Car()
+            new_lat = lat + random() + lat_factor+0.1
+            new_long = long + random() + long_factor+0.1
+            car.lat= new_lat
+            car.long = new_long
+            car.save()
+
+        coords=json.dumps(
+            {
+                'lat':lat,
+                'long':long
+            }
+        )
+
+        request = self.factory.get(url, {'coordinates': coords, 'long_factor':long_factor, 'lat_factor':lat_factor})
+        response = CarsByDistanceList.as_view()(request)
+        self.assertEqual(len(response.data), 20)
