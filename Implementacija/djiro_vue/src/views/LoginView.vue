@@ -22,8 +22,8 @@
             {{ error }}
           </p>
           <p>
-            New User?&nbsp;<router-link to="/registration"
-              >Create account</router-link
+            Novi Korisnik?&nbsp;<router-link to="/registration"
+              >Napravi Nalog</router-link
             >
           </p>
           <input
@@ -73,7 +73,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          this.error = "Make sure both username and password are correct.";
+          this.error = "Neispravna šifra ili mail";
           this.incorrectAuth = true;
         });
     },

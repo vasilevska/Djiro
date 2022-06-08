@@ -77,8 +77,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_djiler = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     idd = models.ForeignKey(Document, models.CASCADE, db_column='IdD', blank=True, null=True)  # Field name made lowercase.
-    is_staff = models.BooleanField(default=False)
-    id = models.AutoField(db_column='id', primary_key=True)
     is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()

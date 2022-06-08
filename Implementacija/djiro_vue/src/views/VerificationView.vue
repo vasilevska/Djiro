@@ -52,6 +52,18 @@
             v-model="reg_number"
           />
         </div>
+        <div class="form-group my-3 mx-3">
+          <label for="mesto-izdavanja">Mesto izdavanja:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mesto-izdavanja"
+            name="issuing_place"
+            placeholder="Mesto izdavanja"
+            required
+            v-model="issuing_place"
+          />
+        </div>
         <div class="form-group my-3">
           <label for="vozacka-napred" class="mb-1"
             >Slike prednje strane vozačke:</label
