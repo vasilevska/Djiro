@@ -1,8 +1,5 @@
-from distutils.command.upload import upload
-import imp
 from io import BytesIO
 from tkinter import Image
-from unicodedata import name
 from django.db import models
 from django.core.files import File
 from io import BytesIO
@@ -44,7 +41,8 @@ class Model(models.Model):
 
 class Car(models.Model):
     idc = models.AutoField(db_column='IdC', primary_key=True)  # Field name made lowercase.
-    coordinates = models.CharField(max_length=60, blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    long = models.FloatField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     km = models.IntegerField(blank=True, null=True)
     transmision = models.CharField(max_length=20, blank=True, null=True)

@@ -146,11 +146,10 @@ export default {
         getData() {
             var formData = new FormData();  
             let yr = document.querySelector("#godinaProizvodnje").value;
-            console.log(yr);
             formData.append("year", yr);
             var manafacturer = document.querySelector("#manafacturer");
             formData.append("manufacturer", manafacturer.options[manafacturer.selectedIndex].value);
-            formData.append("model", document.querySelector("#model").value);
+            formData.append("car_model", document.querySelector("#model").value);
             var fuel = document.querySelector("#gorivo");
             formData.append("fuel", fuel[fuel.selectedIndex].value);
             formData.append("price_per_day", document.querySelector("#rangeVal").value);
@@ -163,10 +162,7 @@ export default {
             formData.append("descr", document.querySelector("#opis-kola").value);
             formData.append("images",  document.querySelector("#car-photo").files[0]);
             formData.append("km", parseInt(document.getElementById("km").value));
-            for (let key in formData.keys()) {
-                console.log(key + " : "+ formData[key])
-            }
-                
+            formData.append("type", document.querySelector("#type").value);
             return formData;
         },
         dispalyInfo(info){
