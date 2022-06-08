@@ -7,3 +7,6 @@ SLAV Co Dokumentacija.zip
 SLAV Co Dokumentacija.zip
 *.pyc
 env
+migrations
+*.jpeg
+*.jpg
