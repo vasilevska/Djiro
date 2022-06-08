@@ -24,15 +24,14 @@ class ModelSerilizer(serializers.ModelSerializer):
 
 class CarSerilizer(serializers.ModelSerializer):
 
-    #modelP = serializers.SlugRelatedField(queryset=Model.objects.all(), slug_field='idman')
-
     class Meta:
         model = Car
         depth = 2
         #fields = '__all__'
         fields = [
             "idc",
-            "coordinates",
+            "lat",
+            "long",
             "year",
             "km",
             "fuel",
