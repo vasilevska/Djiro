@@ -32,7 +32,7 @@ class CarsDetails(APIView):
         return Response(serializer.data)
 
 class CreateListing(APIView):
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
         serializer = CarCreation(data=request.data)
         if serializer.is_valid():
