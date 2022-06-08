@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 
@@ -18,7 +18,6 @@ class SampleView(generics.RetrieveAPIView):
     queryset = User.objects.all()
 
     def get(self, request, format=None):
-        print(request.user.id)
         users = self.get_queryset()
         serializer = UserDetailsSerializer(users, many=True)
         return Response(serializer.data)
@@ -68,9 +67,9 @@ class RetrieveUser(generics.ListAPIView):
 
 
 @api_view(['POST',])
+@permission_classes([IsAuthenticated,])
 def update_avatar(request, id):
     user = User.objects.get(pk=id)
-    print("Prosao get")
     if 'avatar' in request.FILES and request.FILES['avatar'] != '':
         user.avatar = request.FILES['avatar']
         user.thumbnail = user.make_thumbnail(user.avatar)
@@ -78,9 +77,10 @@ def update_avatar(request, id):
         serializer = UserDetailsSerializer(user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'avatar': "Failure during uploading new avatar."}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST',])
+@permission_classes([IsAuthenticated,])
 def update_user_info(request, id):
     user = User.objects.get(pk=id)
     serializer = UserUpdateSerializer(data=request.data)
@@ -97,7 +97,6 @@ class UserRegistration(APIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request, format=None):
-        print(request.data)
         serializer = UserRegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save(request)
@@ -110,7 +109,6 @@ class VozackaValidation(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
         serializer = DocumentDetailsSerializer(data=request.data)
-        print(request.user)
         if serializer.is_valid():
             serializer.save(request)
             return Response({

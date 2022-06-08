@@ -21,12 +21,11 @@ class DocumentDetailsSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, data):
-        print(data)
-        if not data['image1']:
+        if 'image1' not in data or not data['image1']:
             raise serializers.ValidationError(
                 ("Nema slike 1"))
 
-        if not data['image2']:
+        if 'image2' not in data or not data['image2']:
             raise serializers.ValidationError(
                 ("Nema slike 2"))
 
