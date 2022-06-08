@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-6">
-        <h1>Sign In</h1>
+        <h1>Uloguj se</h1>
         <form id="login-form" action="profil.html">
           <input
             type="text"

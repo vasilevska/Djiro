@@ -81,7 +81,6 @@ export default {
   methods: {
     getCar() {
       const car_slug = this.$route.params.car_slug;
-
       axios
         .get(`/api/car/${car_slug}`)
         .then((response) => {
