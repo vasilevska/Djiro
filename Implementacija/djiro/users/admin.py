@@ -39,7 +39,8 @@ def verifikuj(modeladmin, request, queryset):
     for ver in queryset:
         user = ver.user
         user.doc_verified = True
-        user.save(update_fields=["doc_verified"])
+        user.idd = ver.document
+        user.save(update_fields=["doc_verified", "idd"])
 
 
 
@@ -49,7 +50,8 @@ def odverifikuj(modeladmin, request, queryset):
     for ver in queryset:
         user = ver.user
         user.doc_verified = False
-        user.save(update_fields=["doc_verified"])
+        user.idd = None
+        user.save(update_fields=["doc_verified", "idd"])
 
 @admin.action(description='Izbrisi oznaceno')
 def delete_model(self, request, obj):
