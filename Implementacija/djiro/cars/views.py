@@ -1,9 +1,11 @@
+from tkinter.messagebox import YES
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.db.models import Q
 
 from .models import *
 from .serializers import *
@@ -18,6 +20,42 @@ class CarsList(APIView):
         serializer = CarSerilizer(cars, many=True)
         return Response(serializer.data)
 
+class CarsByDistanceList(APIView):
+    
+    def get(self, request, format=None):
+        
+
+        if 'coordinates' not in request.GET or 'long_factor' not in request.GET or 'lat_factor' not in request.GET:
+            return Response({'message': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+
+        coordinates = request.GET['coordinates'] 
+
+        try:
+            coordinates = json.loads(coordinates)
+        except Exception:
+            return Response({'message': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if 'lat' not in coordinates or 'long' not in coordinates:
+            return Response({'message': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
+
+        lat_factor = float(request.GET['lat_factor'])
+        long_factor = float(request.GET['long_factor'])
+
+        lat = float(coordinates['lat'])
+        long = float(coordinates['long'])
+
+
+
+        cars = Car.objects.filter(
+            Q(lat__lt=lat+lat_factor) & 
+            Q(lat__gt = lat - lat_factor) &
+            Q(long__lt = long + long_factor) &
+            Q(long__gt=long - long_factor))
+
+        
+        serializer = CarSerilizer(cars, many=True)
+        return Response(serializer.data)
+        
 
 class CarsDetails(APIView):
     def get_object(self, car_slug):
@@ -32,7 +70,7 @@ class CarsDetails(APIView):
         return Response(serializer.data)
 
 class CreateListing(APIView):
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
         serializer = CarCreation(data=request.data)
         if serializer.is_valid():
