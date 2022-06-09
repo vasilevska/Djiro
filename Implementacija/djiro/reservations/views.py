@@ -96,7 +96,7 @@ class DjilerReservationView(APIView):
             res = Reservation.objects.get(idr = id)
         except:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
-        if request.data['accept']:
+        if request.data['accept'] == '1':
             res.status = 'P'
         else:
             res.status = 'D'
