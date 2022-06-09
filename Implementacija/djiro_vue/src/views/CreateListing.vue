@@ -164,7 +164,6 @@ export default {
             formData.append("descr", document.querySelector("#opis-kola").value);
             formData.append("images",  document.querySelector("#car-photo").files[0]);
             formData.append("km", parseInt(document.getElementById("km").value));
-            formData.append("type", document.querySelector("#type").value);
             return formData;
         },
         dispalyInfo(info){
@@ -193,7 +192,7 @@ export default {
                 data: formData,
                 headers: { 
                 "Content-Type": "multipart/form-data" ,
-                Authorization : `Bearer ${this.$store.state.accessToken}`
+                "Authorization" : `Bearer ${this.$store.state.accessToken}`
                 },
             })
                 .then((response) => {
@@ -220,6 +219,7 @@ export default {
                 console.log(dict)
                 formData.append("coordinates", JSON.stringify(dict));
                 self.sendForm(formData);
+
             }).catch((err) => {
                 this.displayError(err)
             });      

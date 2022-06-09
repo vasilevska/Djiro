@@ -144,8 +144,8 @@ class CarCreation(serializers.ModelSerializer):
             model = Model()
             model.manufacturer = manufacturer
 
-            model.name = request.data["model"]
-            model.slug = f'{manufacturer.slug}-{request.data["model"]}'
+            model.name = request.data["car_model"]
+            model.slug = f'{manufacturer.slug}-{request.data["car_model"]}'
 
             model.name = request.data['car_model']
 
