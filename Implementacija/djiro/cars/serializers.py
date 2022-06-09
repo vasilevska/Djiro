@@ -24,15 +24,14 @@ class ModelSerilizer(serializers.ModelSerializer):
 
 class CarSerilizer(serializers.ModelSerializer):
 
-    #modelP = serializers.SlugRelatedField(queryset=Model.objects.all(), slug_field='idman')
-
     class Meta:
         model = Car
         depth = 2
         #fields = '__all__'
         fields = [
             "idc",
-            "coordinates",
+            "lat",
+            "long",
             "year",
             "km",
             "fuel",
@@ -73,6 +72,7 @@ class CarCreation(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
+
         required_fields = [
             "coordinates",
             "year",
@@ -103,14 +103,13 @@ class CarCreation(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 ("Nije dobar format coordinata"))
 
-
         if 'images' not in data or not data['images']:
             raise serializers.ValidationError(
                 ("Nema slike"))
         return data
-    
 
-    
+
+
     def save(self, request):
         car = Car()
         user = User.objects.get(email=request.user)
@@ -129,6 +128,7 @@ class CarCreation(serializers.ModelSerializer):
         car.user = user
 
         car.type = self.validated_data.get('type', '')
+        print(car.type)
         try:
             manufacturer = Manufacturer.objects.get(name=self.validated_data.get('manufacturer', ''))
         except ObjectDoesNotExist:
@@ -136,23 +136,27 @@ class CarCreation(serializers.ModelSerializer):
             manufacturer.name = self.validated_data.get('manufacturer', '')
             manufacturer.slug = self.validated_data.get('manufacturer', '')
             manufacturer.save()
+            
 
-        
         try:
             model = Model.objects.get(name=request.data['car_model'], manufacturer=manufacturer)
         except ObjectDoesNotExist:
             model = Model()
             model.manufacturer = manufacturer
-            model.name = request.data['car_model']
-            model.save()
-            
-        car.model = model
-        
-        car.images = request.FILES['images']
 
+            model.name = request.data["car_model"]
+            model.slug = f'{manufacturer.slug}-{request.data["car_model"]}'
+
+            model.name = request.data['car_model']
+
+            model.save()
+
+        car.model = model
+
+        car.images = request.FILES['images']
         car.save()
 
+        # Now idc is created
+        car.slug = f"{model.slug}-{car.idc}"
+        car.save()
         return car
-
-
-

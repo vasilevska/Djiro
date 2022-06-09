@@ -17,8 +17,13 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresLogin)) {
     if (!store.getters.loggedIn) {
       next({ name: "login" });
-    } else {
-      next();
+    } else if (to.matched.some((record) => record.meta.restrictedToUser)) {
+      if (store.state.id == to.params.id) {
+        next();
+      }
+      else {
+        next({ name: "home" });
+      }
     }
   } else {
     next();

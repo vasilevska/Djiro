@@ -156,6 +156,14 @@ export default {
       rating: null,
     };
   },
+  watch: { 
+    $route(to, from) { 
+      // React to route changes... 
+      if (to !== from) { 
+        location.reload(); 
+        } 
+    } 
+  },
   created() {
     // Check if you can edit user profile
     if (this.$route.params.id == this.$store.state.id) {
