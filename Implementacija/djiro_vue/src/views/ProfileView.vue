@@ -12,10 +12,18 @@
                   width="150"
                   v-bind:src="user.get_thumbnail"
                 />
-                <div class="mt-3">
+                <div class="mt-3 text-center">
                   <h4>{{ user.first_name + " " + user.last_name }}</h4>
-                  <p class="text-secondary mb-1">Điler</p>
-
+                  <p
+                    class="text-secondary mb-1"
+                    v-if="$store.state.user['is_djiler']"
+                  >
+                    Điler
+                  </p>
+                  <p v-if="rating != null">
+                    {{ rating }} <font-awesome-icon icon="star" />
+                  </p>
+                  <p v-if="rating == null">ovaj korisnik nema ocene</p>
                 </div>
               </div>
             </div>
@@ -145,6 +153,7 @@ export default {
     return {
       user: null,
       myProfile: false,
+      rating: null,
     };
   },
   watch: { 
@@ -171,6 +180,31 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    if (this.$store.state.user["is_djiler"]) {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/rating/djiler/${this.$route.params.id}`,
+      })
+        .then((response) => {
+          // Get the first and only user from the response
+          this.rating = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        method: "get",
+        url: `http://127.0.0.1:8000/api/rating/driver/${this.$route.params.id}`,
+      })
+        .then((response) => {
+          // Get the first and only user from the response
+          this.rating = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   },
 };
 </script>

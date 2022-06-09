@@ -127,7 +127,7 @@
   justify-content: center;
 }
 #error-div {
-  display : none;
+  display: none;
 }
 </style>
 <script>
@@ -183,7 +183,7 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-            this.errors = []
+            this.errors = [];
             for (let key in err.response.data) {
               this.errors.push(key + " : " + err.response.data[key]);
             }

@@ -1,5 +1,4 @@
 <template>
-
   <div class="container">
     <div class="row">
       <div class="col-12" style="text-align: center">
@@ -10,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col-6" style="text-align: center">
-        <h3> {{ car.year }}</h3>
+        <h3>{{ car.year }}</h3>
         <hr />
         <div style="text-align: left">
           <h1>Opis:</h1>
@@ -52,13 +51,16 @@
             class="d-none"
             :value="this.$store.state.id"
           />
-          
         </form>
         <div class="col-3" style="margin-top: 40px">
-            <button class="btn btn-primary" style="width: 150px" @click="makeReservation">
-              REZERVISI
-            </button>
-          </div>
+          <button
+            class="btn btn-primary"
+            style="width: 150px"
+            @click="makeReservation"
+          >
+            REZERVISI
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -92,14 +94,14 @@ export default {
           console.log(error);
         });
     },
-    makeReservation(){
-        console.log("ovde");
-        var formElement = document.querySelector("form");
-        var formData = new FormData(formElement);
-        var object = {};
-        formData.forEach((value, key) => object[key] = value);
-        var json = JSON.stringify(object);
-        new Promise((resolve) => {
+    makeReservation() {
+      console.log("ovde");
+      var formElement = document.querySelector("form");
+      var formData = new FormData(formElement);
+      var object = {};
+      formData.forEach((value, key) => (object[key] = value));
+      var json = JSON.stringify(object);
+      new Promise((resolve) => {
         axios({
           method: "post",
           url: "http://127.0.0.1:8000/api/reservations/driver/0",
@@ -108,7 +110,7 @@ export default {
         })
           .then((response) => {
             console.log(response.data);
-            alert('uspesno rezervisano');
+            alert("uspesno rezervisano");
             resolve();
           })
           .catch((err) => {
