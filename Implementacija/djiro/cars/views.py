@@ -80,3 +80,19 @@ class CreateListing(APIView):
             }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class UpdateListing(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, id):
+        car = Car.objects.get(pk=id)
+        serializer = CarUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.update(request, car)
+            return Response({
+                'message': 'Azuriran listing'
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

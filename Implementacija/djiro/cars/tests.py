@@ -15,6 +15,7 @@ from users.models import User
 from cars.models import Car
 
 from .views import CarsByDistanceList
+from .serializers import *
 
 
 class CarsTest(TestCase):
@@ -194,3 +195,55 @@ class CarsTest(TestCase):
         request = self.factory.get(url, {'coordinates': coords, 'long_factor':long_factor, 'lat_factor':lat_factor})
         response = CarsByDistanceList.as_view()(request)
         self.assertEqual(len(response.data), 20)
+    
+    def test_update_car(self):
+        self.login_user()
+
+        image = SimpleUploadedFile("photo.jpeg", self.get_mock_img(), content_type="image/jpeg")
+        lat = 44.815067291259766
+        long = 20.460474014282227
+
+
+        year = '2002'
+        manufacturer = 'Peugeot'
+        car_model = '308'
+        fuel = 'Dizel'
+        price_per_day = 403.5
+        transmision = 'manual'
+        descr = 'Jako dobar auto'
+        images = image
+        km = 3000
+        type = 'Sedan'
+
+        car = Car()
+        car.lat = lat
+        car.long = long
+        car.km = km
+        car.price_per_day = price_per_day
+        car.descr = descr
+        car.slug = "123123123"
+
+        car.save()
+
+
+        new_long=27.0
+        new_lat = 47.0
+        coords =json.dumps({
+            "lat":new_lat,
+            "long":new_long
+            })
+
+        change = {
+            'coordinates' : coords
+        }
+        id = car.idc
+        url = reverse('update_car', args = [car.idc])
+        response = self.client.post(url, change)
+
+        car = Car.objects.get(pk=id)
+        self.assertEqual(car.long, new_long)
+        self.assertEqual(car.lat, new_lat)
+
+        
+        
+
