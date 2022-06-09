@@ -84,8 +84,8 @@ class CreateListing(APIView):
 class UpdateListing(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, id):
-        car = Car.objects.get(pk=id)
+    def post(self, request, car_slug):
+        car = Car.objects.get(slug=car_slug)
         serializer = CarUpdateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.update(request, car)

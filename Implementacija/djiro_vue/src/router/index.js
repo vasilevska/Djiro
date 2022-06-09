@@ -9,6 +9,7 @@ import VerificationView from "../views/VerificationView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import EditProfile from "../views/EditProfile.vue";
 import CreateListing from "../views/CreateListing.vue";
+import UpdateListing from "../views/UpdateListingView.vue";
 
 const routes = [
   {
@@ -95,6 +96,11 @@ const routes = [
     name: "create-listing",
     component: CreateListing,
   },
+  {
+    path: "/update-listing/:car_slug",
+    name: "UpdateCar",
+    component: UpdateListing
+  }
 ];
 
 const router = createRouter({
