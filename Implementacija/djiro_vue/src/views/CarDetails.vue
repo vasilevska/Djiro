@@ -82,9 +82,9 @@ export default {
   },
   methods: {
     getCar() {
-      const car_slug = this.$route.params.car_slug;
+      const idc = this.$route.params.car_slug;
       axios
-        .get(`/api/car/${car_slug}`)
+        .get(`/api/car/${idc}`)
         .then((response) => {
           this.car = response.data;
           this.idd = this.car.idu.id;
