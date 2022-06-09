@@ -84,7 +84,7 @@ export default createStore({
         access: localStorage.getItem("access"),
         refresh: localStorage.getItem("refresh"),
         id: localStorage.getItem("id"),
-        user: localStorage.getItem("user"),
+        user: JSON.parse(localStorage.getItem("user")),
       });
     },
   },

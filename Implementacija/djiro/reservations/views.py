@@ -51,7 +51,7 @@ class DriverReservationView(APIView):
 
             return Response(serializer.data)
         else:
-            return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
         """
         request treba da bude:

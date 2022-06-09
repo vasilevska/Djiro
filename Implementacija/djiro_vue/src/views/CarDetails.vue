@@ -24,9 +24,9 @@
       <div class="col-sm-6 offset-sm-6">
         <div class="col-sm-12 card">
           <h2>Cena: {{ car.price_per_day }}€/dan</h2>
-          <hr v-if="this.$store.state.id!=car.user.id" />
-          <h3 v-if="this.$store.state.id!=car.user.id">Izaberite datume:</h3>
-          <form v-if="this.$store.state.id!=car.user.id" style="margin: 10px" id="resform">
+          <hr v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" />
+          <h3 v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false">Izaberite datume:</h3>
+          <form v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" style="margin: 10px" id="resform">
             Od: <input type="date" name="date_from" id="datumOd" /> Do:
             <input type="date" name="date_to" id="datumDo" />
             <input
@@ -58,7 +58,7 @@
               :value="this.$store.state.id"
             />
           </form>
-          <div v-if="this.$store.state.id!=car.user.id" class="col-sm-3" style="margin-top: 40px">
+          <div v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" class="col-sm-3" style="margin-top: 40px">
             <button
               class="btn btn-primary"
               style="width: 150px"
@@ -96,8 +96,7 @@ export default {
         .get(`/api/car/${idc}`)
         .then((response) => {
           this.car = response.data;
-          this.idd = this.car.idu.id;
-          console.log(this.car.idu.id);
+          this.idd = this.car.user.id;
         })
         .catch((error) => {
           console.log(error);
@@ -110,16 +109,17 @@ export default {
       var object = {};
       formData.forEach((value, key) => (object[key] = value));
       var json = JSON.stringify(object);
+      console.log(object);
       new Promise((resolve) => {
         axios({
           method: "post",
-          url: "http://127.0.0.1:8000/api/reservations/driver/0",
+          url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
           data: json,
           headers: { "Content-Type": "application/json" },
         })
           .then((response) => {
             console.log(response.data);
-            alert("uspesno rezervisano");
+            alert("Kola su uspešno rezervisana.");
             resolve();
           })
           .catch((err) => {
