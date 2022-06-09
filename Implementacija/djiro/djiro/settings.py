@@ -192,7 +192,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 STATIC_URL = "/static/"
-JWT_AUTH = {
+SIMPLE_JWT = {
     # how long the original token is valid for
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=2),
 

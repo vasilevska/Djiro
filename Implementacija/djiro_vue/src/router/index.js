@@ -78,6 +78,7 @@ const routes = [
     props: true,
     meta: {
       requiresLogin: true,
+      restrictedToUser: true,
     },
   },
   {
