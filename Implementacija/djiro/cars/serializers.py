@@ -195,7 +195,7 @@ class CarUpdateSerializer(serializers.Serializer):
             car.km = int(request.data['km'])
         
         if 'price_per_day' in request.data:
-            car.price_per_day = float(request['price_per_day'])
+            car.price_per_day = float(request.data['price_per_day'])
 
         if 'descr' in request.data:
             car.descr = request.data['descr']
