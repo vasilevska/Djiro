@@ -58,14 +58,14 @@ class CarsByDistanceList(APIView):
         
 
 class CarsDetails(APIView):
-    def get_object(self, car_slug):
+    def get_object(self, idc):
         try:
-            return Car.objects.get(slug=car_slug)
+            return Car.objects.get(pk=idc)
         except Car.DoesNotExist:
             raise Http404
 
-    def get(self, request, car_slug, format=None):
-        car = self.get_object(car_slug)
+    def get(self, request, idc, format=None):
+        car = self.get_object(idc)
         serializer = CarSerilizer(car)
         return Response(serializer.data)
 

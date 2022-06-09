@@ -182,14 +182,6 @@ export default {
 
             console.log(marka, tip, gorivo, godiste);
 
-            if(godiste == ''){
-                console.log('1')
-            }else if(godiste == 1){
-                console.log('2')
-            }
-
-
-
             var len = this.cars.length;
 
             var index_out = []
