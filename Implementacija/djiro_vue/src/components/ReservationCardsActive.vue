@@ -8,7 +8,7 @@
       >
         <div class="card" v-if="reservation['status'] == 'P'">
           <h2>{{ reservation.idr }}</h2>
-          <button onclick="">Otkazi</button>
+          <button @click="cancelRes(reservation)">Otkazi</button>
         </div>
       </div>
     </div>
@@ -46,13 +46,26 @@ export default {
         .then((response) => {
           this.reservations = response.data;
           console.log(response.data);
-          console.log("nije djiler");
         })
         .catch((err) => {
           console.log(err);
         });
     }
   },
-  components: {},
+  methods: {
+    cancelRes(reservation) {
+      axios({
+        method: "put",
+        url: `http://127.0.0.1:8000/api/reservations/driver/${reservation.idr}`,
+      })
+        .then((response) => {
+          this.reservations = response.data;
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>

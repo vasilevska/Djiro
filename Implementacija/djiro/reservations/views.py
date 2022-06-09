@@ -15,7 +15,7 @@ class DriverReservationView(APIView):
         driverId = id
 
         if driverId:
-            reservations = Reservation.objects.filter(idu__pk=driverId)
+            reservations = Reservation.objects.filter(idu__id=driverId)
             serializer = ReservationsSerializer(reservations, many=True)
             return Response(serializer.data)
         else:
