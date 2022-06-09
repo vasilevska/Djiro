@@ -64,7 +64,7 @@ class Car(models.Model):
         return str(self.idc)
 
     def get_absolute_url(self):
-        return f'/{self.slug}/'
+        return f'/{self.idc}/'
     
     def get_image(self):
         if self.images:
