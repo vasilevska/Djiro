@@ -254,7 +254,7 @@ export default {
         method: "post",
         url: `http://127.0.0.1:8000/api/update-user/${this.$route.params.id}`,
         data: formData,
-        headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${this.$store.state.access}`},
+        headers: { "Content-Type": "multipart/form-data", Authorization : `Bearer ${this.$store.state.accessToken}`},
       })
         .then((response) => {
           console.log(response);
