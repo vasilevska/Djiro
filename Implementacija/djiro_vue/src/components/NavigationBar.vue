@@ -1,10 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <router-link to="/" class="navbar-brand"
-        >
-        <img src="@/assets/djiro_logo.png" alt="logo" style = "height:40px;"/>
-        <strong>   Điro</strong></router-link
+      <router-link to="/" class="navbar-brand">
+        <img src="@/assets/djiro_logo.png" alt="logo" style="height: 40px" />
+        <strong> Điro</strong></router-link
       >
       <button
         class="navbar-toggler"
@@ -38,7 +37,9 @@
             class="nav-item"
             v-if="accessToken != null && accessToken != 'null'"
           >
-            <router-link to="/create-listing" class="nav-link">Postani Điler</router-link>
+            <router-link to="/create-listing" class="nav-link"
+              >Postani Điler</router-link
+            >
             <!-- TODO: Change path when car form is made -->
           </li>
           <li
@@ -64,6 +65,11 @@
                   class="dropdown-item"
                   :to="'/profile/' + this.$store.state.id"
                   >Profil</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/reservations"
+                  >Moje rezervacije</router-link
                 >
               </li>
               <li>

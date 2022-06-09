@@ -23,7 +23,7 @@ export default createStore({
       localStorage.setItem("access", access);
       localStorage.setItem("refresh", access);
       localStorage.setItem("id", id);
-      localStorage.setItem("user", user);
+      localStorage.setItem("user", JSON.stringify(user));
     },
     destroyToken(state) {
       state.accessToken = null;
