@@ -66,7 +66,7 @@ class RetrieveUser(generics.ListAPIView):
         return queryset
 
 
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated,])
 @api_view(['POST',])
 def update_avatar(request, id):
     user = User.objects.get(pk=id)
@@ -79,7 +79,7 @@ def update_avatar(request, id):
     else:
         return Response({'avatar': "Failure during uploading new avatar."}, status=status.HTTP_400_BAD_REQUEST)
 
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated,])
 @api_view(['POST',])
 def update_user_info(request, id):
     user = User.objects.get(pk=id)
