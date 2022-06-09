@@ -39,7 +39,7 @@ export default {
     console.log("id:");
     console.log(this.$store.state.id);
     console.log("user: ");
-    console.log(this.$store.user);
+    console.log(this.$store.state.user);
     if (this.$store.state.user["is_djiler"]) {
       axios({
         method: "get",
