@@ -8,8 +8,7 @@
       <router-view />
     </div>
 
-    <div class="footer">
-    </div>
+    <div class="footer"></div>
   </div>
 </template>
 

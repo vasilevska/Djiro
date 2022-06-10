@@ -20,10 +20,7 @@
                 />
                 <div class="mt-3">
                   <h4>{{ user.first_name + " " + user.last_name }}</h4>
-                  <p
-                    class="text-secondary mb-1"
-                    v-if="user['is_djiler']"
-                    >
+                  <p class="text-secondary mb-1" v-if="user['is_djiler']">
                     Điler
                   </p>
                   <form
@@ -259,7 +256,10 @@ export default {
         method: "post",
         url: `http://127.0.0.1:8000/api/update-user/${this.$route.params.id}`,
         data: formData,
-        headers: { "Content-Type": "multipart/form-data", Authorization : `Bearer ${this.$store.state.accessToken}`},
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${this.$store.state.accessToken}`,
+        },
       })
         .then((response) => {
           console.log(response);

@@ -106,8 +106,8 @@ export default {
   //components: { CarCard },
   methods: {
     search() {
-      var search_term = document.getElementById('searchbar').value;
-      localStorage.setItem('_s_term', search_term);
+      var search_term = document.getElementById("searchbar").value;
+      localStorage.setItem("_s_term", search_term);
       this.$router.push("listing");
     },
   },

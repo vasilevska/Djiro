@@ -20,12 +20,10 @@ router.beforeEach((to, from, next) => {
     } else if (to.matched.some((record) => record.meta.restrictedToUser)) {
       if (store.state.id == to.params.id) {
         next();
-      }
-      else {
+      } else {
         next({ name: "home" });
       }
-    }
-    else {
+    } else {
       next();
     }
   } else {
