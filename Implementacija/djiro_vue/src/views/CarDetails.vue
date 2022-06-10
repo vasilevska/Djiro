@@ -70,26 +70,43 @@
         </div>
       </div>
     </div>
+    <div v-for="rat in ratings" :key="rat.ido" class="row">
+      <ReviewComponent :rating="rat"/>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import UserCard from "@/components/UserCard.vue";
+import ReviewComponent from "@/components/ReviewComponent.vue";
 
 export default {
   name: "CarDetails",
-  components: {UserCard},
+  components: { UserCard, ReviewComponent },
   data() {
     return {
       car: [],
       idd: null,
+      ratings: null,
     };
   },
   created() {
     this.getCar();
+    this.getRatings();
   },
   methods: {
+    getRatings() {
+      axios
+        .get(`ratings/car/${this.car.idc}`)
+        .then((response) => {
+          this.ratings = response.data;
+          console.log(this.ratings);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getCar() {
       const idc = this.$route.params.car_slug;
       axios
@@ -115,7 +132,7 @@ export default {
           method: "post",
           url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
           data: json,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json"},
         })
           .then((response) => {
             console.log(response.data);

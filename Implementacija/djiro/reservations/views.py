@@ -33,7 +33,7 @@ class DriverReservationView(APIView):
         oznacava koje klase ce da hendluju autentifikaciju korisnika
     
     """
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get(self, request, id):
         """
@@ -144,7 +144,7 @@ class DjilerReservationView(APIView):
     
     """
     
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get(self, request, id):
         """
@@ -191,7 +191,7 @@ class DjilerReservationView(APIView):
         return Response(serializer.data)
 
 class DriverRatingsView(APIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
         if id:            
             ratings = Ratingdriver.objects.filter(idu=id)
@@ -227,7 +227,7 @@ class CarRatingsView(APIView):
         oznacava koje klase ce da hendluju autentifikaciju korisnika
     
     """
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
         """
         Autor: Aleksa Račić
