@@ -1,6 +1,3 @@
-"""
-Autor/i: Stefan Branković 2019/0253, Aleksa Račić 2019/0728
-"""
 from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
@@ -11,9 +8,6 @@ from io import BytesIO
 # Create your models here.
 
 class Document(models.Model):
-    """
-    Models describings user's driving license
-    """
     idd = models.AutoField(db_column='IdD', primary_key=True)  # Field name made lowercase.
     issuing_date = models.DateField(blank=True, null=True)
     valid_date = models.DateField(blank=True, null=True)
@@ -27,32 +21,18 @@ class Document(models.Model):
         db_table = 'document'
 
     def get_image1(self):
-        """
-        Getter for the first side of the document
-        Returns: image's url on the server
-        """
         if self.image1:
             return "http://127.0.0.1:8000" + self.image1.url
         return ""
 
     def get_image2(self):
-        """
-        Getter for the second side of the document
-        Returns: image's url on the server
-        """
         if self.image2:
             return "http://127.0.0.1:8000" + self.image2.url
         return ""
 
 class UserManager(BaseUserManager):
-    """
-    Model defining class to act as Manager class for creating User model objects
-    """
 
     def _create_user(self, email, password, **extra_fields):
-        """
-        Helper function for creating normal or superusers
-        """
         if not email:
             raise ValueError(('The given email must be set'))
         email = self.normalize_email(email)
@@ -63,18 +43,12 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, email=None, password=None, **extra_fields):
-        """
-        Function creating users with standard privileges
-        """
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_staff', False)
         return self._create_user(email, password,
                                  **extra_fields)
 
     def create_superuser(self,email, password, **extra_fields):
-        """
-        Function creating users with admin privileges
-        """
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
 
@@ -115,17 +89,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'user'
 
     def get_avatar(self):
-        """
-        Getter for user's avatar image
-        """
         if self.avatar:
             return "http://127.0.0.1:8000" + self.avatar.url
         return ""
 
     def get_thumbnail(self):
-        """
-        Getter for user's thumbnail image (smaller size), made from of user's avatar image
-        """
         if self.thumbnail:
             return "http://127.0.0.1:8000" + self.thumbnail.url
         else:
@@ -138,10 +106,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return ""
 
     def make_thumbnail(self, image, size=(150,150)):
-        """
-        Helper function for creating copy of an image with modified size
-        Returns: thumbnail - PIL image of wanted size
-        """
         img = Image.open(image)
         img.convert("RGB")
         img.thumbnail(size)
@@ -166,9 +130,6 @@ class Passwordreset(models.Model):
 """
 
 class Validacija(models.Model):
-    """
-    Model defining table that is used for validating user's submitted document by the admin
-    """
     user = models.ForeignKey(User, models.CASCADE)
     document = models.ForeignKey(Document, models.CASCADE)
     verifikovan = models.BooleanField(default=False)
@@ -178,13 +139,7 @@ class Validacija(models.Model):
         db_table = 'validation'
     
     def getImage1(self):
-        """
-        Getter for the first side of the document
-        """
         return self.document.get_image1()
 
     def getImage2(self):
-        """
-        Getter for the second size of the document
-        """
         return self.document.get_image2()
