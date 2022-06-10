@@ -30,6 +30,9 @@ class ReservationsTest(TestCase):
         # Request jwt token for created user
         refresh = RefreshToken.for_user(user)
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
+    
+    def logout(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'')
 
     def get_mock_img(self, name='test.jpeg', ext='jpeg', size=(50, 50)):
         byte_obj = BytesIO()
@@ -130,6 +133,7 @@ class ReservationsTest(TestCase):
         self.assertEqual(response_post.data['rating'], 4)
 
         self.login_user(self.user_verif)
+        self.logout()
         response_get= self.client.get(url)
         self.assertEqual(response_get.status_code, 200)
         self.assertEqual(response_get.data[0]['ido'], response_get.data[0]['ido'])
@@ -167,7 +171,7 @@ class ReservationsTest(TestCase):
         self.assertEqual(response_post.data['car_rating'], 4)
         self.assertEqual(response_post.data['djiler_rating'], 4)
 
-
+        self.logout()
         url = reverse('ratings-car', args=[car.idc])
         request = self.factory.get(url)
         response_get = CarRatingsView.as_view()(request, car.idc)
