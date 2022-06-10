@@ -7,14 +7,29 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from users.models import User
 
-class ManufacturerSerilizer(serializers.ModelSerializer):
+"""
+-cars/serializers.py
 
+Ovaj fajl sadrzi sve serialajzere vezane za cars
+
+Radili na ovom fajlu:
+    -Nevena Vasilevska
+    -Aleksa Racic
+    -Lazar Eric
+
+"""
+
+class ManufacturerSerilizer(serializers.ModelSerializer):
+    """Serializer za proizvodjaca kola
+    """
     class Meta:
         model = Manufacturer
         fields = '__all__'
 
 class ModelSerilizer(serializers.ModelSerializer):
-
+    """
+    Serializer za model kola
+    """
     manuf = serializers.SlugRelatedField(queryset=Manufacturer.objects.all(), slug_field='slug')
 
     class Meta:
@@ -23,6 +38,9 @@ class ModelSerilizer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CarSerilizer(serializers.ModelSerializer):
+    """
+    Serializer za sama kola uz dodatne metode samih kola koje se salju na front
+    """
 
     class Meta:
         model = Car
@@ -51,6 +69,16 @@ class CarSerilizer(serializers.ModelSerializer):
 
 
 class CarCreation(serializers.ModelSerializer):
+    """Serializer za kreiranje kola
+    
+    Atributes:
+    manufacturer : serializers.CharField
+        proizvodjac automobila
+    car_model : serializers.CharField
+        model
+    coordinates : serializers.CharField
+        kordinate automobila
+    """
     manufacturer = serializers.CharField(required=True, write_only=True)
     car_model = serializers.CharField(required=True, write_only=True)
     coordinates = serializers.CharField(required=True, write_only=True)
@@ -165,6 +193,18 @@ class CarCreation(serializers.ModelSerializer):
 
       
 class CarUpdateSerializer(serializers.Serializer):
+    """Serializer za menjanje kola
+    
+    Atributes:
+    coordinates : serializers.CharField
+        kordinate automobila
+    km : serializers.IntegerField
+        kilometraza automobila
+    price_per_day : serializers.DecimalField
+        cena po danu
+    descr : serializers.CharField
+        opis automobila
+    """
     coordinates = serializers.CharField(required=False, write_only=True)
     km = serializers.IntegerField(required=False, write_only=True)
     price_per_day = serializers.DecimalField(max_digits=6, decimal_places=2, required=False, write_only=True)

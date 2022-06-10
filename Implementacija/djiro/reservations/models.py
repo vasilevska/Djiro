@@ -3,8 +3,6 @@ from cars.models import Car
 
 from users.models import User
 
-# Create your models here.
-
 class Reservation(models.Model):
     idr = models.AutoField(db_column='IdR', primary_key=True)  # Field name made lowercase.
     date_from = models.DateField(blank=True, null=True)

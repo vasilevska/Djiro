@@ -17,10 +17,41 @@ from cars.models import Car
 from .views import CarsByDistanceList
 from .serializers import *
 
+"""
+-cars/test.py
+
+Ovaj fajl sadrzi sve testove za testiranje aplikacije cars
+
+testovi se pozivaju pozivom python manage.py test reservations
+U testu se pozivaju sve funkcije koje pocinju niskom test
+
+Autori:
+    -Lazar Erić
+    -Stefan Branković
+    -Nevena Vasilevska
+    -Aleksa Račić
+
+"""
 
 class CarsTest(TestCase):
+    """Wrapper class for tests
+    
+    Atributes:
+    factory : APIRequestFactory
+        klasa za pravljenje novih http zahteva
+    client : APIClient
+        veza sa serverom
+    
+    """
     def setUp(self):
-        # Every test needs access to the request factory.
+        """
+        Autor: Aleksa Racic
+
+        funkcija koja pravi novog usera i inicijalizuje client i factory
+        @global factory
+        @global client
+        
+        """
         self.factory = APIRequestFactory()
         self.user = User.objects.create(
             email='jacob@gmail.com', password='top_secret')
@@ -28,11 +59,27 @@ class CarsTest(TestCase):
 
     
     def login_user(self):
-        # Request jwt token for created user
+        """
+        Autor: Aleksa Racic
+
+        Funkcija koja loginuje usera
+        @global client
+        
+        """
         refresh = RefreshToken.for_user(self.user)
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
 
     def get_mock_img(self, name='test.jpeg', ext='jpeg', size=(50, 50)):
+        """
+        Autor: Stefan Brankovic
+
+        Funkcija koja vraca praznu sliku za potrebe testa
+        @name string name ime slike prilikom cuvanja
+        @ext string ekstenzija slike
+        @size tuple velicina slikme u pikselima
+        @return Byte 
+        
+        """
         byte_obj = BytesIO()
         image = Image.new(mode="RGB", size=size)
         image.save(byte_obj, ext)
@@ -40,6 +87,13 @@ class CarsTest(TestCase):
         return byte_obj.read()
     
     def test_create_listing_success(self):
+        """
+        Autor: Nevena Vasilevska
+
+        Funkcija koja testira kreiranje listinga
+        @global client 
+        
+        """
         self.login_user()
         url = reverse('create_car')
 
@@ -67,6 +121,13 @@ class CarsTest(TestCase):
         
     
     def test_missing_field(self):
+        """
+        Autor: Nevena Vasilevska
+
+        Funkcija koja testira kreiranje listinga uz nedostatak svih potrebnih polja
+        @global client 
+        
+        """
         self.login_user()
         url = reverse('create_car')
 
@@ -111,6 +172,13 @@ class CarsTest(TestCase):
             self.assertEqual(response.status_code, 400)
 
     def test_bad_coords(self):
+        """
+        Autor: Nevena Vasilevska
+
+        Funkcija koja testira kreiranje listinga uz prenos losih koordinata
+        @global client 
+        
+        """
         self.login_user()
         url = reverse('create_car')
 
@@ -136,6 +204,13 @@ class CarsTest(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_no_image(self):
+        """
+        Autor: Lazar Eric
+
+        Funkcija koja testira kreiranje listinga bez odabrane slike
+        @global client 
+        
+        """
         self.login_user()
         url = reverse('create_car')
 
@@ -161,6 +236,13 @@ class CarsTest(TestCase):
         self.assertEqual(response.status_code, 400)
         
     def test_cars_by_distance(self):
+        """
+        Autor: Lazar Eric
+
+        Funkcija koja testira kreiranje listinga od nekog izabranog mesta na odredjenoj distanci
+        @global client 
+        
+        """
         url = reverse('cars_by_distance')
 
         lat = 45.0
@@ -197,6 +279,13 @@ class CarsTest(TestCase):
         self.assertEqual(len(response.data), 20)
     
     def test_update_car(self):
+        """
+        Autor: Aleksa Racic
+
+        Funkcija koja testira promenu listinga
+        @global client 
+        
+        """
         self.login_user()
 
         image = SimpleUploadedFile("photo.jpeg", self.get_mock_img(), content_type="image/jpeg")

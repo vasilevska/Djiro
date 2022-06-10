@@ -1,6 +1,3 @@
-"""
-Autor/i: Aleksa Račić 2019/0728
-"""
 from django.contrib import admin
 from .models import *
 from .import views
@@ -11,6 +8,8 @@ from django.contrib.admin import SimpleListFilter
 # Register your models here.
 admin.site.register(Document)
 admin.site.register(User)
+
+
 
 
 class VerifikovanoFIlter(SimpleListFilter):
@@ -36,9 +35,6 @@ class VerifikovanoFIlter(SimpleListFilter):
 
 @admin.action(description='Verifikuj vozacku')
 def verifikuj(modeladmin, request, queryset):
-    """
-    Function used for verifying user's document
-    """
     queryset.update(verifikovan=True)
     for ver in queryset:
         user = ver.user

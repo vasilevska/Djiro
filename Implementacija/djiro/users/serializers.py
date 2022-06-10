@@ -1,6 +1,3 @@
-"""
-Autor/i: Stefan Branković 2019/0253, Aleksa Račić 2019/0728
-"""
 from rest_framework import serializers
 from allauth.account.adapter import get_adapter
 from djiro import settings
@@ -11,9 +8,6 @@ from .models import *
 
 
 class DocumentDetailsSerializer(serializers.ModelSerializer):
-    """
-    Serializer for retrieving user's document details
-    """
     class Meta:
         model = Document
         fields = (
@@ -27,12 +21,6 @@ class DocumentDetailsSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, data):
-        """
-        Args:
-            data: dict = unvalidated input data
-        Returns:
-            data: dict 
-        """
         if 'image1' not in data or not data['image1']:
             raise serializers.ValidationError(
                 ("Nema slike 1"))
@@ -54,12 +42,6 @@ class DocumentDetailsSerializer(serializers.ModelSerializer):
         }
 
     def save(self, request):
-        """
-        Args:
-            request: dict = HTTP request containing Document's fields info
-        Returns:
-            doc : Document = created Document object
-        """
         doc = Document()
         self.cleaned_data = self.get_cleaned_data()
         doc.issuing_date = self.cleaned_data['issuing_date']
@@ -93,7 +75,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     """
-    Serializer for user registration
+    Author: Stefan Brankovic 2019/0253
     """
     first_name = serializers.CharField(required=True, write_only=True)
     last_name = serializers.CharField(required=True, write_only=True)
@@ -108,30 +90,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         'avatar')
 
     def validate_password1(self, password):
-        """
-        Args: 
-            password: string
-        Returns: validated password
-        """
         return get_adapter().clean_password(password)
 
     def validate(self, data):
-        """Passwords must match and phone number should be in one of the following formats (includes some more):
-            18005551234
-            1 800 555 1234
-            +1 800 555-1234
-            +86 800 555 1234
-            1-800-555-1234
-            1 (800) 555-1234
-            (800)555-1234
-            (800) 555-1234
-            (800)5551234
-            800-555-1234
-        Args:
-            data: dict
-        Returns:
-            data: dict
-        """
         prog = re.compile(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
         if 'password1' in data and data['password1'] != data['password2']:
             raise serializers.ValidationError(
@@ -141,10 +102,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
                 ("Please insert telephone in the correct 10-digit format"))
         return data
 
+    def custom_signup(self, request, user):
+        pass
+
     def get_cleaned_data(self):
-        """
-        Helper function that returns validated data field or an empty string
-        """
         return {
             'first_name': self.validated_data.get('first_name', ''),
             'last_name': self.validated_data.get('last_name', ''),
@@ -158,10 +119,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
     def save(self, request):
-        """
-        Args:
-            request: dict = HTTP request containing User's fields info
-        """
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
@@ -181,9 +138,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    """
-    Serializer used for updating user's info (password and email are excluded)
-    """
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'tel', 'bio',
