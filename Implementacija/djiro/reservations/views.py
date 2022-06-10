@@ -10,11 +10,42 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from .models import *
 from .serializers import *
 
-# Create your views here.
+"""
+-reservations/views.py
+
+U ovom fajlu su napisani svi testovi za testiranje aplikacije 'reservations'
+
+testovi se pozivaju pozivom python manage.py test reservations
+U testu se pozivaju sve funkcije koje pocinju niskom test
+
+Autori:
+    -Lazar Erić
+    -Stefan Branković
+    -Nevena Vasilevska
+    -Aleksa Račić
+
+"""
 class DriverReservationView(APIView):
+    """ApiVIew for Driver reservations
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id):
+        """
+        Autor: Stefan Branković
+
+        funkcija koja vraca sve rezervacije korisnika
+        @param request : httprequest
+            get request
+        @id
+            id korisnika
+        
+        """
         driverId = id
 
         if driverId:
@@ -25,6 +56,33 @@ class DriverReservationView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
     
     def post(self, request, id):
+        """
+        Autor: Stefan Branković
+
+        funkcija koja dodaje novu rezervaciju yza korisnika
+        @param request : httprequest
+            post zahtev oblika:
+
+            {
+            "date_from": "2022-05-30",
+            "date_to": "2022-06-03",
+            "status": "R",
+            "driver": 3,
+            "djiler": 4,
+            "car": 1
+            }
+
+            statusi:
+            R - requested
+            P - pending
+            F - finished
+            C - cancelled
+            D - declined
+        
+        @id
+            id korisnika
+        
+        """
         print(request.data)
         serializer = ReservationsSerializer(data = request.data)
         
@@ -57,25 +115,17 @@ class DriverReservationView(APIView):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-        """
-        request treba da bude:
-        {
-            "date_from": "2022-05-30",
-            "date_to": "2022-06-03",
-            "status": "R",
-            "driver": 3,
-            "djiler": 4,
-            "car": 1
-        }
-
-        statusi:
-        R - requested
-        P - pending
-        F - finished
-        C - cancelled
-        D - declined
-        """
     def put(self, request, id):
+        """
+        Autor: Stefan Branković
+
+        funkcija koja odbija rezervaciju
+        @param request : httprequest
+            http put request
+        @id
+            id korisnika
+        
+        """
         try:
             res = Reservation.objects.get(idr = id)
         except:
@@ -86,9 +136,26 @@ class DriverReservationView(APIView):
         return Response(serializer.data)
     
 class DjilerReservationView(APIView):
+    """ApiVIew za rezervacije DJilera
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
+    
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id):
+        """
+        Autor: Aleksa Račić
+
+        funkcija koja vraca sve rezervacije djilera        @param request : httprequest
+            get request
+        @id
+            id korisnika
+        
+        """
         djilerId = id
         if djilerId:            
             reservations = Reservation.objects.filter(idd__pk=djilerId)
@@ -98,6 +165,19 @@ class DjilerReservationView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, id):
+        """
+        Autor: Aleksa Račić
+
+        funkcija koja dodaje novu rezervaciju yza korisnika
+        @param request : httprequest
+            post zahtev oblika:
+            {
+            "accept":1
+            }
+        @id
+            id korisnika
+        
+        """
         try:
             res = Reservation.objects.get(idr = id)
         except:
@@ -109,12 +189,6 @@ class DjilerReservationView(APIView):
         res.save()
         serializer = ReservationsSerializer(res)
         return Response(serializer.data)
-        """
-        {
-            "accept":1
-        }
-
-        """
 
 class DriverRatingsView(APIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -146,8 +220,25 @@ class DriverRatingsView(APIView):
     """
 
 class CarRatingsView(APIView):
+    """ApiVIew za hendlovanje ocena za automobile
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
     permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
+        """
+        Autor: Aleksa Račić
+
+        funkcija koja vraca sve ocene automobila       
+        @param request : httprequest
+            get request
+        @id
+            id automobila
+        
+        """
         if id:            
             ratings = Ratingcar.objects.filter(idc=id)
             serializer = CarRatingSerializer(ratings, many=True)
@@ -156,6 +247,24 @@ class CarRatingsView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, id):
+        """
+        Autor: Nevena Vasilevska
+
+        funkcija koja vraca sve ocene automobila       
+        @param request : httprequest
+            post request oblika:
+            {
+                "date_from": "2022-05-30",
+                "date_to": "2022-06-03",
+                "status": "R",
+                "driver": self.user_verif.id,
+                "djiler": self.user.id,
+                "car": car.idc
+            }
+        @id
+            id automobila
+        
+        """
         serializer = CarRatingSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
@@ -164,7 +273,19 @@ class CarRatingsView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
 class DjilerRatingsView(APIView):
+    """ApiVIew za hendlovanje ocena za Djilera"""
+
     def get(self, request, id):
+        """
+        Autor: Aleksa Račić
+
+        funkcija koja vraca sve ocene Djilera       
+        @param request : httprequest
+            get request
+        @id
+            id Djilera
+        
+        """
         if id:            
             ratings = Ratingcar.objects.filter(idd = id)
             serializer = DjilerRatingSerializer(ratings, many=True)
@@ -173,13 +294,34 @@ class DjilerRatingsView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
 class HoldingsView(APIView):
+    """ApiVIew za hendlovanje trenutnih holdova"""
     def get(self, request, id):
+        """
+        Autor: Lazar Erić
+
+        funkcija koja vraca sve Holdings auta      
+        @param request : httprequest
+            get request
+        @id
+            id Automobila
+        
+        """
         holdings = Holding.objects.filter(idc = id)
         serializer = HoldingSerializer(holdings, many = True)
         return Response(serializer.data)
 
 @api_view(['GET'])
 def car_rating(request, id):
+    """
+    Autor: Aleksa Račić
+
+    funkcija koja vraca prosek ocena automobila    
+    @param request : httprequest
+        get request
+    @id
+        id Automobila
+    
+    """
     ratings = Ratingcar.objects.filter(idc=id)
     count = 0
     sum = 0.0
@@ -194,6 +336,16 @@ def car_rating(request, id):
     
 @api_view(['GET'])
 def djiler_rating(request, id):
+    """
+    Autor: Aleksa Račić
+
+    funkcija koja vraca prosek ocena Djilera   
+    @param request : httprequest
+        get request
+    @id
+        id Usera
+    
+    """
     ratings = Ratingcar.objects.filter(idd=id)
     count = 0
     sum = 0.0
@@ -207,6 +359,16 @@ def djiler_rating(request, id):
     
 @api_view(['GET'])
 def driver_rating(request, id):
+    """
+    Autor: Aleksa Račić
+
+    funkcija koja vraca prosek ocena vozaca   
+    @param request : httprequest
+        get request
+    @id
+        id korisnika
+    
+    """
     ratings = Ratingdriver.objects.filter(idu=id)
     count = 0
     sum = 0.0
