@@ -1,15 +1,23 @@
+/* eslint-disable */
 <template>
-<div class="col-auto justify-content-center align-items-center">
+<div class="col-auto justify-content-center align-items-center omotac">
     <div v-if="rendering" class="text-center">
     <ring-loader :color="color1" :height="height"></ring-loader>
     </div>
     <div 
-    v-else
+    v-show="!rendering"
     ref="mapContainer"
     class= "v-100"
   ></div>
 </div>
 </template>
+
+<style scoped>
+  .omotac{
+    width:100%;
+    height: 100%;
+  }
+</style>
 
 <script>
 import Config from "./config.js";
@@ -18,12 +26,11 @@ import RingLoader from 'vue-spinner/src/RingLoader.vue'
 
 export default {
   name: "MapComponent",
-  props: ["coords", "center"],
+  props: ["cars", "center", "zoom"],
   data() {
     return {
       apiLoaded: false,
       map: null,
-      map_coords: this.coords,
       map_center: this.center,
       rendering : true,
       color1: '#3AB982',
@@ -70,7 +77,6 @@ export default {
     },
     render() {
       let self = this;
-      return new Promise((resolve, reject) => {
         Promise.all([self.loadApi()])
           .then(() => {
             var centr = new Microsoft.Maps.Location(
@@ -78,53 +84,44 @@ export default {
               self.map_center["long"]
             );
 
-            this.map = new Microsoft.Maps.Map(this.$refs.mapContainer, {
+            self.map = new Microsoft.Maps.Map(self.$refs.mapContainer, {
               credentials: Config.credentials,
               center: centr,
               mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-              zoom: 12,
+              zoom: self.zoom,
               disableScrollWheelZoom: true,
               mapTypeId: Microsoft.Maps.MapTypeId.road,
               disableStreetside: true,
-              showZoomButtons: false,
+              //showZoomButtons: false,
               showLocateMeButton: false,
               disableMapTypeSelectorMouseOver: true,
               disableStreetside: true,
               showMapTypeSelector: false,
             });
 
-            self.map.entities.push(
-              new Microsoft.Maps.Pushpin(centr, {
-                icon: SVG,
-                anchor: new Microsoft.Maps.Point(0, 0),
-              })
-            );
-
-            for (var coord of this.map_coords) {
+            for (var car of this.cars) {
               var center = new Microsoft.Maps.Location(
-                coord["lat"],
-                coord["long"]
+                car.lat,
+                car.long
               );
               var pin = new Microsoft.Maps.Pushpin(center, {
                 icon: SVG,
-                anchor: new Microsoft.Maps.Point(0, 0),
+                anchor: new Microsoft.Maps.Point(50,72)
               });
               this.map.entities.push(pin);
             }
-
-            resolve();
           })
-          .catch(function (err) {
-            reject(err);
+          .catch(err => {
+            console.log(err);
           })
           .finally(() => {
             this.rendering = false;
           });
-      });
+
     },
   },
   mounted() {
-      this.rendering = true;
+    this.rendering = true;
     this.render();
   },
   components:{
