@@ -71,8 +71,9 @@
                                 <img v-bind:src="car.get_thumbnail">
                             </div>
                             <div class="col-4">
-                                <h3 class="id-size-4">Model: {{car.model.name}}</h3>
-                                <h3 class="id-size-4">Type: {{car.type}}</h3>
+                                <h3 class="id-size-4"><i>{{car.model.manufacturer.name}} {{car.model.name}}</i></h3>
+                                <h4 class="id-size-4">Tip: {{car.type}}</h4>
+                                <h4 class="id-size-4">Gorivo: {{car.fuel}}</h4>
                                 <!-- Fali ocena -->
 
                                 <hr> 
@@ -132,18 +133,36 @@ export default {
             loading : false,
             color1: '#3AB982',
             height: '50px',
-            zoom: 12
+            zoom: 12,
+            ratings: [],
+            tmp1: []
         }
     },
     components:{
         RingLoader,
         MapComponent
     },
-    mounted(){
+    created(){
         this.loading = true;
         this.getCarList()
     },
     methods:{
+        getRatings(){
+          for(var i = 0; i < this.cars.length; i++){
+                    var id = this.cars[i].idc
+                    var ind = 0;
+                    axios
+                        .get(`/api/rating/car/${id}`)
+                        .then(response =>{
+                            this.tmp1 = response.data
+                            console.log(this.tmp1)
+                            this.ratings.push({id: this.cars[ind++].idc, rating: this.tmp1.rating, count: this.tmp1.count})
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                        })
+                }
+        },
         getCarList(){
             let self = this;
             var search_term = localStorage.getItem("_s_term");
@@ -154,6 +173,7 @@ export default {
                 .then(response =>{
                     this.cars = response.data
                     console.log(this.cars)
+                    self.getRatings();
                     var dict = {"lat": 44.0165, "long": 21.0059};
                     self.coordinates_center = dict;
                 })
@@ -164,42 +184,43 @@ export default {
                 })
             }else{
                 axios({
-                method: "get",
-                url: `https://dev.virtualearth.net/REST/v1/Locations/${search_term}?key=Al9hlQRWKffWXgWCo9DIxIenHGNvv7gkLztrBjFCJdInqHrVa2HXFyIdVoI8-DQ9`,
-            }).then((response)=>{
-                var points = response.data.resourceSets[0].resources[0].point.coordinates;
-                var dict = {"lat": points[0], "long": points[1]};
-                self.coordinates_center = dict;
-                var coords = JSON.stringify(dict);
-                axios({
-                method: "get",
-                url: "http://127.0.0.1:8000/api/get_car_by_location",
-                params: { 
-                    "coordinates": coords,
-                    "lat_factor" : 0.4,
-                    "long_factor" : 0.4
-                 }
-            }).then((response)=>{
-                this.cars = response.data
-                console.log(this.cars)
-                this.loading = false;
-            }
-            ).catch((err)=>{
-                console.log(err);
-                this.loading = false;
-            })
-            }
-            ).catch((err)=>{
-                console.log(err);
-                this.loading = false;
-            })
+                  method: "get",
+                  url: `https://dev.virtualearth.net/REST/v1/Locations/${search_term}?key=Al9hlQRWKffWXgWCo9DIxIenHGNvv7gkLztrBjFCJdInqHrVa2HXFyIdVoI8-DQ9`,
+              }).then((response)=>{
+                  var points = response.data.resourceSets[0].resources[0].point.coordinates;
+                  var dict = {"lat": points[0], "long": points[1]};
+                  self.coordinates_center = dict;
+                  var coords = JSON.stringify(dict);
+                  axios({
+                  method: "get",
+                  url: "http://127.0.0.1:8000/api/get_car_by_location",
+                  params: { 
+                      "coordinates": coords,
+                      "lat_factor" : 0.4,
+                      "long_factor" : 0.4
+                   }
+              }).then((response)=>{
+                  this.cars = response.data
+                  console.log(this.cars)
+                  self.getRatings();
+                  this.loading = false;
+              }
+              ).catch((err)=>{
+                  console.log(err);
+                  this.loading = false;
+              })
+              }
+              ).catch((err)=>{
+                  console.log(err);
+                  this.loading = false;
+              })
             }
             
-        
         },
         sortF: function(e){
 
             console.log(e.target.value)
+            console.log(this.ratings)
             var tmp = e.target.value;
 
             switch (tmp){
