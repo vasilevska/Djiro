@@ -1,16 +1,19 @@
 from re import L
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from stripe import api_base
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from .models import *
 from .serializers import *
 
 # Create your views here.
 class DriverReservationView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id):
         driverId = id
 
@@ -82,6 +85,8 @@ class DriverReservationView(APIView):
         return Response(serializer.data)
     
 class DjilerReservationView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id):
         djilerId = id
         if djilerId:            
@@ -96,7 +101,7 @@ class DjilerReservationView(APIView):
             res = Reservation.objects.get(idr = id)
         except:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
-        if request.data['accept']:
+        if 'accept' in request.data and int(request.data['accept']):
             res.status = 'P'
         else:
             res.status = 'D'
@@ -111,6 +116,7 @@ class DjilerReservationView(APIView):
         """
 
 class DriverRatingsView(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
         if id:            
             ratings = Ratingdriver.objects.filter(idu=id)
@@ -139,6 +145,7 @@ class DriverRatingsView(APIView):
     """
 
 class CarRatingsView(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
         if id:            
             ratings = Ratingcar.objects.filter(idc=id)
@@ -149,7 +156,6 @@ class CarRatingsView(APIView):
 
     def post(self, request, id):
         serializer = CarRatingSerializer(data = request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -179,7 +185,10 @@ def car_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.car_rating
-    return Response({"rating": sum/count})
+    try:
+        return Response({"rating": sum/count})
+    except:
+        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET'])
 def djiler_rating(request, id):
@@ -189,7 +198,10 @@ def djiler_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.djiler_rating
-    return Response({"rating": sum/count})
+    try:
+        return Response({"rating": sum/count})
+    except:
+        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET'])
 def driver_rating(request, id):
@@ -199,7 +211,10 @@ def driver_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.rating
-    return Response({"rating": sum/count})
+    try:
+        return Response({"rating": sum/count})
+    except:
+        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
     
     
 
