@@ -12,19 +12,47 @@ from .serializers import *
 
 from .serializers import CarSerilizer
 
-# Create your views here.
+"""
+-cars/views.py
+
+Ovaj fajl sadrzi sve endpointe vezane za aplikaciju 'cars'
+
+Autori:
+    -Lazar Erić
+    -Stefan Branković
+    -Nevena Vasilevska
+    -Aleksa Račić
+
+"""
 
 class CarsList(APIView):
+    """ApiVIew for dohvatanje liste svih automobila
+    """
     def get(self, request, format=None):
+        """
+        Autor: Stefan Branković
+
+        funkcija koja vraca sve automobile
+        @param request : httprequest
+            get request
+        @return listu automobila
+        """
         cars = Car.objects.all()
         serializer = CarSerilizer(cars, many=True)
         return Response(serializer.data)
 
 class CarsByDistanceList(APIView):
-    
+    """ApiVIew za dohvatanje automobila u nekom mestu
+    """
     def get(self, request, format=None):
-        
+        """
+        Autor: Aleksa Racic
 
+        funkcija koja vraca sve automobile u nekom mestu
+        @param request : httprequest
+            get request
+        @return listu automobila
+        """
         if 'coordinates' not in request.GET or 'long_factor' not in request.GET or 'lat_factor' not in request.GET:
             return Response({'message': 'Bad request'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -58,6 +86,8 @@ class CarsByDistanceList(APIView):
         
 
 class CarsDetails(APIView):
+    """ApiVIew for dohvatanje informacija o automobilu
+    """
     def get_object(self, idc):
         try:
             return Car.objects.get(pk=idc)
@@ -65,13 +95,39 @@ class CarsDetails(APIView):
             raise Http404
 
     def get(self, request, idc, format=None):
+        """
+        Autor: Aleksa Račić
+
+        funkcija koja vraca sve rezervacije djilera        
+        @param request : httprequest
+            get request
+        @idc
+            id automobila
+        @return informacije o automobilu
+        
+        """
         car = self.get_object(idc)
         serializer = CarSerilizer(car)
         return Response(serializer.data)
 
 class CreateListing(APIView):
+    """ApiVIew for kreiranje listinga
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
     permission_classes = (IsAuthenticated,)
     def post(self, request, format=None):
+        """
+        Autor: Lazar Eric
+
+        funkcija koja dodaje novi auto
+        @param request : httprequest
+            post zahtev sa informacijama o automobila
+        
+        """
         serializer = CarCreation(data=request.data)
         if serializer.is_valid():
             serializer.save(request)
@@ -82,9 +138,25 @@ class CreateListing(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UpdateListing(APIView):
+    """ApiVIew for modifikovanje listinga
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, car_slug):
+        """
+        Autor: Nevena Vasilevska
+
+        funkcija koja dodaje menja auto
+        @param request : httprequest
+            post zahtev sa novim informacijama o automobila
+        @car_slug : slug
+            slug automobila
+        """
         car = Car.objects.get(slug=car_slug)
         serializer = CarUpdateSerializer(data=request.data)
         if serializer.is_valid():
