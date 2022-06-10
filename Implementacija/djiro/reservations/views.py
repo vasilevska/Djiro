@@ -185,10 +185,11 @@ def car_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.car_rating
-    try:
-        return Response({"rating": sum/count})
-    except:
-        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
+    if(count != 0):
+        return Response({"rating": sum/count, "count": count})
+    else:
+        return Response({"rating": 0, "count": count})
+
     
 @api_view(['GET'])
 def djiler_rating(request, id):
@@ -198,10 +199,10 @@ def djiler_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.djiler_rating
-    try:
-        return Response({"rating": sum/count})
-    except:
-        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
+    if(count != 0):
+        return Response({"rating": sum/count, "count": count})
+    else:
+        return Response({"rating": 0, "count": count})
     
 @api_view(['GET'])
 def driver_rating(request, id):
@@ -211,10 +212,10 @@ def driver_rating(request, id):
     for rating in ratings:
         count+=1
         sum+=rating.rating
-    try:
-        return Response({"rating": sum/count})
-    except:
-        return return Response(data="No available ratings", status = status.HTTP_400_BAD_REQUEST)
+    if(count != 0):
+        return Response({"rating": sum/count, "count": count})
+    else:
+        return Response({"rating": 0, "count": count})
     
     
 
