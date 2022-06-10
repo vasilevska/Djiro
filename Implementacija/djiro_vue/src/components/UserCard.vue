@@ -17,10 +17,10 @@
                 >
                 Điler
                 </p>
-                <p v-if="rating != null">
-                {{ rating }} <font-awesome-icon icon="star" />
+                <p v-if="rating != null && rating.count > 0">
+                {{ rating.rating }} <font-awesome-icon icon="star" />
                 </p>
-                <p v-if="rating == null">Ovaj korisnik nema ocene</p>
+                <p v-if="rating == null || (rating != null && rating.count == 0)">Ovaj korisnik nema ocene</p>
             </div>
             </div>
         </div>
