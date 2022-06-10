@@ -15,10 +15,40 @@ from .models import *
 from users.models import *
 from cars.models import Car
 
-# Create your tests here.
+"""
+-reservations/test.py
+
+U ovom fajlu su napisani svi testovi za testiranje aplikacije 'reservations'
+
+testovi se pozivaju pozivom python manage.py test reservations
+U testu se pozivaju sve funkcije koje pocinju niskom test
+
+Autori:
+    -Lazar Erić
+    -Stefan Branković
+    -Nevena Vasilevska
+    -Aleksa Račić
+
+"""
 class ReservationsTest(TestCase):
+    """Wrapper class for tests
+    
+    Atributes:
+    factory : APIRequestFactory
+        klasa za pravljenje novih http zahteva
+    client : APIClient
+        veza sa serverom
+    
+    """
     def setUp(self):
-        # Every test needs access to the request factory.
+        """
+        Autor: Stefan Branković
+
+        funkcija koja pravi novog usera i inicijalizuje client i factory
+        @global factory
+        @global client
+        
+        """
         self.factory = APIRequestFactory()
         self.user = User.objects.create(
             email='jacob@gmail.com', password='top_secret')
@@ -27,14 +57,37 @@ class ReservationsTest(TestCase):
         self.client = APIClient()
     
     def login_user(self, user):
-        # Request jwt token for created user
+        """
+        Autor: Stefan Branković
+
+        Funkcija koja loginuje usera
+        @global client
+        
+        """
         refresh = RefreshToken.for_user(user)
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
     
     def logout(self):
+        """
+        Autor: Stefan Branković
+
+        Funkcija koja logoutuje usera
+        @global client
+        
+        """
         self.client.credentials(HTTP_AUTHORIZATION=f'')
 
     def get_mock_img(self, name='test.jpeg', ext='jpeg', size=(50, 50)):
+        """
+        Autor: Nevena Vasilevska
+
+        Funkcija koja vraca praznu sliku za potrebe testa
+        @param string name ime slike prilikom cuvanja
+        @ext string ekstenzija slike
+        @size tuple velicina slikme u pikselima
+        @return Byte 
+        
+        """
         byte_obj = BytesIO()
         image = Image.new(mode="RGB", size=size)
         image.save(byte_obj, ext)
@@ -42,6 +95,13 @@ class ReservationsTest(TestCase):
         return byte_obj.read()
 
     def test_driver_reservation(self):
+        """
+        Autor: Aleksa Račić
+
+        FUnkcija koja testira ponasanje prilikom pravljenja nove rezervacije
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         url = reverse('reservations-driver', args=[self.user_verif.id])
@@ -70,6 +130,13 @@ class ReservationsTest(TestCase):
         self.assertEqual(count, 1)
 
     def test_djiler_reservation(self):
+        """
+        Autor: Aleksa Račić
+
+        FUnkcija koja testira ponasanje prilikom pravljenja nove rezervacije
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         url = reverse('reservations-driver', args=[self.user_verif.id])
@@ -103,6 +170,13 @@ class ReservationsTest(TestCase):
         self.assertEqual(count, 1)
 
     def test_driver_ratings(self):
+        """
+        Autor: Lazar Erić
+
+        FUnkcija koja testira ponašanje prilikom ocenjivanja vozača
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         url = reverse('reservations-driver', args=[self.user_verif.id])
@@ -139,6 +213,13 @@ class ReservationsTest(TestCase):
         self.assertEqual(response_get.data[0]['ido'], response_get.data[0]['ido'])
 
     def test_djiler_car_ratings(self):
+        """
+        Autor: Lazar Erić
+
+        FUnkcija koja testira poinasanje prilikom ocenjivanja automobila
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         url = reverse('reservations-driver', args=[self.user_verif.id])
@@ -186,6 +267,13 @@ class ReservationsTest(TestCase):
 
     
     def test_holdings(self):
+        """
+        Autor: Nevena Vasilevska
+
+        FUnkcija koja testira ponašanje prilikom preuzimanja auta od strane vozača
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         reservation = Reservation.objects.create(
@@ -212,6 +300,13 @@ class ReservationsTest(TestCase):
         self.assertEqual(response.data[0]['date_to'], '2022-06-03')
 
     def test_ratings_get(self):
+        """
+        Autor: Lazar Erić
+
+        FUnkcija koja testira ponašanje prilikom dohvatanja ocena za korisnika
+        @global client
+        
+        """
         self.login_user(self.user_verif)
         car = Car.objects.create(user=self.user)
         reservation = Reservation.objects.create(
