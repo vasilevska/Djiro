@@ -1,3 +1,6 @@
+"""
+Autor/i: Stefan Branković 2019/0253
+"""
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -7,7 +10,6 @@ from rest_framework_simplejwt.views import (
 from .views import *
 
 urlpatterns = [
-    path('sample/', SampleView.as_view()),
     path('api-token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('registration/', UserRegistration.as_view(), name='registration'),
