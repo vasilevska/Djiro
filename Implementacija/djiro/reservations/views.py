@@ -25,6 +25,7 @@ class DriverReservationView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
     
     def post(self, request, id):
+        print(request.data)
         serializer = ReservationsSerializer(data = request.data)
         
         if serializer.is_valid():
