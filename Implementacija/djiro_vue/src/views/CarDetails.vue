@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6" style="text-align: center">
+      <div class="col-sm-6 card" style="text-align: center">
         <h3>{{ car.year }}</h3>
         <hr />
         <div style="text-align: left">
@@ -16,50 +16,57 @@
           <h4>{{ car.descr }}</h4>
         </div>
       </div>
-      <div class="col-6">
-        <h2>Cena: {{ car.price_per_day }}€/dan</h2>
-        <hr />
-        <h3>Izaberite datume:</h3>
-        <form style="margin: 10px" id="resform">
-          Od: <input type="date" name="date_from" id="datumOd" /> Do:
-          <input type="date" name="date_to" id="datumDo" />
-          <input
-            type="text"
-            name="status"
-            id="datumDo"
-            value="R"
-            class="d-none"
-          />
-          <input
-            type="number"
-            name="car"
-            id="datumDo"
-            :value="car.idc"
-            class="d-none"
-          />
-          <input
-            type="number"
-            name="djiler"
-            id="datumDo"
-            :value="idd"
-            class="d-none"
-          />
-          <input
-            type="number"
-            name="driver"
-            id="datumDo"
-            class="d-none"
-            :value="this.$store.state.id"
-          />
-        </form>
-        <div class="col-3" style="margin-top: 40px">
-          <button
-            class="btn btn-primary"
-            style="width: 150px"
-            @click="makeReservation"
-          >
-            REZERVISI
-          </button>
+      <div class="col-sm-6">
+        <UserCard :user="car['user']"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 offset-sm-6">
+        <div class="col-sm-12 card">
+          <h2>Cena: {{ car.price_per_day }}€/dan</h2>
+          <hr v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" />
+          <h3 v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false">Izaberite datume:</h3>
+          <form v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" style="margin: 10px" id="resform">
+            Od: <input type="date" name="date_from" id="datumOd" /> Do:
+            <input type="date" name="date_to" id="datumDo" />
+            <input
+              type="text"
+              name="status"
+              id="datumDo"
+              value="R"
+              class="d-none"
+            />
+            <input
+              type="number"
+              name="car"
+              id="datumDo"
+              :value="car.idc"
+              class="d-none"
+            />
+            <input
+              type="number"
+              name="djiler"
+              id="datumDo"
+              :value="idd"
+              class="d-none"
+            />
+            <input
+              type="number"
+              name="driver"
+              id="datumDo"
+              class="d-none"
+              :value="this.$store.state.id"
+            />
+          </form>
+          <div v-if="this.$store.state.id!=car.user.id && $store.state.user.is_djiler==false" class="col-sm-3" style="margin-top: 40px">
+            <button
+              class="btn btn-primary"
+              style="width: 150px"
+              @click="makeReservation"
+            >
+              REZERVISI
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -68,16 +75,18 @@
 
 <script>
 import axios from "axios";
+import UserCard from "@/components/UserCard.vue";
 
 export default {
   name: "CarDetails",
+  components: {UserCard},
   data() {
     return {
       car: [],
       idd: null,
     };
   },
-  mounted() {
+  created() {
     this.getCar();
   },
   methods: {
@@ -87,8 +96,7 @@ export default {
         .get(`/api/car/${idc}`)
         .then((response) => {
           this.car = response.data;
-          this.idd = this.car.idu.id;
-          console.log(this.car.idu.id);
+          this.idd = this.car.user.id;
         })
         .catch((error) => {
           console.log(error);
@@ -101,16 +109,17 @@ export default {
       var object = {};
       formData.forEach((value, key) => (object[key] = value));
       var json = JSON.stringify(object);
+      console.log(object);
       new Promise((resolve) => {
         axios({
           method: "post",
-          url: "http://127.0.0.1:8000/api/reservations/driver/0",
+          url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
           data: json,
           headers: { "Content-Type": "application/json" },
         })
           .then((response) => {
             console.log(response.data);
-            alert("uspesno rezervisano");
+            alert("Kola su uspešno rezervisana.");
             resolve();
           })
           .catch((err) => {

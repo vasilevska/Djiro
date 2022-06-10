@@ -25,6 +25,9 @@ router.beforeEach((to, from, next) => {
         next({ name: "home" });
       }
     }
+    else {
+      next();
+    }
   } else {
     next();
   }

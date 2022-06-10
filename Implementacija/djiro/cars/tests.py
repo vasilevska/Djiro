@@ -221,7 +221,7 @@ class CarsTest(TestCase):
         car.km = km
         car.price_per_day = price_per_day
         car.descr = descr
-        car.slug = "123123123"
+        car.slug = str(id)
 
         car.save()
 
@@ -237,7 +237,7 @@ class CarsTest(TestCase):
             'coordinates' : coords
         }
         id = car.idc
-        url = reverse('update_car', args = [car.idc])
+        url = reverse('update_car', args = [car.slug])
         response = self.client.post(url, change)
 
         car = Car.objects.get(pk=id)
