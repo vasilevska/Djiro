@@ -71,8 +71,9 @@
                                 <img v-bind:src="car.get_thumbnail">
                             </div>
                             <div class="col-4">
-                                <h3 class="id-size-4">Model: {{car.model.name}}</h3>
-                                <h3 class="id-size-4">Type: {{car.type}}</h3>
+                                <h3 class="id-size-4"><i>{{car.model.manufacturer.name}} {{car.model.name}}</i></h3>
+                                <h4 class="id-size-4">Tip: {{car.type}}</h4>
+                                <h4 class="id-size-4">Gorivo: {{car.fuel}}</h4>
                                 <!-- Fali ocena -->
 
                                 <hr> 
@@ -105,23 +106,27 @@
 <script>
 
 import axios from 'axios'
+//import $ from "jquery";
 
 export default {
     name: 'ListingView',
     data(){
         return{
             cars:[],
-            cars_unselected_filters: []
+            cars_unselected_filters: [],
+            ratings: [],
+            tmp1: []
         }
     },
     components:{
 
     },
-    mounted(){
+    created(){
         this.getCarList()
     },
     methods:{
         getCarList(){
+
             axios
                 .get('/api/list_of_all_cars/')
                 .then(response =>{
@@ -131,11 +136,32 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+
+            setTimeout(()=>{
+                for(var i = 0; i < this.cars.length; i++){
+                    var id = this.cars[i].idc
+                    var ind = 0;
+                    axios
+                        .get(`/api/rating/car/${id}`)
+                        .then(response =>{
+                            this.tmp1 = response.data
+                            console.log(this.tmp1)
+                            this.ratings.push({id: this.cars[ind++].idc, rating: this.tmp1.rating, count: this.tmp1.count})
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                        })
+                }
+
+            }, 100)
+
+            
         },
 
         sortF: function(e){
 
             console.log(e.target.value)
+            console.log(this.ratings)
             var tmp = e.target.value;
 
             switch (tmp){
