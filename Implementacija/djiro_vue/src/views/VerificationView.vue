@@ -8,10 +8,10 @@
             </ul>
         </div>
         <div v-if="infos" id="info-div" class="info alert-info" role="alert">
-            Poruke:
-            <ul>
-              <li v-for="info in infos" v-bind:key="info">{{ info }}</li>
-            </ul>
+            <br/>
+            Uspešno ste poslali zahtev za verifikaciju vozačke dozvole!
+            <br/>
+            <br/>
         </div>
       <div v-if="!sending" class="col-sm-6">
         <p class="h1 my-5">Unesite informacije o Vašoj vozačkoj</p>
@@ -163,7 +163,7 @@ export default {
           });
       }).then(()=>{
         
-        this.$router.push({name : "home"});
+        // this.$router.push({name : "home"});
       }
       ).catch(()=>{
       }
