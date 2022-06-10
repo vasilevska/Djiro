@@ -99,8 +99,8 @@ const routes = [
   {
     path: "/update-listing/:car_slug",
     name: "UpdateCar",
-    component: UpdateListing,
-  },
+    component: UpdateListing
+  }
 ];
 
 const router = createRouter({

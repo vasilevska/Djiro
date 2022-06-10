@@ -3,7 +3,7 @@
     <div class="main-body">
       <div class="row gutters-sm">
         <div class="col-md-4 mb-3">
-          <UserCard :user="user" />
+          <UserCard :user="user"/>
         </div>
         <div class="col-md-8">
           <div class="card mb-3">
@@ -125,64 +125,65 @@ import axios from "axios";
 import UserCard from "@/components/UserCard.vue";
 
 export default {
-  name: "ProfileView",
-  components: { UserCard },
-  data() {
-    return {
-      user: null,
-      myProfile: false,
-      rating: null,
-    };
-  },
-  watch: {
-    $route(to, from) {
-      // React to route changes...
-      if (to !== from) {
-        location.reload();
-      }
+    name: "ProfileView",
+    components: { UserCard },
+    data() {
+        return {
+            user: null,
+            myProfile: false,
+            rating: null,
+        };
     },
-  },
-  created() {
-    // Check if you can edit user profile
-    if (this.$route.params.id == this.$store.state.id) {
-      this.myProfile = true;
-    }
-    axios({
-      method: "get",
-      url: `http://127.0.0.1:8000/api/get-user/?id=${this.$route.params.id}`,
-    })
-      .then((response) => {
-        // Get the first and only user from the response
-        this.user = response.data.results[0];
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    if (this.$store.state.user["is_djiler"]) {
-      axios({
-        method: "get",
-        url: `http://127.0.0.1:8000/api/rating/djiler/${this.$route.params.id}`,
-      })
-        .then((response) => {
-          // Get the first and only user from the response
-          this.rating = response.data;
+    watch: {
+        $route(to, from) {
+            // React to route changes... 
+            if (to !== from) {
+                location.reload();
+            }
+        }
+    },
+    created() {
+        // Check if you can edit user profile
+        if (this.$route.params.id == this.$store.state.id) {
+            this.myProfile = true;
+        }
+        axios({
+            method: "get",
+            url: `http://127.0.0.1:8000/api/get-user/?id=${this.$route.params.id}`,
         })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      axios({
-        method: "get",
-        url: `http://127.0.0.1:8000/api/rating/driver/${this.$route.params.id}`,
-      })
-        .then((response) => {
-          // Get the first and only user from the response
-          this.rating = response.data;
+            .then((response) => {
+            // Get the first and only user from the response
+            this.user = response.data.results[0];
         })
-        .catch((err) => {
-          console.log(err);
+            .catch((err) => {
+            console.log(err);
         });
-    }
-  },
+        if (this.$store.state.user["is_djiler"]) {
+            axios({
+                method: "get",
+                url: `http://127.0.0.1:8000/api/rating/djiler/${this.$route.params.id}`,
+            })
+                .then((response) => {
+                // Get the first and only user from the response
+                this.rating = response.data;
+            })
+                .catch((err) => {
+                console.log(err);
+            });
+        }
+        else {
+            axios({
+                method: "get",
+                url: `http://127.0.0.1:8000/api/rating/driver/${this.$route.params.id}`,
+            })
+                .then((response) => {
+                // Get the first and only user from the response
+                this.rating = response.data;
+            })
+                .catch((err) => {
+                console.log(err);
+            });
+        }
+    },
 };
 </script>

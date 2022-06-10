@@ -17,35 +17,16 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <UserCard :user="car['user']" />
+        <UserCard :user="car['user']"/>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6 offset-sm-6">
         <div class="col-sm-12 card">
           <h2>Cena: {{ car.price_per_day }}€/dan</h2>
-          <hr
-            v-if="
-              this.$store.state.id != car.user.id &&
-              this.$store.state.user.doc_verified == true
-            "
-          />
-          <h3
-            v-if="
-              this.$store.state.id != car.user.id &&
-              this.$store.state.user.doc_verified == true
-            "
-          >
-            Izaberite datume:
-          </h3>
-          <form
-            v-if="
-              this.$store.state.id != car.user.id &&
-              this.$store.state.user.doc_verified == true
-            "
-            style="margin: 10px"
-            id="resform"
-          >
+          <hr v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" />
+          <h3 v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true">Izaberite datume:</h3>
+          <form v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" style="margin: 10px" id="resform">
             Od: <input type="date" name="date_from" id="datumOd" /> Do:
             <input type="date" name="date_to" id="datumDo" />
             <input
@@ -77,34 +58,13 @@
               :value="this.$store.state.id"
             />
           </form>
-          <div
-            v-if="
-              this.$store.state.id != car.user.id &&
-              this.$store.state.user.doc_verified == true
-            "
-            class="col-sm-3"
-            style="margin-top: 20px"
-          >
+          <div v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" class="col-sm-3" style="margin-top: 40px">
             <button
               class="btn btn-primary"
               style="width: 150px"
               @click="makeReservation"
             >
               REZERVISI
-            </button>
-          </div>
-          <div
-            v-if="
-              this.$store.state.id == car.user.id
-            "
-            class="col-sm-3"
-            style="margin-top: 20px"
-          >
-            <button
-              class="btn btn-primary"
-              style="width: 150px"
-            >
-              PROMENI
             </button>
           </div>
         </div>
@@ -119,7 +79,7 @@ import UserCard from "@/components/UserCard.vue";
 
 export default {
   name: "CarDetails",
-  components: { UserCard },
+  components: {UserCard},
   data() {
     return {
       car: [],
