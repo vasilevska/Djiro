@@ -7,10 +7,23 @@
 
           <div class="modal-body">
             <form id="ratingForm">
-              <input type="number" min="1" max="5" name="car_rating" id="car_rating" />
-              <textarea name="descr" id="descr"></textarea>
-              <input type="number" min="1" max="5" name="djiler_rating" id="djiler_rating" />
-              <textarea name="descr_djiler" id="descr_djiler"></textarea>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Ocena automobila</label>
+                <input type="number" class="form-control" min="1" max="5" name="car_rating" id="car_rating" />
+              </div>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Opis automobila</label>
+                <textarea name="descr" class="form-control" id="descr"></textarea>
+              </div>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Ocena Đilera</label>
+                <input type="number" class="form-control" min="1" max="5" name="djiler_rating" id="djiler_rating" />
+              </div>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Opis Đilera</label>
+                <textarea name="descr_djiler" class="form-control" id="descr_djiler"></textarea>
+              </div>
+
               <input
                 type="number"
                 name="idr"
@@ -45,7 +58,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <button
-                class="modal-default-button"
+                class="btn btn-dark px-3"
                 @click="
                   sendRating();
                   $emit('close');
@@ -122,7 +135,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

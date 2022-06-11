@@ -6,20 +6,47 @@
         v-for="reservation in reservations"
         :key="reservation.idr"
       >
-        <div class="card" v-if="reservation['status'] == 'F'">
-          <h2>{{ reservation.idr }}</h2>
-          <button
-            v-if="this.$store.state.user['is_djiler']"
-            @click="showDriverModal = true; res = reservation;"
-          >
-            Oceni
-          </button>
-          <button
-            v-if="!this.$store.state.user['is_djiler']"
-            @click="showCarModal = true; res = reservation;"
-          >
-            Oceni
-          </button>
+        <div class="card-body p-4" v-if="reservation['status'] == 'F'">
+          <div class="d-flex flex-start">
+            <img
+              class="rounded-circle shadow-1-strong me-3"
+              :src="reservation.idc.get_thumbnail"
+              @click="reservation.idc.get_absolute_url"
+              width="80"
+              height="80"
+            />
+            <div>
+              <h6 class="fw-bold mb-1">{{ reservation.idc.model.slug }}</h6>
+              <div class="d-flex align-items-center mb-3">
+                {{
+                  "od: " +
+                  reservation["date_from"] +
+                  " do: " +
+                  reservation["date_to"]
+                }}
+              </div>
+              <button
+                class="btn btn-dark px-3 m-2"
+                v-if="this.$store.state.user['is_djiler']"
+                @click="
+                  showDriverModal = true;
+                  res = reservation;
+                "
+              >
+                Oceni
+              </button>
+              <button
+                class="btn btn-dark px-3 m-2"
+                v-if="!this.$store.state.user['is_djiler']"
+                @click="
+                  showCarModal = true;
+                  res = reservation;
+                "
+              >
+                Oceni
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,7 +93,7 @@ export default {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/reservations/djiler/${this.$store.state.id}`,
-        headers: { "Authorization" : `Bearer ${this.$store.state.accessToken}` },
+        headers: { Authorization: `Bearer ${this.$store.state.accessToken}` },
       })
         .then((response) => {
           this.reservations = response.data;
@@ -79,7 +106,7 @@ export default {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
-        headers: { "Authorization" : `Bearer ${this.$store.state.accessToken}` },
+        headers: { Authorization: `Bearer ${this.$store.state.accessToken}` },
       })
         .then((response) => {
           this.reservations = response.data;

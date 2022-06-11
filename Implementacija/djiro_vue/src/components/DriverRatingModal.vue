@@ -7,8 +7,15 @@
 
           <div class="modal-body">
             <form id="ratingForm">
-              <input type="number" min="1" max="5" name="rating" id="rating" />
-              <textarea name="descr" id="descr"></textarea>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Ocena vozača</label>
+                <input type="number" class="form-control" min="1" max="5" name="rating" id="rating" />
+              </div>
+              <div class="form-group my-3 mx-3">
+                <label for="model">Opis vozača</label>
+                <textarea name="descr" class="form-control" id="descr"></textarea>
+              </div>
+              
               <input
                 type="number"
                 name="idr"
@@ -36,7 +43,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <button
-                class="modal-default-button"
+                class="btn btn-dark px-3"
                 @click="
                   sendRating();
                   $emit('close');
@@ -113,7 +120,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
