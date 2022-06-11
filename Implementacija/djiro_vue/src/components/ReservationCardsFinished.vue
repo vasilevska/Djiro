@@ -29,6 +29,7 @@ export default {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/reservations/djiler/${this.$store.state.id}`,
+        headers: { "Authorization" : `Bearer ${this.$store.state.accessToken}` },
       })
         .then((response) => {
           this.reservations = response.data;
@@ -41,6 +42,7 @@ export default {
       axios({
         method: "get",
         url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
+        headers: { "Authorization" : `Bearer ${this.$store.state.accessToken}` },
       })
         .then((response) => {
           this.reservations = response.data;

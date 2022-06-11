@@ -24,9 +24,9 @@
       <div class="col-sm-6 offset-sm-6">
         <div class="col-sm-12 card">
           <h2>Cena: {{ car.price_per_day }}€/dan</h2>
-          <hr v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" />
-          <h3 v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true">Izaberite datume:</h3>
-          <form v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" style="margin: 10px" id="resform">
+          <hr v-if="this.$store.state.id!=car.user.id && doc_verified==true" />
+          <h3 v-if="this.$store.state.id!=car.user.id && doc_verified==true">Izaberite datume:</h3>
+          <form v-if="this.$store.state.id!=car.user.id && doc_verified==true" style="margin: 10px" id="resform">
             Od: <input type="date" name="date_from" id="datumOd" /> Do:
             <input type="date" name="date_to" id="datumDo" />
             <input
@@ -58,7 +58,8 @@
               :value="this.$store.state.id"
             />
           </form>
-          <div v-if="this.$store.state.id!=car.user.id && this.$store.state.user.doc_verified==true" class="col-sm-3" style="margin-top: 40px">
+          <div v-if="this.$store.state.id!=car.user.id && doc_verified==true"
+           class="col-sm-3" style="margin-top: 40px">
             <button
               class="btn btn-primary"
               style="width: 150px"
@@ -89,9 +90,13 @@ export default {
       car: [],
       idd: null,
       ratings: null,
+      doc_verified: false,
     };
   },
   created() {
+    if (this.$store.state.user != null && this.$store.state.user != 'null') {
+      this.doc_verified = this.$store.state.user.doc_verified;
+    }
     this.getCar();
     this.getRatings();
   },
@@ -132,7 +137,7 @@ export default {
           method: "post",
           url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
           data: json,
-          headers: { "Content-Type": "application/json"},
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${this.$store.state.accessToken}`},
         })
           .then((response) => {
             console.log(response.data);
