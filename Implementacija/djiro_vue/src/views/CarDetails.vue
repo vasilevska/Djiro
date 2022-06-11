@@ -86,6 +86,19 @@
               REZERVISI
             </button>
           </div>
+          <div
+            v-if="this.$store.state.id == car.user.id"
+            class="col-sm-3"
+            style="margin-top: 40px"
+          >
+            <button
+              class="btn btn-dark"
+              style="width: 150px"
+              @click="editListing"
+            >
+              IZMENI LISTING
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -167,6 +180,10 @@ export default {
             resolve();
           });
       });
+    },
+    editListing() {
+      this.$router.push( { path : `/update-listing/${this.car.slug}`})
+
     },
   },
 };

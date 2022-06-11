@@ -111,7 +111,7 @@ export default {
     getCar() {
       const car_slug = this.$route.params.car_slug;
       axios
-        .get(`/api/car/${car_slug}`)
+        .get(`/api/car/${car_slug.split("-")[2]}`)
         .then((response) => {
           this.car = response.data;
           this.idd = this.car.idu.id;
@@ -134,7 +134,7 @@ export default {
           .then((response) => {
           this.dispalyInfo(response.data);
           this.sending=false;
-          this.$router.push({name : "carDetails", params:{car_slug:car_slug}});
+          this.$router.push({name : "carDetails", params:{car_slug:car_slug.split('-')[2]}});
           })
           .catch((err) => {
           this.displayError(err.response.data);
