@@ -58,7 +58,7 @@
             <button class="btn btn-primary mx-2" style="width:150px" @click="f2()">Filtriraj</button>
         </div>
         <hr>
-        <div class="columns is-multiline">
+        <div v-if="!loading" class="columns is-multiline">
             <div class="column is-8">
                 <h2 class="is-size-2 has-text-centered">Cars</h2>
             </div>
@@ -71,8 +71,9 @@
                                 <img v-bind:src="car.get_thumbnail">
                             </div>
                             <div class="col-4">
-                                <h3 class="id-size-4">Model: {{car.model.name}}</h3>
-                                <h3 class="id-size-4">Type: {{car.type}}</h3>
+                                <h3 class="id-size-4"><i>{{car.model.manufacturer.name}} {{car.model.name}}</i></h3>
+                                <h4 class="id-size-4">Tip: {{car.type}}</h4>
+                                <h4 class="id-size-4">Gorivo: {{car.fuel}}</h4>
                                 <!-- Fali ocena -->
 
                                 <hr> 
@@ -93,49 +94,133 @@
                     
                 </div>
             </div>
+            <div class="mapa">
+                <MapComponent :zoom="zoom" :cars="cars" :center="coordinates_center"></MapComponent>
+            </div>
 
+        </div>
+        <div v-else class="row justify-content-center">
+            <div class="col-auto">
+                <ring-loader :color="color1" :height="height"></ring-loader>
+            </div>
         </div>
     </div>
 </template>
 
-<style lang="scss">
+<style scoped>
+    .mapa{
+        position: fixed;
+        bottom: 10vh;
+        right: 20px;
+        width: 30vw;
+        height : 30vw;
+    }
     
 </style>
 
 <script>
-
+import RingLoader from 'vue-spinner/src/RingLoader.vue'
 import axios from 'axios'
+import MapComponent from '../components/Map/Map.vue'
 
 export default {
     name: 'ListingView',
     data(){
         return{
             cars:[],
-            cars_unselected_filters: []
+            cars_unselected_filters: [],
+            coordinates_center : null,
+            loading : false,
+            color1: '#3AB982',
+            height: '50px',
+            zoom: 12,
+            ratings: [],
+            tmp1: []
         }
     },
     components:{
-
+        RingLoader,
+        MapComponent
     },
-    mounted(){
+    created(){
+        this.loading = true;
         this.getCarList()
     },
     methods:{
+        getRatings(){
+          for(var i = 0; i < this.cars.length; i++){
+                    var id = this.cars[i].idc
+                    var ind = 0;
+                    axios
+                        .get(`/api/rating/car/${id}`)
+                        .then(response =>{
+                            this.tmp1 = response.data
+                            console.log(this.tmp1)
+                            this.ratings.push({id: this.cars[ind++].idc, rating: this.tmp1.rating, count: this.tmp1.count})
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                        })
+                }
+        },
         getCarList(){
-            axios
+            let self = this;
+            var search_term = localStorage.getItem("_s_term");
+            if(search_term==null || search_term==""){
+                this.zoom = 7;
+                axios
                 .get('/api/list_of_all_cars/')
                 .then(response =>{
                     this.cars = response.data
                     console.log(this.cars)
+                    self.getRatings();
+                    var dict = {"lat": 44.0165, "long": 21.0059};
+                    self.coordinates_center = dict;
                 })
                 .catch(error => {
                     console.log(error)
+                }).finally(()=>{
+                    this.loading = false;
                 })
+            }else{
+                axios({
+                  method: "get",
+                  url: `https://dev.virtualearth.net/REST/v1/Locations/${search_term}?key=Al9hlQRWKffWXgWCo9DIxIenHGNvv7gkLztrBjFCJdInqHrVa2HXFyIdVoI8-DQ9`,
+              }).then((response)=>{
+                  var points = response.data.resourceSets[0].resources[0].point.coordinates;
+                  var dict = {"lat": points[0], "long": points[1]};
+                  self.coordinates_center = dict;
+                  var coords = JSON.stringify(dict);
+                  axios({
+                  method: "get",
+                  url: "http://127.0.0.1:8000/api/get_car_by_location",
+                  params: { 
+                      "coordinates": coords,
+                      "lat_factor" : 0.4,
+                      "long_factor" : 0.4
+                   }
+              }).then((response)=>{
+                  this.cars = response.data
+                  console.log(this.cars)
+                  self.getRatings();
+                  this.loading = false;
+              }
+              ).catch((err)=>{
+                  console.log(err);
+                  this.loading = false;
+              })
+              }
+              ).catch((err)=>{
+                  console.log(err);
+                  this.loading = false;
+              })
+            }
+            
         },
-
         sortF: function(e){
 
             console.log(e.target.value)
+            console.log(this.ratings)
             var tmp = e.target.value;
 
             switch (tmp){
