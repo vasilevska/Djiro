@@ -10,13 +10,13 @@
           <h2>{{ reservation.idr }}</h2>
           <button
             v-if="this.$store.state.user['is_djiler']"
-            @click="showDriverModal = true"
+            @click="showDriverModal = true; res = reservation;"
           >
             Oceni
           </button>
           <button
             v-if="!this.$store.state.user['is_djiler']"
-            @click="showCarModal = true"
+            @click="showCarModal = true; res = reservation;"
           >
             Oceni
           </button>
@@ -28,6 +28,7 @@
     <!-- use the modal component, pass in the prop -->
     <CarRatingModal
       :show="showCarModal"
+      :reservation="res"
       @close="car_ocena_popup()"
     ></CarRatingModal>
   </Teleport>
@@ -35,6 +36,7 @@
     <!-- use the modal component, pass in the prop -->
     <DriverRatingModal
       :show="showDriverModal"
+      :reservation="res"
       @close="driver_ocena_popup()"
     ></DriverRatingModal>
   </Teleport>
@@ -55,6 +57,7 @@ export default {
       reservations: [],
       showCarModal: false,
       showDriverModal: false,
+      res: null,
     };
   },
   created() {
@@ -90,11 +93,9 @@ export default {
   },
   methods: {
     driver_ocena_popup() {
-      console.log("driver ocena");
       this.showDriverModal = false;
     },
     car_ocena_popup() {
-      console.log("djiler ocena");
       this.showCarModal = false;
     },
   },

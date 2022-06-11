@@ -17,21 +17,31 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <UserCard :user="car['user']"/>
+        <UserCard :user="car['user']" />
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
         <div v-for="rat in ratings" :key="rat['ido']" class="col-sm-12">
-            <ReviewComponent :rating="rat"/>
+          <ReviewComponent :rating="rat" />
         </div>
       </div>
       <div class="col-sm-6">
         <div class="col-sm-12 card">
           <h2>Cena: {{ car.price_per_day }}€/dan</h2>
-          <hr v-if="this.$store.state.id!=car.user.id && doc_verified==true" />
-          <h3 v-if="this.$store.state.id!=car.user.id && doc_verified==true">Izaberite datume:</h3>
-          <form v-if="this.$store.state.id!=car.user.id && doc_verified==true" style="margin: 10px" id="resform">
+          <hr
+            v-if="this.$store.state.id != car.user.id && doc_verified == true"
+          />
+          <h3
+            v-if="this.$store.state.id != car.user.id && doc_verified == true"
+          >
+            Izaberite datume:
+          </h3>
+          <form
+            v-if="this.$store.state.id != car.user.id && doc_verified == true"
+            style="margin: 10px"
+            id="resform"
+          >
             Od: <input type="date" name="date_from" id="datumOd" /> Do:
             <input type="date" name="date_to" id="datumDo" />
             <input
@@ -63,8 +73,11 @@
               :value="this.$store.state.id"
             />
           </form>
-          <div v-if="this.$store.state.id!=car.user.id && doc_verified==true"
-           class="col-sm-3" style="margin-top: 40px">
+          <div
+            v-if="this.$store.state.id != car.user.id && doc_verified == true"
+            class="col-sm-3"
+            style="margin-top: 40px"
+          >
             <button
               class="btn btn-dark"
               style="width: 150px"
@@ -96,7 +109,7 @@ export default {
     };
   },
   created() {
-    if (this.$store.state.user != null && this.$store.state.user != 'null') {
+    if (this.$store.state.user != null && this.$store.state.user != "null") {
       this.doc_verified = this.$store.state.user.doc_verified;
     }
     this.getCar();
@@ -104,7 +117,7 @@ export default {
   methods: {
     getRatings() {
       axios
-        .get(`api/ratings/car/${this.car['idc']}`)
+        .get(`api/ratings/car/${this.car["idc"]}`)
         .then((response) => {
           this.ratings = response.data;
           console.log(this.ratings);
@@ -139,7 +152,10 @@ export default {
           method: "post",
           url: `http://127.0.0.1:8000/api/reservations/driver/${this.$store.state.id}`,
           data: json,
-          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${this.$store.state.accessToken}`},
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.accessToken}`,
+          },
         })
           .then((response) => {
             console.log(response.data);

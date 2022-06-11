@@ -10,6 +10,7 @@ import ProfileView from "../views/ProfileView.vue";
 import EditProfile from "../views/EditProfile.vue";
 import CreateListing from "../views/CreateListing.vue";
 import UpdateListing from "../views/UpdateListingView.vue";
+import Reservations from "../views/ReservationsView.vue"
 
 const routes = [
   {
@@ -88,8 +89,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ReservationsView.vue"),
+    component: Reservations,
   },
   {
     path: "/create-listing",

@@ -191,8 +191,25 @@ class DjilerReservationView(APIView):
         return Response(serializer.data)
 
 class DriverRatingsView(APIView):
+    """ApiVIew za hendlovanje ocena za vozace
+    
+    Atributes:
+    permission_classes : tuple
+        oznacava koje klase ce da hendluju autentifikaciju korisnika
+    
+    """
     permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, request, id):
+        """
+        Autor: Nevena Vasilevska
+
+        funkcija koja vraca sve ocene vozaca       
+        @param request : httprequest
+            get request
+        @id
+            id vozaca
+        
+        """
         if id:            
             ratings = Ratingdriver.objects.filter(idu=id)
             serializer = DriverRatingSerializer(ratings, many=True)
@@ -201,6 +218,23 @@ class DriverRatingsView(APIView):
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, id):
+        """
+        Autor: Nevena Vasilevska
+
+        funkcija koja dodaje ocenu vozaca       
+        @param request : httprequest
+            post request oblika:
+            {
+                "rating": 4,
+                "descr": "Kida!!!",
+                "idr": reservation.id,
+                "idu": user.id,
+                "idd": self.user_verif.id
+            }
+        @id
+            id rezervacije
+        
+        """
         serializer = DriverRatingSerializer(data = request.data)
 
         if serializer.is_valid():
@@ -209,15 +243,6 @@ class DriverRatingsView(APIView):
         else:
             return Response(data="object not found", status = status.HTTP_400_BAD_REQUEST)
 
-    """
-    {
-        "rating": 4,
-        "descr": "Kida!!!",
-        "idr": 2,
-        "idu": 2,
-        "idd": 1
-    }
-    """
 
 class CarRatingsView(APIView):
     """ApiVIew za hendlovanje ocena za automobile
@@ -250,19 +275,21 @@ class CarRatingsView(APIView):
         """
         Autor: Nevena Vasilevska
 
-        funkcija koja vraca sve ocene automobila       
+        funkcija koja dodaje ocenu automobila       
         @param request : httprequest
             post request oblika:
             {
-                "date_from": "2022-05-30",
-                "date_to": "2022-06-03",
-                "status": "R",
-                "driver": self.user_verif.id,
-                "djiler": self.user.id,
-                "car": car.idc
+                "car_rating": 5,
+                "descr": "Odlican.",
+                "djiler_rating": 3,
+                "descr_djiler": "Problemi u komunikaciji",
+                "idr": 1,
+                "idc": 1,
+                "idu": 3,
+                "idd": 2
             }
         @id
-            id automobila
+            id rezervacije
         
         """
         serializer = CarRatingSerializer(data = request.data)

@@ -5,12 +5,52 @@
         <div class="modal-container">
           <div class="modal-header">Oceni automobil</div>
 
-          <div class="modal-body"></div>
+          <div class="modal-body">
+            <form id="ratingForm">
+              <input type="number" min="1" max="5" name="car_rating" id="car_rating" />
+              <textarea name="descr" id="descr"></textarea>
+              <input type="number" min="1" max="5" name="djiler_rating" id="djiler_rating" />
+              <textarea name="descr_djiler" id="descr_djiler"></textarea>
+              <input
+                type="number"
+                name="idr"
+                :value="reservation.idr"
+                id="idr"
+                class="d-none"
+              />
+              <input
+                type="number"
+                name="idd"
+                :value="reservation.idd.pk"
+                id="idd"
+                class="d-none"
+              />
+              <input
+                type="number"
+                name="idu"
+                :value="reservation.idu.pk"
+                id="idu"
+                class="d-none"
+              />
+              <input
+                type="number"
+                name="idc"
+                :value="reservation.idc"
+                id="idc"
+                class="d-none"
+              />
+            </form>
+          </div>
 
           <div class="modal-footer">
             <slot name="footer">
-
-              <button class="modal-default-button" @click="$emit('close')">
+              <button
+                class="modal-default-button"
+                @click="
+                  sendRating();
+                  $emit('close');
+                "
+              >
                 Oceni
               </button>
             </slot>
@@ -22,9 +62,43 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: {
     show: Boolean.apply,
+    reservation: null,
+  },
+  methods: {
+    sendRating() {
+      console.log("ocenjeno");
+      console.log(this.reservation.idd.pk);
+      var formElement = document.querySelector("form");
+      var formData = new FormData(formElement);
+      var object = {};
+      formData.forEach((value, key) => (object[key] = value));
+      var json = JSON.stringify(object);
+      console.log(object);
+      new Promise((resolve) => {
+        axios({
+          method: "post",
+          url: `http://127.0.0.1:8000/api/ratings/car/${this.reservation.idu.pk}`,
+          data: json,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.accessToken}`,
+          },
+        })
+          .then((response) => {
+            console.log(response.data);
+            resolve();
+          })
+          .catch((err) => {
+            console.log(err);
+            resolve();
+          });
+      });
+    },
   },
 };
 </script>
