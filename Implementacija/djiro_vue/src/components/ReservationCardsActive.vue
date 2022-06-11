@@ -6,9 +6,29 @@
         v-for="reservation in reservations"
         :key="reservation.idr"
       >
-        <div class="card" v-if="reservation['status'] == 'P'">
-          <h2>{{ reservation.idr }}</h2>
-          <button @click="cancelRes(reservation)">Otkazi</button>
+        <div class="card-body p-4" v-if="reservation['status'] == 'P'">
+          <div class="d-flex flex-start">
+            <img
+              class="rounded-circle shadow-1-strong me-3"
+              :src="reservation.idc.get_thumbnail"
+              @click="reservation.idc.get_absolute_url"
+              width="80"
+              height="80"
+            />
+            <div>
+              <h6 class="fw-bold mb-1">{{ reservation.idc.model.slug }}</h6>
+              <div class="d-flex align-items-center mb-3">
+                {{
+                  "od: " +
+                  reservation["date_from"] +
+                  " do: " +
+                  reservation["date_to"]
+                }}
+              </div>
+              <button  class="btn btn-dark px-3 m-2" @click="cancelRes(reservation)">Otkazi</button>
+              
+            </div>
+          </div>
         </div>
       </div>
     </div>

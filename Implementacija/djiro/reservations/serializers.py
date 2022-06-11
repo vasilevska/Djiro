@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import *
 from users.serializers import UserDetailsSerializer
+from cars.serializers import CarSerilizer
 
 
 """
@@ -36,6 +37,7 @@ class ReservationsSerializer(serializers.ModelSerializer):
     car = serializers.SlugRelatedField(queryset=Car.objects.all(), slug_field='idc', write_only=True)
     idu =  UserDetailsSerializer(read_only=True)
     idd =  UserDetailsSerializer(read_only=True)
+    idc = CarSerilizer(read_only = True)
     class Meta:
         model = Reservation
         fields = "__all__"
