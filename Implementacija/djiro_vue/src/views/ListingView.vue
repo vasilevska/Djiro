@@ -16,7 +16,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <h3>Filteri:&nbsp;&nbsp;</h3>
-              <button class="btn btn-primary form-control pl-5" style="width:200px;" @click="filters()">Filteri</button>
+              <button class="btn btn-dark form-control pl-5" style="width:200px;" @click="filters()">Filteri</button>
             </div>
         </div>
         <div class="d-flex filteri mt-1 d-none py-3" id="filteri">
@@ -55,7 +55,7 @@
                 <option value="hibrid">Hibrid</option>
                 <option value="elektricni">Električni</option>
             </select>
-            <button class="btn btn-primary mx-2" style="width:150px" @click="f2()">Filtriraj</button>
+            <button class="btn btn-dark mx-2" style="width:150px" @click="f2()">Filtriraj</button>
         </div>
         <hr>
         <div v-if="!loading" class="columns is-multiline">
@@ -79,7 +79,7 @@
                                 <hr> 
                                 <div class="row align-bottom">
                                     <div class="col-3">
-                                        <router-link class="btn btn-primary" :to="car.get_absolute_url" style="width: 150px">Vise detalja</router-link>
+                                        <router-link class="btn btn-dark" :to="car.get_absolute_url" style="width: 150px">Vise detalja</router-link>
                                     </div>
                                     <div class="col-3 align-right">
                                         <h3 class="id-size-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{car.price_per_day}}€/dan</h3>
