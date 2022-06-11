@@ -21,7 +21,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-6 offset-sm-6">
+      <div class="col-sm-6">
+        <div v-for="rat in ratings" :key="rat['ido']" class="col-sm-12">
+            <ReviewComponent :rating="rat"/>
+        </div>
+      </div>
+      <div class="col-sm-6">
         <div class="col-sm-12 card">
           <h2>Cena: {{ car.price_per_day }}€/dan</h2>
           <hr v-if="this.$store.state.id!=car.user.id && doc_verified==true" />
@@ -61,7 +66,7 @@
           <div v-if="this.$store.state.id!=car.user.id && doc_verified==true"
            class="col-sm-3" style="margin-top: 40px">
             <button
-              class="btn btn-primary"
+              class="btn btn-dark"
               style="width: 150px"
               @click="makeReservation"
             >
@@ -70,9 +75,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div v-for="rat in ratings" :key="rat.ido" class="row">
-      <ReviewComponent :rating="rat"/>
     </div>
   </div>
 </template>
@@ -98,12 +100,11 @@ export default {
       this.doc_verified = this.$store.state.user.doc_verified;
     }
     this.getCar();
-    this.getRatings();
   },
   methods: {
     getRatings() {
       axios
-        .get(`ratings/car/${this.car.idc}`)
+        .get(`api/ratings/car/${this.car['idc']}`)
         .then((response) => {
           this.ratings = response.data;
           console.log(this.ratings);
@@ -119,6 +120,7 @@ export default {
         .then((response) => {
           this.car = response.data;
           this.idd = this.car.user.id;
+          this.getRatings();
         })
         .catch((error) => {
           console.log(error);

@@ -239,7 +239,7 @@ class CarRatingsView(APIView):
             id automobila
         
         """
-        if id:            
+        if id:
             ratings = Ratingcar.objects.filter(idc=id)
             serializer = CarRatingSerializer(ratings, many=True)
             return Response(serializer.data)

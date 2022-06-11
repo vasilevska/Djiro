@@ -1,9 +1,9 @@
 <template>
 <div class="card-body p-4">
     <div class="d-flex flex-start">
-        <img class="rounded-circle shadow-1-strong me-3" :src="user.get_thumbnail" alt="avatar" width="60" height="60" />
+        <img class="rounded-circle shadow-1-strong me-3" :src="get_thumbnail" @click="toProfile" alt="avatar" width="60" height="60" />
         <div>
-        <h6 class="fw-bold mb-1">{{user.first_name + " " + user.last_name }}</h6>
+        <h6 class="fw-bold mb-1">{{ first_name + " " + last_name }}</h6>
         <div class="d-flex align-items-center mb-3">
             <p v-if="rating != null">
                 {{ rating.car_rating }} <font-awesome-icon icon="star" />
@@ -16,31 +16,48 @@
     </div>
 </div>
 </template>
+<style scoped>
+.rounded-circle {
+    cursor: pointer;
+}
+</style>
 <script>
+import axios from 'axios';
+
 export default {
     name: "ReviewComponent",
     props: ['rating'],
     data() {
         return {
-            user: null,
+            first_name:'',
+            last_name:'',
+            get_thumbnail: '',
+            id: null,
         }
     },
     created() {
+        console.log(this.rating);
         axios({
-          method: "post",
-          url: `http://127.0.0.1:8000/api/get-user/?id=${this.rating.idu}`,
-          data: json,
-          headers: { "Content-Type": "application/json" },
+          method: "get",
+          url: `http://127.0.0.1:8000/api/get-user/?id=${this.rating['idu']}`,
+          headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${this.$store.state.accessToken}` },
         })
           .then((response) => {
             console.log(response.data);
-            this.user = response.data; 
-            resolve();
+            this.id = response.data.results[0].pk;
+            this.first_name= response.data.results[0].first_name;
+            this.last_name = response.data.results[0].last_name;
+            this.get_thumbnail = response.data.results[0].get_thumbnail;
+            console.log(this.user);
           })
           .catch((err) => {
             console.log(err);
-            resolve();
           });
+    },
+    methods: {
+        toProfile() {
+            this.$router.push({ path: `/profile/${this.id}`});
+        }
     }
 }
 </script>
